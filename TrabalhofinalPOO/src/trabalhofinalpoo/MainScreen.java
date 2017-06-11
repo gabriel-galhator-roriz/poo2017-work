@@ -15,11 +15,19 @@ import javax.swing.*;
  */
 public class MainScreen extends JFrame implements ActionListener {
 
+    //componentes tela principal
     JPanel p, pScreen, pCadImovel, pCadCorretor, pCadVenda, pConImoveis, pPagamentos, pRelatorios;
     JMenuBar menuBar;
     JMenu cadastra, consultar, pagamentos, relatorios;
     JMenuItem cadImovel, cadCorretor, cadVenda, conImoveis;
     CardLayout layout;
+    //componentes tela cadastro corretor
+    JPanel cPa;
+    JLabel cNum, cNome;
+    JTextField tNum, tNome;
+    String[] str = {"Contratado", "Comissionado"};
+    JComboBox cb1 = new JComboBox(str);
+    JButton bCad, bReturn;
 
     public MainScreen() {
         mainScreen();
@@ -82,7 +90,46 @@ public class MainScreen extends JFrame implements ActionListener {
     public void cadCorretor() {
         pCadCorretor = new JPanel();
         JLabel local = new JLabel(" corretor");
-        pCadCorretor.add(local);
+        pCadCorretor.setLayout(new BorderLayout());
+        
+        cPa = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções
+
+        cNum = new JLabel("Número CRECI");
+        cPa.add(cNum, c);
+        c.gridheight = 1;
+        cNome = new JLabel("Nome");
+        c.gridy = 1;
+        c.gridheight = 1;
+        cPa.add(cNome, c);
+        tNum = new JTextField();
+        c.gridx = 1;
+        c.gridy = 0;
+        c.gridheight = 1;
+        c.ipadx = 150;
+        cPa.add(tNum, c);
+        tNome = new JTextField();
+        c.gridx = 1;
+        c.gridy = 1;
+        c.gridheight = 1;
+        cPa.add(tNome, c);
+        cb1.setSelectedIndex(1);
+        cb1.addActionListener(this);
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridheight = 1;
+        cPa.add(cb1, c);
+        bCad = new JButton("Salvar");
+        c.gridx = 0;
+        c.gridy = 4;
+        cPa.add(bCad, c);
+        bReturn = new JButton("Voltar");
+        c.gridx = 1;
+        c.gridy = 4;
+        cPa.add(bReturn, c);
+        pCadCorretor.add(cPa, BorderLayout.PAGE_START);
+
     }
 
     public void cadVenda() {
@@ -116,13 +163,14 @@ public class MainScreen extends JFrame implements ActionListener {
         switch (aux.getText()) {
             //cadastro imovel
             case "Imóvel":
-                layout.show(pScreen,"cadImovel" );
+                layout.show(pScreen, "cadImovel");
                 System.out.println(aux.getText());
                 break;
 
             case "Corretor":
-                layout.show(pScreen,"cadCorretor");
+                layout.show(pScreen, "cadCorretor");
                 System.out.println(aux.getText());
+
                 break;
 
             case "Venda":
@@ -133,7 +181,7 @@ public class MainScreen extends JFrame implements ActionListener {
             default:
                 System.out.println(aux.getText());
                 break;
-        }        
+        }
     }
 
 }
