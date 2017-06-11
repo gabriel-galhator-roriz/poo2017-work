@@ -15,16 +15,20 @@ import javax.swing.*;
  */
 public class MainScreen extends JFrame implements ActionListener {
 
-    JPanel p;
+    JPanel p, pScreen, pCadImovel, pCadCorretor, pCadVenda, pConImoveis, pPagamentos, pRelatorios;
     JMenuBar menuBar;
     JMenu cadastra, consultar, pagamentos, relatorios;
-    JMenuItem cadImovel, cadCorretor, cadVenda, imoveis;
+    JMenuItem cadImovel, cadCorretor, cadVenda, conImoveis;
+    CardLayout layout;
 
     public MainScreen() {
         mainScreen();
     }
 
     public final void mainScreen() {
+        layout = new CardLayout();
+        pScreen = new JPanel();
+        pScreen.setLayout(layout);
         p = new JPanel();
         p.setLayout(new BorderLayout());
         menuBar = new JMenuBar();
@@ -42,9 +46,9 @@ public class MainScreen extends JFrame implements ActionListener {
         cadastra.add(cadVenda);
         consultar = new JMenu("Consultar", true);
         menuBar.add(consultar);
-        imoveis = new JMenuItem("Imóveis");
-        imoveis.addActionListener(this);
-        consultar.add(imoveis);
+        conImoveis = new JMenuItem("Imóveis");
+        conImoveis.addActionListener(this);
+        consultar.add(conImoveis);
         pagamentos = new JMenu("Pagamentos", true);
         pagamentos.addActionListener(this);
         menuBar.add(pagamentos);
@@ -52,16 +56,86 @@ public class MainScreen extends JFrame implements ActionListener {
         relatorios.addActionListener(this);
         menuBar.add(relatorios);
         p.add(menuBar, BorderLayout.PAGE_START);
+        //configura card layout
+        this.cadCorretor();
+        this.cadImovel();
+        this.cadVenda();
+        pScreen.add(pCadImovel, "cadImovel");
+        pScreen.add(pCadCorretor, "cadCorretor");
+        pScreen.add(pCadVenda, "cadVenda");
+        p.add(pScreen, BorderLayout.CENTER);
+        //configuraJFrame
         this.add(p);
         this.setTitle("Software de Gerenciamento");
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+
+    }
+
+    public void cadImovel() {
+        pCadImovel = new JPanel();
+        JLabel local = new JLabel(" imovel");
+        pCadImovel.add(local);
+    }
+
+    public void cadCorretor() {
+        pCadCorretor = new JPanel();
+        JLabel local = new JLabel(" corretor");
+        pCadCorretor.add(local);
+    }
+
+    public void cadVenda() {
+        pCadVenda = new JPanel();
+        JLabel local = new JLabel("venda");
+        pCadVenda.add(local);
+    }
+
+    public void conImoveis() {
+        pConImoveis = new JPanel();
+        JLabel local = new JLabel("consulta imovel");
+        pConImoveis.add(local);
+    }
+
+    public void pagamentos() {
+        pPagamentos = new JPanel();
+        JLabel local = new JLabel("pagamentos");
+        pPagamentos.add(local);
+    }
+
+    public void Realatorios() {
+        pRelatorios = new JPanel();
+        JLabel local = new JLabel("relatorios");
+        pRelatorios.add(local);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JMenuItem aux = (JMenuItem) e.getSource();
+        //sub menus
+        switch (aux.getText()) {
+            //cadastro imovel
+            case "Imóvel":
+                layout.show(pScreen,"cadImovel" );
+                System.out.println(aux.getText());
+                break;
+
+            case "Corretor":
+                layout.show(pScreen,"cadCorretor");
+                System.out.println(aux.getText());
+                break;
+
+            case "Venda":
+                layout.show(pScreen, "cadVenda");
+                System.out.println(aux.getText());
+                break;
+
+            default:
+                System.out.println(aux.getText());
+                break;
+        }
+        //menus
+        
     }
 
 }
