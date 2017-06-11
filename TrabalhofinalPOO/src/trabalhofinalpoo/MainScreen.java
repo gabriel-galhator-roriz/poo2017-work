@@ -21,6 +21,10 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
     JMenuItem cadImovel, cadCorretor, cadVenda, conImoveis;
     CardLayout layout;
 
+    //tela de relatorio
+    JTabbedPane abas;
+    JPanel mPanelRelatorio, pFaturaTotal, pLucro, pImoveisVendidos, pImoveisEncalhados, pFaturaPorCorretor, pPagamentoPorCorretor, pCorretorDoMes;
+
     public MainScreen() {
         mainScreen();
     }
@@ -56,6 +60,15 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
         relatorios.addMouseListener(this);
         menuBar.add(relatorios);
         p.add(menuBar, BorderLayout.PAGE_START);
+        //configura abas relatorios
+        abas = new JTabbedPane();
+        this.faturaTotal();
+        this.lucro();
+        this.imoveisVendidos();
+        this.imoveisEncalhados();
+        this.faturaPorCorretor();
+        this.pagamentoPorCorretor();
+        this.corretorDoMes();
         //configura card layout
         this.cadCorretor();
         this.cadImovel();
@@ -70,6 +83,7 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
         pScreen.add(pPagamentos, "pagamentos");
         pScreen.add(pRelatorios, "relatorios");
         p.add(pScreen, BorderLayout.CENTER);
+
         //configuraJFrame
         this.add(p);
         this.setTitle("Software de Gerenciamento");
@@ -111,8 +125,44 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
 
     public void relatorios() {
         pRelatorios = new JPanel();
-        JLabel local = new JLabel("relatorios");
-        pRelatorios.add(local);
+        abas.add("Fatrua Total", pFaturaTotal);
+        abas.add("Lucro",pLucro);
+        abas.add("Imóveis Vendidos",pImoveisVendidos);
+        abas.add("Imóveis Encalhados", pImoveisEncalhados);
+        abas.add("Faturamento por Corretor", pFaturaPorCorretor);
+        abas.add("Pagamento por Corretor",pPagamentoPorCorretor);
+        abas.add("Corretor do Mês",pCorretorDoMes);
+        pRelatorios.add(abas, BorderLayout.PAGE_START);
+
+    }
+
+    public void faturaTotal() {
+        pFaturaTotal = new JPanel();
+        pFaturaTotal.setSize(10,200);
+    }
+
+    public void lucro() {
+        pLucro = new JPanel();
+    }
+
+    public void imoveisVendidos() {
+        pImoveisVendidos = new JPanel();
+    }
+
+    public void imoveisEncalhados() {
+        pImoveisEncalhados = new JPanel();
+    }
+
+    public void faturaPorCorretor() {
+        pFaturaPorCorretor = new JPanel();
+    }
+
+    public void pagamentoPorCorretor() {
+        pPagamentoPorCorretor = new JPanel();
+    }
+
+    public void corretorDoMes() {
+        pCorretorDoMes = new JPanel();
     }
 
     @Override
