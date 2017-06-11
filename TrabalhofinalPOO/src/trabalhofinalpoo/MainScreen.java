@@ -133,9 +133,7 @@ public class MainScreen extends JFrame implements ActionListener {
             default:
                 System.out.println(aux.getText());
                 break;
-        }
-        //menus
-        
+        }        
     }
 
 }
