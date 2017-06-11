@@ -6,13 +6,13 @@
 package trabalhofinalpoo.models;
 
 import java.util.ArrayList;
-import java.util.Date;
+
+import java.util.Date;  
 
 /**
- *
  * @author gabrielroriz
  */
-public class Corretor {
+public abstract class Corretor implements recebeSalario{
     
     int numeroCRECI;
     
@@ -42,5 +42,9 @@ public class Corretor {
 
     public void setListaDeVendas(ArrayList<Venda> listaDeVendas) {
         this.listaDeVendas = listaDeVendas;
-    }    
+    }  
+}
+
+interface recebeSalario{
+    public void calculaSalario();
 }

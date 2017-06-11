@@ -8,13 +8,6 @@ package trabalhofinalpoo.models;
 import java.util.Date;
 
 /**
- *Apartamento
-Sala Comercial
-Lote
-Chácara
-Sítio
-Fazenda
-
  * @author gabrielroriz
  */
 

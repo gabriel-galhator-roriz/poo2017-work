@@ -32,5 +32,10 @@ public class Contratado extends Corretor{
     public void setDataDeAdmissao(Date dataDeAdmissao) {
         this.dataDeAdmissao = dataDeAdmissao;
     }
+
+    @Override
+    public void calculaSalario() {
+        //calula salario contratado
+    }
     
 }
