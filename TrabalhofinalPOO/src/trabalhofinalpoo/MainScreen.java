@@ -13,7 +13,7 @@ import javax.swing.*;
  *
  * @author khazyer
  */
-public class MainScreen extends JFrame implements ActionListener {
+public class MainScreen extends JFrame implements ActionListener, MouseListener {
 
     JPanel p, pScreen, pCadImovel, pCadCorretor, pCadVenda, pConImoveis, pPagamentos, pRelatorios;
     JMenuBar menuBar;
@@ -25,7 +25,7 @@ public class MainScreen extends JFrame implements ActionListener {
         mainScreen();
     }
 
-    public final void mainScreen() {
+    public void mainScreen() {
         layout = new CardLayout();
         pScreen = new JPanel();
         pScreen.setLayout(layout);
@@ -50,19 +50,25 @@ public class MainScreen extends JFrame implements ActionListener {
         conImoveis.addActionListener(this);
         consultar.add(conImoveis);
         pagamentos = new JMenu("Pagamentos", true);
-        pagamentos.addActionListener(this);
+        pagamentos.addMouseListener(this);
         menuBar.add(pagamentos);
         relatorios = new JMenu("Relatórios", true);
-        relatorios.addActionListener(this);
+        relatorios.addMouseListener(this);
         menuBar.add(relatorios);
         p.add(menuBar, BorderLayout.PAGE_START);
         //configura card layout
         this.cadCorretor();
         this.cadImovel();
         this.cadVenda();
+        this.conImoveis();
+        this.pagamentos();
+        this.relatorios();
         pScreen.add(pCadImovel, "cadImovel");
         pScreen.add(pCadCorretor, "cadCorretor");
         pScreen.add(pCadVenda, "cadVenda");
+        pScreen.add(pConImoveis, "conImoveis");
+        pScreen.add(pPagamentos, "pagamentos");
+        pScreen.add(pRelatorios, "relatorios");
         p.add(pScreen, BorderLayout.CENTER);
         //configuraJFrame
         this.add(p);
@@ -103,7 +109,7 @@ public class MainScreen extends JFrame implements ActionListener {
         pPagamentos.add(local);
     }
 
-    public void Realatorios() {
+    public void relatorios() {
         pRelatorios = new JPanel();
         JLabel local = new JLabel("relatorios");
         pRelatorios.add(local);
@@ -112,30 +118,65 @@ public class MainScreen extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JMenuItem aux = (JMenuItem) e.getSource();
+        System.out.println("entro aki");
+        if (e.getSource() == pagamentos) {
+            layout.show(pScreen, "pagamentos");
+            System.out.println("entro pagamentos");
+        }
         //sub menus
         switch (aux.getText()) {
             //cadastro imovel
             case "Imóvel":
-                layout.show(pScreen,"cadImovel" );
-                System.out.println(aux.getText());
+                layout.show(pScreen, "cadImovel");
                 break;
 
             case "Corretor":
-                layout.show(pScreen,"cadCorretor");
-                System.out.println(aux.getText());
+                layout.show(pScreen, "cadCorretor");
                 break;
 
             case "Venda":
                 layout.show(pScreen, "cadVenda");
-                System.out.println(aux.getText());
                 break;
-
+            case "Imóveis":
+                layout.show(pScreen, "conImoveis");
+                break;
             default:
-                System.out.println(aux.getText());
                 break;
         }
-        //menus
-        
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        JMenu aux = (JMenu) e.getSource();
+        switch (aux.getText()) {
+            case "Pagamentos":
+                layout.show(pScreen, "pagamentos");
+                break;
+            case "Relatórios":
+                layout.show(pScreen, "relatorios");
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
