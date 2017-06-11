@@ -9,7 +9,7 @@ package trabalhofinalpoo.models;
  *
  * @author gabrielroriz
  */
-public class Comissionado {
+public class Comissionado extends Corretor{
     
     float porcentagemComssiondada;
 
@@ -18,9 +18,15 @@ public class Comissionado {
     }
 
     public void setPorcentagemComssiondada(float porcentagemComssiondada) {
-        this.porcentagemComssiondada = porcentagemComssiondada;
+        if(porcentagemComssiondada <= 0.01 || porcentagemComssiondada >= 0.03){
+            //return error
+        } else {
+            this.porcentagemComssiondada = porcentagemComssiondada;
+        }
     }
-    
-    
-    
+
+    @Override
+    public void calculaSalario() {
+        //calula salario comissionado
+    }
 }
