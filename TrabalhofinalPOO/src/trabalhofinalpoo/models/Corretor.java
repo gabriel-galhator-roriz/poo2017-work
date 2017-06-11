@@ -6,10 +6,10 @@
 package trabalhofinalpoo.models;
 
 import java.util.ArrayList;
-import java.util.Date;
+
+import java.util.Date;  
 
 /**
- *
  * @author gabrielroriz
  */
 public abstract class Corretor implements recebeSalario{

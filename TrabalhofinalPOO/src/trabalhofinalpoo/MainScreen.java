@@ -7,7 +7,9 @@ package trabalhofinalpoo;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
+import trabalhofinalpoo.models.Imovel;
 
 /**
  *
@@ -20,6 +22,7 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
     JMenu cadastra, consultar, pagamentos, relatorios;
     JMenuItem cadImovel, cadCorretor, cadVenda, conImoveis;
     CardLayout layout;
+    
 
     public MainScreen() {
         mainScreen();
@@ -118,10 +121,8 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
     @Override
     public void actionPerformed(ActionEvent e) {
         JMenuItem aux = (JMenuItem) e.getSource();
-        System.out.println("entro aki");
         if (e.getSource() == pagamentos) {
             layout.show(pScreen, "pagamentos");
-            System.out.println("entro pagamentos");
         }
         //sub menus
         switch (aux.getText()) {
