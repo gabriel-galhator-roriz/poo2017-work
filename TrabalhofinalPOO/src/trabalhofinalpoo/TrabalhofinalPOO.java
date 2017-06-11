@@ -11,11 +11,12 @@ package trabalhofinalpoo;
  */
 public class TrabalhofinalPOO {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public TrabalhofinalPOO() {
+        LoginScreen login = new LoginScreen();
     }
-    
+
+    public static void main(String[] args) {
+        TrabalhofinalPOO t = new TrabalhofinalPOO();
+    }
+
 }
