@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package trabalhofinalpoo;
+package trabalhofinalpoo.views;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -23,18 +23,6 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
     JMenu cadastra, consultar, pagamentos, relatorios;
     JMenuItem cadImovel, cadCorretor, cadVenda, conImoveis;
     CardLayout layout;
-    //componentes tela cadastro corretor
-    JPanel cPa;
-    JLabel cNum, cNome;
-    JTextField tNum, tNome;
-    String[] str = {"Contratado", "Comissionado"};
-    JComboBox cb1 = new JComboBox(str);
-    JButton bCad, bReturn;
-    
-
-    //tela de relatorio
-    JTabbedPane abas;
-    JPanel mPanelRelatorio, pFaturaTotal, pLucro, pImoveisVendidos, pImoveisEncalhados, pFaturaPorCorretor, pPagamentoPorCorretor, pCorretorDoMes;
 
     public MainScreen() {
         mainScreen();
@@ -71,15 +59,6 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
         relatorios.addMouseListener(this);
         menuBar.add(relatorios);
         p.add(menuBar, BorderLayout.PAGE_START);
-        //configura abas relatorios
-        abas = new JTabbedPane();
-        this.faturaTotal();
-        this.lucro();
-        this.imoveisVendidos();
-        this.imoveisEncalhados();
-        this.faturaPorCorretor();
-        this.pagamentoPorCorretor();
-        this.corretorDoMes();
         //configura card layout
         this.cadCorretor();
         this.cadImovel();
@@ -105,114 +84,35 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
     }
 
     public void cadImovel() {
-        pCadImovel = new JPanel();
-        JLabel local = new JLabel(" imovel");
-        pCadImovel.add(local);
+        CadastroImovelScreen cadImovelPanel = new CadastroImovelScreen();
+        pCadImovel = cadImovelPanel.getpCadImovel();
+
     }
 
     public void cadCorretor() {
-        pCadCorretor = new JPanel();
-        JLabel local = new JLabel(" corretor");
-        pCadCorretor.setLayout(new BorderLayout());
-        
-        cPa = new JPanel(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções
-
-        cNum = new JLabel("Número CRECI");
-        cPa.add(cNum, c);
-        c.gridheight = 1;
-        cNome = new JLabel("Nome");
-        c.gridy = 1;
-        c.gridheight = 1;
-        cPa.add(cNome, c);
-        tNum = new JTextField();
-        c.gridx = 1;
-        c.gridy = 0;
-        c.gridheight = 1;
-        c.ipadx = 150;
-        cPa.add(tNum, c);
-        tNome = new JTextField();
-        c.gridx = 1;
-        c.gridy = 1;
-        c.gridheight = 1;
-        cPa.add(tNome, c);
-        cb1.setSelectedIndex(1);
-        cb1.addActionListener(this);
-        c.gridx = 0;
-        c.gridy = 2;
-        c.gridheight = 1;
-        cPa.add(cb1, c);
-        bCad = new JButton("Salvar");
-        c.gridx = 0;
-        c.gridy = 4;
-        cPa.add(bCad, c);
-        bReturn = new JButton("Voltar");
-        c.gridx = 1;
-        c.gridy = 4;
-        cPa.add(bReturn, c);
-        pCadCorretor.add(cPa, BorderLayout.PAGE_START);
-
+        CadastroCorretorScreen cadCorretorPanel = new CadastroCorretorScreen();
+        pCadCorretor = cadCorretorPanel.getpCadCorretor();
     }
 
     public void cadVenda() {
-        pCadVenda = new JPanel();
-        JLabel local = new JLabel("venda");
-        pCadVenda.add(local);
+        CadastroVendaScreen cadVendaPanel = new CadastroVendaScreen();
+        pCadVenda = cadVendaPanel.getpCadVenda();
+
     }
 
     public void conImoveis() {
-        pConImoveis = new JPanel();
-        JLabel local = new JLabel("consulta imovel");
-        pConImoveis.add(local);
+        ConsultaImoveisScreen pConImoveisPanel = new ConsultaImoveisScreen();
+        pConImoveis = pConImoveisPanel.getpConImoveis();
     }
 
     public void pagamentos() {
-        pPagamentos = new JPanel();
-        JLabel local = new JLabel("pagamentos");
-        pPagamentos.add(local);
+        PagamentosScreen pagamentosPanel = new PagamentosScreen();
+        pPagamentos = pagamentosPanel.getpPagamentos();
     }
 
     public void relatorios() {
-        pRelatorios = new JPanel();
-        abas.add("Fatrua Total", pFaturaTotal);
-        abas.add("Lucro",pLucro);
-        abas.add("Imóveis Vendidos",pImoveisVendidos);
-        abas.add("Imóveis Encalhados", pImoveisEncalhados);
-        abas.add("Faturamento por Corretor", pFaturaPorCorretor);
-        abas.add("Pagamento por Corretor",pPagamentoPorCorretor);
-        abas.add("Corretor do Mês",pCorretorDoMes);
-        pRelatorios.add(abas, BorderLayout.PAGE_START);
-
-    }
-
-    public void faturaTotal() {
-        pFaturaTotal = new JPanel();
-        pFaturaTotal.setSize(10,200);
-    }
-
-    public void lucro() {
-        pLucro = new JPanel();
-    }
-
-    public void imoveisVendidos() {
-        pImoveisVendidos = new JPanel();
-    }
-
-    public void imoveisEncalhados() {
-        pImoveisEncalhados = new JPanel();
-    }
-
-    public void faturaPorCorretor() {
-        pFaturaPorCorretor = new JPanel();
-    }
-
-    public void pagamentoPorCorretor() {
-        pPagamentoPorCorretor = new JPanel();
-    }
-
-    public void corretorDoMes() {
-        pCorretorDoMes = new JPanel();
+        RelatoriosScreen relatoriosPanel = new RelatoriosScreen();
+        pRelatorios= relatoriosPanel.getpRelatorios();
     }
 
     @Override

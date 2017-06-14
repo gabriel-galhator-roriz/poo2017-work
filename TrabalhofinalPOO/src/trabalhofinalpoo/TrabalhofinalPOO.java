@@ -5,6 +5,8 @@
  */
 package trabalhofinalpoo;
 
+import trabalhofinalpoo.views.*;
+
 /**
  *
  * @author khazyer
