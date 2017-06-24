@@ -19,11 +19,12 @@ import trabalhofinalpoo.TrabalhofinalPOO;
  *
  * @author khazyer
  */
-public class LoginScreen extends JFrame implements ActionListener, Serializable, MouseListener {
+public class LoginScreen extends JFrame implements ActionListener, Serializable, MouseListener, KeyListener {
 
     //variáveis 
     private ArrayList<String> names = new ArrayList();
     private ArrayList<String> password = new ArrayList();
+    MainScreen main;
     //componentes da interface
     public JTextField campoNome, campoSenha, txNome, txSenha, txConfirmaSenha;
     public JLabel nomeLabel, passwordLabel, cadastro, cadNome, cadSenha, cadConfirmaSenha;
@@ -35,12 +36,14 @@ public class LoginScreen extends JFrame implements ActionListener, Serializable,
         nomeLabel = new JLabel("Nome: ", JLabel.LEFT);
         passwordLabel = new JLabel("Senha: ", JLabel.LEFT);
         campoNome = new JTextField();
+        campoNome.addKeyListener(this);
         campoSenha = new JPasswordField();
+        campoSenha.addKeyListener(this);
         login = new JButton("Login");
         login.addActionListener(this);
         cadastro = new JLabel("Cadastro");
         cadastro.addMouseListener(this);
-        p.setLayout(new GridLayout(3,2));
+        p.setLayout(new GridLayout(3, 2));
         //preenche painel
         p.add(nomeLabel);
         p.add(campoNome);
@@ -127,64 +130,74 @@ public class LoginScreen extends JFrame implements ActionListener, Serializable,
     }
 //--------------tratamento de eventos de botão------------------//
 
+    public void carregaMain() {
+        if (verifyUserAcc(campoNome.getText(), campoSenha.getText())) {
+            this.setVisible(false);
+            main = new MainScreen();
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário ou senha inválido");
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        JButton aux = (JButton) e.getSource();
-        switch (aux.getText()) {
-            //botão logintitle
-            case "Login":
-                if (verifyUserAcc(campoNome.getText(), campoSenha.getText())) {
-                    this.setVisible(false);
-                    MainScreen main = new MainScreen();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Usuário ou senha inválido");
-                }
-                break;
-            //botão cadastro
-            case "Cadastro":
-                this.remove(p);
-                this.setTitle("Tela de Cadastro");
-                this.add(this.telaCadastro());
-                break;
-            //botão confirma
-            case "Confirma":
-                String senha1,
-                 senha2;
-                senha1 = txSenha.getText();
-                senha2 = txConfirmaSenha.getText();
-                // verifica se campos nulos
-                if (txNome.getText().equals("") && senha1.equals("") && senha2.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Os dados não podem ser vazios");
-                } //verifica se senhas batem 
-                else if (senha1.equals(senha2) && !txNome.getText().equals("")) {
-                    if (verifyUserAcc(txNome.getText(), senha1)) {
-                        JOptionPane.showMessageDialog(null, "Usuário já cadastrado");
-                    } else {
-                        try {
-                            saveUserPass(txNome.getText(), senha1);
-                        } catch (Exception ex) {
-                            Logger.getLogger(TrabalhofinalPOO.class.getName()).log(Level.SEVERE, null, ex);
+        if (e.getSource() instanceof JButton) {
+            JButton aux = (JButton) e.getSource();
+
+            switch (aux.getText()) {
+                //botão logintitle
+                case "Login":
+                    carregaMain();
+                    break;
+                //botão cadastro
+                case "Cadastro":
+                    this.remove(p);
+                    this.setTitle("Tela de Cadastro");
+                    this.add(this.telaCadastro());
+                    break;
+                //botão confirma
+                case "Confirma":
+                    String senha1,
+                     senha2;
+                    senha1 = txSenha.getText();
+                    senha2 = txConfirmaSenha.getText();
+                    // verifica se campos nulos
+                    if (txNome.getText().equals("") && senha1.equals("") && senha2.equals("")) {
+                        JOptionPane.showMessageDialog(null, "Os dados não podem ser vazios");
+                    } //verifica se senhas batem 
+                    else if (senha1.equals(senha2) && !txNome.getText().equals("")) {
+                        if (verifyUserAcc(txNome.getText(), senha1)) {
+                            JOptionPane.showMessageDialog(null, "Usuário já cadastrado");
+                        } else {
+                            try {
+                                saveUserPass(txNome.getText(), senha1);
+                            } catch (Exception ex) {
+                                Logger.getLogger(TrabalhofinalPOO.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            this.remove(cadP);
+                            this.add(p);
+                            this.pack();
                         }
-                        this.remove(cadP);
-                        this.add(p);
-                        this.pack();
+                    } else if (!senha1.equals(senha2)) {
+                        JOptionPane.showMessageDialog(null, "Senhas não coincidem");
+                        txSenha.setText("");
+                        txConfirmaSenha.setText("");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "O nome não pode ser vasio");
                     }
-                } else if (!senha1.equals(senha2)) {
-                    JOptionPane.showMessageDialog(null, "Senhas não coincidem");
-                    txSenha.setText("");
-                    txConfirmaSenha.setText("");
-                } else {
-                    JOptionPane.showMessageDialog(null, "O nome não pode ser vasio");
-                }
-                break;
-            //botão voltar
-            case "Voltar":
-                this.remove(cadP);
-                this.add(p);
-                this.pack();
-                break;
-            default:
-                break;
+                    break;
+                //botão voltar
+                case "Voltar":
+                    this.remove(cadP);
+                    this.add(p);
+                    this.pack();
+                    break;
+                default:
+                    break;
+            }
+        } else if (e.getSource() instanceof JTextField) {
+
+            System.out.println(e);
         }
     }
 //-----------------------tratamento de eventos de mouse------------------------//
@@ -212,6 +225,21 @@ public class LoginScreen extends JFrame implements ActionListener, Serializable,
     @Override
     public void mouseExited(MouseEvent e) {
         getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == 10) {
+            carregaMain();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
 
 }
