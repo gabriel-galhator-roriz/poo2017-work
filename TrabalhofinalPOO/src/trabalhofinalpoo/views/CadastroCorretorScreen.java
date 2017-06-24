@@ -15,21 +15,41 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import trabalhofinalpoo.controllers.CadastroCorretorController;
 
 /**
  *
  * @author khazyer
  */
-public class CadastroCorretorScreen implements ActionListener{
-    //componentes tela cadastro corretor
+public class CadastroCorretorScreen{
+    
+    
+    public static final String CONTRATADO = "Contratado";
+    public static final String COMISSIONADO = "Comissionado";
+    
+    
+    public static final String BUTTON_SAVE = "Salvar";
+    
+    
     JPanel cPa,pCadCorretor;
     JLabel cNum, cNome;
     JTextField tNum, tNome;
-    String[] str = {"Contratado", "Comissionado"};
-    JComboBox cb1 = new JComboBox(str);
+    String[] categories = {CONTRATADO, COMISSIONADO};
+    JComboBox JComboBoxCategories = new JComboBox(categories);
     JButton bCad, bReturn;
+    
+    CadastroCorretorController controller;
 
-    public CadastroCorretorScreen() {
+    public CadastroCorretorScreen(){
+        controller = new CadastroCorretorController(this);
+        createView();
+    }
+
+    public JPanel getPanel() {
+        return pCadCorretor;
+    } 
+    
+    public void createView(){
         pCadCorretor = new JPanel();
         JLabel local = new JLabel(" corretor");
         pCadCorretor.setLayout(new BorderLayout());
@@ -56,34 +76,43 @@ public class CadastroCorretorScreen implements ActionListener{
         c.gridy = 1;
         c.gridheight = 1;
         cPa.add(tNome, c);
-        cb1.setSelectedIndex(1);
-        cb1.addActionListener(this);
+        JComboBoxCategories.setSelectedIndex(1);
+        JComboBoxCategories.addActionListener(controller);
         c.gridx = 0;
         c.gridy = 2;
         c.gridheight = 1;
-        cPa.add(cb1, c);
-        bCad = new JButton("Salvar");
+        cPa.add(JComboBoxCategories, c);
+        
+        bCad = new JButton(BUTTON_SAVE);
+        bCad.addActionListener(controller);
         c.gridx = 0;
         c.gridy = 4;
         cPa.add(bCad, c);
         bReturn = new JButton("Voltar");
+        bReturn.addActionListener(controller);
         c.gridx = 1;
         c.gridy = 4;
         cPa.add(bReturn, c);
         pCadCorretor.add(cPa, BorderLayout.PAGE_START);
     }
-
-    public JPanel getpCadCorretor() {
-        return pCadCorretor;
-    }
- 
-            
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
+    
+    public String getNumeroCRECI(){
+        return tNum.getText();
+    }  
+    
+    public String getNome(){
+        return tNome.getText();
     }
     
-    
-    
+    public String getTipo(){
+        return JComboBoxCategories.getSelectedItem().toString();
+    }        
+
+    public void showContratadoOptions() {
+        System.out.println("Mostrar Informações de Corretores Contratados!");
+    }
+
+    public void showComissionadoOptions() {
+        System.out.println("Mostrar Informações de Corretores Comissionados!");
+    }
 }

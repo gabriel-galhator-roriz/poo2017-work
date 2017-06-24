@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
+import trabalhofinalpoo.controllers.CadastroCorretorController;
 import trabalhofinalpoo.models.Imovel;
 
 /**
@@ -91,7 +92,7 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
 
     public void cadCorretor() {
         CadastroCorretorScreen cadCorretorPanel = new CadastroCorretorScreen();
-        pCadCorretor = cadCorretorPanel.getpCadCorretor();
+        pCadCorretor = cadCorretorPanel.getPanel();
     }
 
     public void cadVenda() {
