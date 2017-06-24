@@ -30,6 +30,8 @@ public class CadastroCorretorScreen{
     
     public static final String BUTTON_SAVE = "Salvar";
     
+    public static final String JCOMBOX_CATEGORIES = "Categorias";
+    
     
     JPanel cPa,pCadCorretor;
     JLabel cNum, cNome;
@@ -77,6 +79,7 @@ public class CadastroCorretorScreen{
         c.gridheight = 1;
         cPa.add(tNome, c);
         JComboBoxCategories.setSelectedIndex(1);
+        JComboBoxCategories.setName(JCOMBOX_CATEGORIES);
         JComboBoxCategories.addActionListener(controller);
         c.gridx = 0;
         c.gridy = 2;

@@ -23,7 +23,11 @@ public class CadastroCorretorController implements ActionListener{
             }
         }
         
-        if(ae.getSource() instanceof JComboBox){            
+        if(ae.getSource() instanceof JComboBox){
+            JComboBox jcomboBoxSelected = (JComboBox) ae.getSource();
+            if(jcomboBoxSelected.getName().equals(CadastroCorretorScreen.JCOMBOX_CATEGORIES)){
+                changeCategory();
+            }
         }
     }
     
