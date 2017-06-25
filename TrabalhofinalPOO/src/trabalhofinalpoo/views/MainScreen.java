@@ -19,12 +19,12 @@ import trabalhofinalpoo.models.Imovel;
 public class MainScreen extends JFrame implements ActionListener, MouseListener {
 
     //componentes tela principal
-    JPanel p, pScreen, pCadImovel, pCadCorretor, pCadVenda, pConImoveis, pPagamentos, pRelatorios;
+    JPanel mainP, pScreen, pCadImovel, pCadCorretor, pCadVenda, pConImoveis, pPagamentos, pRelatorios;
     JMenuBar menuBar;
     JMenu cadastra, consultar, pagamentos, relatorios;
     JMenuItem cadImovel, cadCorretor, cadVenda, conImoveis;
     CardLayout layout;
-
+    
     public MainScreen() {
         mainScreen();
     }
@@ -33,8 +33,8 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
         layout = new CardLayout();
         pScreen = new JPanel();
         pScreen.setLayout(layout);
-        p = new JPanel();
-        p.setLayout(new BorderLayout());
+        mainP = new JPanel();
+        mainP.setLayout(new BorderLayout());
         menuBar = new JMenuBar();
         this.setJMenuBar(menuBar);
         cadastra = new JMenu("Cadastrar", true);
@@ -59,7 +59,7 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
         relatorios = new JMenu("Relatórios", true);
         relatorios.addMouseListener(this);
         menuBar.add(relatorios);
-        p.add(menuBar, BorderLayout.PAGE_START);
+        mainP.add(menuBar, BorderLayout.PAGE_START);
         //configura card layout
         this.cadCorretor();
         this.cadImovel();
@@ -73,10 +73,11 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
         pScreen.add(pConImoveis, "conImoveis");
         pScreen.add(pPagamentos, "pagamentos");
         pScreen.add(pRelatorios, "relatorios");
-        p.add(pScreen, BorderLayout.CENTER);
+        mainP.add(pScreen, BorderLayout.CENTER);
 
         //configuraJFrame
-        this.add(p);
+        
+        this.add(mainP);
         this.setTitle("Software de Gerenciamento");
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
