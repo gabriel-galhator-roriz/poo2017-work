@@ -28,7 +28,7 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
     public MainScreen() {
         mainScreen();
     }
-
+    
     public void mainScreen() {
         layout = new CardLayout();
         pScreen = new JPanel();
@@ -76,47 +76,47 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
         mainP.add(pScreen, BorderLayout.CENTER);
 
         //configuraJFrame
-        
+        this.setMinimumSize(new Dimension(800, 600));
         this.add(mainP);
         this.setTitle("Software de Gerenciamento");
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-
+        
     }
-
+    
     public void cadImovel() {
         CadastroImovelScreen cadImovelPanel = new CadastroImovelScreen();
         pCadImovel = cadImovelPanel.getpCadImovel();
-
+        
     }
-
+    
     public void cadCorretor() {
         CadastroCorretorScreen cadCorretorPanel = new CadastroCorretorScreen();
         pCadCorretor = cadCorretorPanel.getPanel();
     }
-
+    
     public void cadVenda() {
         CadastroVendaScreen cadVendaPanel = new CadastroVendaScreen();
         pCadVenda = cadVendaPanel.getpCadVenda();
-
+        
     }
-
+    
     public void conImoveis() {
         ConsultaImoveisScreen pConImoveisPanel = new ConsultaImoveisScreen();
         pConImoveis = pConImoveisPanel.getpConImoveis();
     }
-
+    
     public void pagamentos() {
         PagamentosScreen pagamentosPanel = new PagamentosScreen();
         pPagamentos = pagamentosPanel.getpPagamentos();
     }
-
+    
     public void relatorios() {
         RelatoriosScreen relatoriosPanel = new RelatoriosScreen();
-        pRelatorios= relatoriosPanel.getpRelatorios();
+        pRelatorios = relatoriosPanel.getpRelatorios();
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         JMenuItem aux = (JMenuItem) e.getSource();
@@ -130,12 +130,12 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
                 layout.show(pScreen, "cadImovel");
                 System.out.println(aux.getText());
                 break;
-
+            
             case "Corretor":
                 layout.show(pScreen, "cadCorretor");
                 System.out.println(aux.getText());
                 break;
-
+            
             case "Venda":
                 layout.show(pScreen, "cadVenda");
                 break;
@@ -146,12 +146,12 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
                 break;
         }
     }
-
+    
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        
     }
-
+    
     @Override
     public void mousePressed(MouseEvent e) {
         JMenu aux = (JMenu) e.getSource();
@@ -166,17 +166,17 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
                 break;
         }
     }
-
+    
     @Override
     public void mouseReleased(MouseEvent e) {
     }
-
+    
     @Override
     public void mouseEntered(MouseEvent e) {
     }
-
+    
     @Override
     public void mouseExited(MouseEvent e) {
-
+        
     }
 }
