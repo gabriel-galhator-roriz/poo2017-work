@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -36,7 +37,7 @@ public class CadastroCorretorScreen {
     JTextField tNum, tNome;
     String[] categories = {CONTRATADO, COMISSIONADO};
     JComboBox JComboBoxCategories = new JComboBox(categories);
-    JButton bCad, bReturn;
+    JButton bCad, bLimpa;
 
     CardLayout layout;
 
@@ -44,18 +45,19 @@ public class CadastroCorretorScreen {
 
     public CadastroCorretorScreen() {
         controller = new CadastroCorretorController(this);
-        createView();
         confCard();
+        createView();
 
     }
 
     public void confCard() {
         layout = new CardLayout();
-        pCardOpt = new JPanel(layout);
+        pCardOpt = new JPanel();
+        pCardOpt.setLayout(layout);
         confContratadoOpt();
         confComissionadoOpt();
-        layout.addLayoutComponent(pContratadoOpt, "contratado");
-        layout.addLayoutComponent(pComissionadoOpt, "comissionado");
+        pCardOpt.add(pContratadoOpt, CONTRATADO);
+        pCardOpt.add(pComissionadoOpt, COMISSIONADO);
 
     }
 
@@ -64,8 +66,8 @@ public class CadastroCorretorScreen {
     }
 
     public void createView() {
-        layout = new CardLayout();
-        pCardOpt = new JPanel(layout);
+
+        pCardOpt.setLayout(layout);
         pCadCorretor = new JPanel();
         JLabel local = new JLabel(" corretor");
         pCadCorretor.setLayout(new BorderLayout());
@@ -73,61 +75,66 @@ public class CadastroCorretorScreen {
         cPa = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções
+        c.insets = new Insets(10, 10, 10, 10);
 
         categoria = new JLabel("categoria");
         cNum = new JLabel("Número CRECI");
         cPa.add(cNum, c);
-        
+
         c.gridheight = 1;
         cNome = new JLabel("Nome");
-        
+
         c.gridy = 1;
         c.gridheight = 1;
         cPa.add(cNome, c);
         tNum = new JTextField();
-        
+
         c.gridx = 1;
         c.gridy = 0;
         c.gridheight = 1;
         c.ipadx = 150;
         cPa.add(tNum, c);
         tNome = new JTextField();
-        
+
         c.gridx = 1;
         c.gridy = 1;
         c.gridheight = 1;
         cPa.add(tNome, c);
-        
+
         c.gridx = 0;
         c.gridy = 2;
         c.gridheight = 1;
         cPa.add(categoria, c);
 
-        JComboBoxCategories.setSelectedIndex(1);
+        JComboBoxCategories.setSelectedIndex(0);
         JComboBoxCategories.setName(JCOMBOX_CATEGORIES);
         JComboBoxCategories.addActionListener(controller);
         c.gridx = 1;
         c.gridy = 2;
         c.gridheight = 1;
         cPa.add(JComboBoxCategories, c);
-        
+
         c.gridx = 0;
-        c.gridy = 2;
+        c.gridy = 3;
         c.gridheight = 2;
         c.gridwidth = 2;
+        JPanel teste = new JPanel();
+        teste.add(new JButton("teste"));
         cPa.add(pCardOpt, c);
 
         bCad = new JButton(BUTTON_SAVE);
         bCad.addActionListener(controller);
-        c.gridx = 0;
-        c.gridy = 5;
+        c.gridx = 1;
+        c.gridy = 10;
+        c.gridwidth = 1;
         cPa.add(bCad, c);
 
-        bReturn = new JButton("Voltar");
-        bReturn.addActionListener(controller);
-        c.gridx = 1;
-        c.gridy = 5;
-        cPa.add(bReturn, c);
+        bLimpa = new JButton("Limpar");
+        bLimpa.addActionListener(controller);
+        c.gridx = 0;
+        c.gridy = 10;
+        c.gridwidth = 1;
+        cPa.add(bLimpa, c);
 
         pCadCorretor.add(cPa, BorderLayout.PAGE_START);
     }
@@ -146,25 +153,25 @@ public class CadastroCorretorScreen {
 
     public void confContratadoOpt() {
         pContratadoOpt = new JPanel();
-        JLabel l = new JLabel("contratado");
+        JLabel l = new JLabel(CONTRATADO);
         pContratadoOpt.add(l);
 
     }
 
     public void confComissionadoOpt() {
         pComissionadoOpt = new JPanel();
-        JLabel l = new JLabel("comissionado");
+        JLabel l = new JLabel(COMISSIONADO);
         pComissionadoOpt.add(l);
 
     }
 
     public void showContratadoOptions() {
-        layout.show(pCardOpt, "contratado");
+        layout.show(pCardOpt, CONTRATADO);
         System.out.println("Mostrar Informações de Corretores Contratados!");
     }
 
     public void showComissionadoOptions() {
-        layout.show(pCardOpt, "comissionado");
+        layout.show(pCardOpt, COMISSIONADO);
         System.out.println("Mostrar Informações de Corretores Comissionados!");
     }
 }
