@@ -7,6 +7,7 @@ package trabalhofinalpoo.views;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -30,12 +31,13 @@ public class CadastroCorretorScreen {
     public static final String COMISSIONADO = "Comissionado";
 
     public static final String BUTTON_SAVE = "Salvar";
+    public static final String BUTTON_CLEAR = "Limpar";
 
     public static final String JCOMBOX_CATEGORIES = "Categorias";
 
     JPanel cPa, pCadCorretor, pComissionadoOpt, pContratadoOpt, pCardOpt;
-    JLabel cNum, cNome, categoria, labelContratado, labelComissionado;
-    JTextField tNum, tNome, textContratado, textComissionado;
+    JLabel cNum, cNome, categoria, labelSalarioFixo, labelPorcentagemComissionada, labelMensagem;
+    JTextField tNum, tNome, txtSalarioFixo, txtPorcentagemComissionada;
     String[] categories = {CONTRATADO, COMISSIONADO};
     JComboBox JComboBoxCategories = new JComboBox(categories);
     JButton bCad, bLimpa;
@@ -136,6 +138,13 @@ public class CadastroCorretorScreen {
         c.gridy = 10;
         c.gridwidth = 1;
         cPa.add(bLimpa, c);
+        
+        labelMensagem = new JLabel();
+        c.gridx = 0;
+        c.gridy = 13;
+        c.gridwidth = 3;
+        cPa.add(labelMensagem, c);
+
 
         pCadCorretor.add(cPa, BorderLayout.PAGE_START);
     }
@@ -154,29 +163,54 @@ public class CadastroCorretorScreen {
 
     public void confContratadoOpt() {
         pContratadoOpt = new JPanel();
-        labelContratado = new JLabel("Salário Fixo");
-        textContratado = new JTextField();
+        labelSalarioFixo = new JLabel("Salário Fixo");
+        txtSalarioFixo = new JTextField();
         pContratadoOpt.setLayout(new GridLayout(1, 2, 10, 10));
-        pContratadoOpt.add(labelContratado);
-        pContratadoOpt.add(textContratado);
+        pContratadoOpt.add(labelSalarioFixo);
+        pContratadoOpt.add(txtSalarioFixo);
     }
 
     public void confComissionadoOpt() {
         pComissionadoOpt = new JPanel();
-        labelComissionado = new JLabel("% Comissão");
-        textComissionado = new JTextField();
+        labelPorcentagemComissionada = new JLabel("% Comissão");
+        txtPorcentagemComissionada = new JTextField();
+        
         pComissionadoOpt.setLayout(new GridLayout(1, 2, 10, 10));
-        pComissionadoOpt.add(labelComissionado);
-        pComissionadoOpt.add(textComissionado);
+        pComissionadoOpt.add(labelPorcentagemComissionada);
+        pComissionadoOpt.add(txtPorcentagemComissionada);
+    }
+    
+    public String getPorcentagemComissionada(){
+        return txtPorcentagemComissionada.getText();
+    }
+    
+    public String getSalarioFixo(){
+        return txtSalarioFixo.getText();
     }
 
     public void showContratadoOptions() {
         layout.show(pCardOpt, CONTRATADO);
-        System.out.println("Mostrar Informações de Corretores Contratados!");
     }
 
     public void showComissionadoOptions() {
         layout.show(pCardOpt, COMISSIONADO);
-        System.out.println("Mostrar Informações de Corretores Comissionados!");
+    }
+    
+    public void showMessage(String message, boolean isError){
+        labelMensagem.setText(message);
+        
+        if(isError){
+            labelMensagem.setForeground(Color.RED);
+        } else {
+            labelMensagem.setForeground(Color.GREEN);
+        }
+    }
+
+    public void clearFields() {
+        labelMensagem.setText("");
+        tNum.setText("");
+        tNome.setText("");
+        txtPorcentagemComissionada.setText("");
+        txtSalarioFixo.setText(""); 
     }
 }

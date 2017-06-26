@@ -18,7 +18,7 @@ public class Comissionado extends Corretor{
     }
 
     public void setPorcentagemComssiondada(float porcentagemComssiondada) {
-        if(porcentagemComssiondada <= 0.01 || porcentagemComssiondada >= 0.03){
+        if(porcentagemComssiondada <= 1 || porcentagemComssiondada >= 3){
             //return error
         } else {
             this.porcentagemComssiondada = porcentagemComssiondada;

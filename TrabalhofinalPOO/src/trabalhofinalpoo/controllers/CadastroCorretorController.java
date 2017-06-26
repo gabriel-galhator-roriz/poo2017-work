@@ -21,6 +21,9 @@ public class CadastroCorretorController implements ActionListener{
             if(buttonClicked.getText().equals(CadastroCorretorScreen.BUTTON_SAVE)){
                 buttonSaveClicked();
             }
+            if(buttonClicked.getText().equals(CadastroCorretorScreen.BUTTON_CLEAR)){
+                buttonClearClicked();
+            }
         }
         
         if(ae.getSource() instanceof JComboBox){
@@ -32,14 +35,87 @@ public class CadastroCorretorController implements ActionListener{
     }
     
     public void buttonSaveClicked(){
+        if(!validateGeneralInfo())
+            return;
+        
         String nome = view.getNome();
         String numeroCRECI = view.getNumeroCRECI();
         
+        
         if(view.getTipo().equals(CadastroCorretorScreen.COMISSIONADO)){
+            
+            if(validatePorcentagemComissionada()){
+                //cadastrar corretor comissionado
+                view.showMessage("Corretor comissionado cadastrado com sucesso!", false);
+            }
             
         } else if(view.getTipo().equals(CadastroCorretorScreen.CONTRATADO)){
             
+            if(validateSalarioFixo()){
+                //cadastrar corretor contratado
+                view.showMessage("Corretor Contratado cadastrado com sucesso!", false);
+            }
+            
         }
+    }
+    
+    public boolean validateGeneralInfo(){
+        if(view.getNome().equals("")){
+            view.showMessage("Digite um nome.", true);
+            return false;
+        }
+        
+        if(!view.getNumeroCRECI().equals("")){
+            if (!view.getNumeroCRECI().matches("[0-9]+")){
+            view.showMessage("O Número CRECI só pode conter números.", true);
+            return false;
+            }
+        } else {
+            view.showMessage("Digite um número CRECI.", true);
+            return false;
+        }
+        
+        return true;     
+    }
+    
+    public boolean validatePorcentagemComissionada(){
+        if(!view.getPorcentagemComissionada().equals("")){
+            try {
+                float porcentagemComissionada = Float.parseFloat(view.getPorcentagemComissionada());
+                System.out.print(porcentagemComissionada);
+                if(porcentagemComissionada >= 0f && porcentagemComissionada <= 3f){
+                    return true;
+                } else {
+                    view.showMessage("Digite uma porcentagem entre 1% e 3%", true);
+                    return false;
+                }
+            } catch (NumberFormatException ex) {    
+                view.showMessage("Digite uma porcentagem válida.", true);
+                return false;
+            }
+        } else {
+            view.showMessage("Digite uma porcentagem.", true);
+            return false;
+        }
+    }
+    
+    public boolean validateSalarioFixo(){
+        
+        
+        if(!view.getSalarioFixo().equals("")){
+            try {
+                System.out.println(view.getSalarioFixo());
+                float salarioFixo = Float.parseFloat(view.getSalarioFixo());
+            } catch (NumberFormatException ex) {    
+                view.showMessage("Digite um salário válido.", true);
+                return false;
+            }
+        } else {
+            view.showMessage("Digite um salário.", true);
+            return false;
+        }
+
+        return true;
     }
     
     public void changeCategory(){
@@ -48,5 +124,9 @@ public class CadastroCorretorController implements ActionListener{
         } else if(view.getTipo().equals(CadastroCorretorScreen.CONTRATADO)){
             view.showContratadoOptions();
         }
+    }
+
+    private void buttonClearClicked() {
+        view.clearFields();
     }
 }
