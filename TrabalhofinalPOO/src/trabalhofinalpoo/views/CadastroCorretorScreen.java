@@ -12,8 +12,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -121,8 +119,6 @@ public class CadastroCorretorScreen {
         c.gridy = 3;
         c.gridheight = 2;
         c.gridwidth = 2;
-        JPanel teste = new JPanel();
-        teste.add(new JButton("teste"));
         cPa.add(pCardOpt, c);
 
         bCad = new JButton(BUTTON_SAVE);
