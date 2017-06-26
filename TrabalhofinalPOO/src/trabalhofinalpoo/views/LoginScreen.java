@@ -28,11 +28,12 @@ public class LoginScreen extends JFrame implements ActionListener, Serializable,
     //componentes da interface
     public JTextField campoNome, campoSenha, txNome, txSenha, txConfirmaSenha;
     public JLabel nomeLabel, passwordLabel, cadastro, cadNome, cadSenha, cadConfirmaSenha;
-    public JPanel p, cadP;
+    public JPanel confP, cadP;
     public JButton login, confirma, voltar;
+    public Toolkit t;
 
     public LoginScreen() {
-        p = new JPanel();
+        confP = new JPanel();
         nomeLabel = new JLabel("Nome: ", JLabel.LEFT);
         passwordLabel = new JLabel("Senha: ", JLabel.LEFT);
         campoNome = new JTextField();
@@ -43,20 +44,22 @@ public class LoginScreen extends JFrame implements ActionListener, Serializable,
         login.addActionListener(this);
         cadastro = new JLabel("Cadastro");
         cadastro.addMouseListener(this);
-        p.setLayout(new GridLayout(3, 2));
+        confP.setLayout(new GridLayout(3, 2, 10, 10));
         //preenche painel
-        p.add(nomeLabel);
-        p.add(campoNome);
-        p.add(passwordLabel);
-        p.add(campoSenha);
-        p.add(cadastro);
-        p.add(login);
-        this.add(p);
+        confP.add(nomeLabel);
+        confP.add(campoNome);
+        confP.add(passwordLabel);
+        confP.add(campoSenha);
+        confP.add(cadastro);
+        confP.add(login);
+        //configura JFrame
+        t = Toolkit.getDefaultToolkit();
+        this.add(confP);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setTitle("Tela de Login");
         this.setVisible(true);
-        this.setLocation(600, 250);
+        this.setLocation((t.getScreenSize().width / 2) - 80, (t.getScreenSize().height / 2) - 80);
         this.setResizable(false);
         //carrega dados do arquivo
         try {
@@ -78,7 +81,7 @@ public class LoginScreen extends JFrame implements ActionListener, Serializable,
         confirma.addActionListener(this);
         voltar = new JButton("Voltar");
         voltar.addActionListener(this);
-        cadP = new JPanel(new GridLayout(4, 2));
+        cadP = new JPanel(new GridLayout(4, 2, 10, 10));
         cadP.add(cadNome);
         cadP.add(txNome);
         cadP.add(cadSenha);
@@ -151,7 +154,7 @@ public class LoginScreen extends JFrame implements ActionListener, Serializable,
                     break;
                 //botão cadastro
                 case "Cadastro":
-                    this.remove(p);
+                    this.remove(confP);
                     this.setTitle("Tela de Cadastro");
                     this.add(this.telaCadastro());
                     break;
@@ -175,7 +178,7 @@ public class LoginScreen extends JFrame implements ActionListener, Serializable,
                                 Logger.getLogger(TrabalhofinalPOO.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             this.remove(cadP);
-                            this.add(p);
+                            this.add(confP);
                             this.pack();
                         }
                     } else if (!senha1.equals(senha2)) {
@@ -189,7 +192,7 @@ public class LoginScreen extends JFrame implements ActionListener, Serializable,
                 //botão voltar
                 case "Voltar":
                     this.remove(cadP);
-                    this.add(p);
+                    this.add(confP);
                     this.pack();
                     break;
                 default:
@@ -204,7 +207,7 @@ public class LoginScreen extends JFrame implements ActionListener, Serializable,
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        this.remove(p);
+        this.remove(confP);
         this.add(telaCadastro());
         this.pack();
     }
