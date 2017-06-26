@@ -12,12 +12,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
+import trabalhofinalpoo.controllers.CadastroImovelController;
 
 /**
  *
  * @author khazyer
  */
-public class CadastroImovelScreen implements ActionListener {
+public class CadastroImovelScreen{
 
     JPanel pCadImovel, imov;
     JLabel local, iCod, iTipo, iDesc, iPreco, iNome, iDate;
@@ -28,8 +29,16 @@ public class CadastroImovelScreen implements ActionListener {
     JScrollPane scrollPane;
     String str[] = {"Apartamento", "Sala Comercial", "Lote", "Chácara", "Sítio", "Fazenda"};
     
+    CadastroImovelController controller;
+    
 
     public CadastroImovelScreen() {
+        controller = new CadastroImovelController(this);
+    }
+    
+    
+    public void instanceView(){
+        
         pCadImovel = new JPanel();
         pCadImovel.setLayout(new BorderLayout());
         //Painel do Cadastro de Imovel        
@@ -96,17 +105,9 @@ public class CadastroImovelScreen implements ActionListener {
         i.gridx = 0;
         i.gridy = 5;
         imov.add(b1, i);
-        
-
     }
 
-    public JPanel getpCadImovel() {
+    public JPanel getPanel() {
         return pCadImovel;
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
 }

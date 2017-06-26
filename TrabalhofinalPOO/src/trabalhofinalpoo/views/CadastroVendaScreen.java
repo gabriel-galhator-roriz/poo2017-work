@@ -7,6 +7,7 @@ package trabalhofinalpoo.views;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import trabalhofinalpoo.controllers.CadastroVendaController;
 
 /**
  *
@@ -16,14 +17,18 @@ public class CadastroVendaScreen {
 
     JPanel pCadVenda;
     JLabel local;
+    
+    CadastroVendaController controller;
 
     public CadastroVendaScreen() {
+        controller = new CadastroVendaController(this);
+        
         pCadVenda = new JPanel();
         local = new JLabel("venda");
         pCadVenda.add(local);
     }
 
-    public JPanel getpCadVenda() {
+    public JPanel getPanel() {
         return pCadVenda;
     }
 

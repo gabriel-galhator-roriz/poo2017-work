@@ -86,7 +86,7 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
     
     public void cadImovel() {
         CadastroImovelScreen cadImovelPanel = new CadastroImovelScreen();
-        pCadImovel = cadImovelPanel.getpCadImovel();
+        pCadImovel = cadImovelPanel.getPanel();
         
     }
     
@@ -97,7 +97,7 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
     
     public void cadVenda() {
         CadastroVendaScreen cadVendaPanel = new CadastroVendaScreen();
-        pCadVenda = cadVendaPanel.getpCadVenda();
+        pCadVenda = cadVendaPanel.getPanel();
         
     }
     
