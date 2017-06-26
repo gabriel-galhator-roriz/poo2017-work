@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
+import trabalhofinalpoo.controllers.CadastroCorretorController;
 import trabalhofinalpoo.models.Imovel;
 
 /**
@@ -18,22 +19,22 @@ import trabalhofinalpoo.models.Imovel;
 public class MainScreen extends JFrame implements ActionListener, MouseListener {
 
     //componentes tela principal
-    JPanel p, pScreen, pCadImovel, pCadCorretor, pCadVenda, pConImoveis, pPagamentos, pRelatorios;
+    JPanel mainP, pScreen, pCadImovel, pCadCorretor, pCadVenda, pConImoveis, pPagamentos, pRelatorios;
     JMenuBar menuBar;
     JMenu cadastra, consultar, pagamentos, relatorios;
     JMenuItem cadImovel, cadCorretor, cadVenda, conImoveis;
     CardLayout layout;
-
+    
     public MainScreen() {
         mainScreen();
     }
-
+    
     public void mainScreen() {
         layout = new CardLayout();
         pScreen = new JPanel();
         pScreen.setLayout(layout);
-        p = new JPanel();
-        p.setLayout(new BorderLayout());
+        mainP = new JPanel();
+        mainP.setLayout(new BorderLayout());
         menuBar = new JMenuBar();
         this.setJMenuBar(menuBar);
         cadastra = new JMenu("Cadastrar", true);
@@ -58,7 +59,7 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
         relatorios = new JMenu("Relatórios", true);
         relatorios.addMouseListener(this);
         menuBar.add(relatorios);
-        p.add(menuBar, BorderLayout.PAGE_START);
+        mainP.add(menuBar, BorderLayout.PAGE_START);
         //configura card layout
         this.cadCorretor();
         this.cadImovel();
@@ -72,50 +73,49 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
         pScreen.add(pConImoveis, "conImoveis");
         pScreen.add(pPagamentos, "pagamentos");
         pScreen.add(pRelatorios, "relatorios");
-        p.add(pScreen, BorderLayout.CENTER);
+        mainP.add(pScreen, BorderLayout.CENTER);
 
         //configuraJFrame
-        this.add(p);
+        this.setMinimumSize(new Dimension(800, 600));
+        this.add(mainP);
         this.setTitle("Software de Gerenciamento");
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        this.setResizable(false);
-
     }
-
+    
     public void cadImovel() {
         CadastroImovelScreen cadImovelPanel = new CadastroImovelScreen();
         pCadImovel = cadImovelPanel.getpCadImovel();
-
+        
     }
-
+    
     public void cadCorretor() {
         CadastroCorretorScreen cadCorretorPanel = new CadastroCorretorScreen();
-        pCadCorretor = cadCorretorPanel.getpCadCorretor();
+        pCadCorretor = cadCorretorPanel.getPanel();
     }
-
+    
     public void cadVenda() {
         CadastroVendaScreen cadVendaPanel = new CadastroVendaScreen();
         pCadVenda = cadVendaPanel.getpCadVenda();
-
+        
     }
-
+    
     public void conImoveis() {
         ConsultaImoveisScreen pConImoveisPanel = new ConsultaImoveisScreen();
         pConImoveis = pConImoveisPanel.getpConImoveis();
     }
-
+    
     public void pagamentos() {
         PagamentosScreen pagamentosPanel = new PagamentosScreen();
         pPagamentos = pagamentosPanel.getpPagamentos();
     }
-
+    
     public void relatorios() {
         RelatoriosScreen relatoriosPanel = new RelatoriosScreen();
-        pRelatorios= relatoriosPanel.getpRelatorios();
+        pRelatorios = relatoriosPanel.getpRelatorios();
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         JMenuItem aux = (JMenuItem) e.getSource();
@@ -129,12 +129,12 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
                 layout.show(pScreen, "cadImovel");
                 System.out.println(aux.getText());
                 break;
-
+            
             case "Corretor":
                 layout.show(pScreen, "cadCorretor");
                 System.out.println(aux.getText());
                 break;
-
+            
             case "Venda":
                 layout.show(pScreen, "cadVenda");
                 break;
@@ -145,12 +145,12 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
                 break;
         }
     }
-
+    
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        
     }
-
+    
     @Override
     public void mousePressed(MouseEvent e) {
         JMenu aux = (JMenu) e.getSource();
@@ -165,17 +165,17 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
                 break;
         }
     }
-
+    
     @Override
     public void mouseReleased(MouseEvent e) {
     }
-
+    
     @Override
     public void mouseEntered(MouseEvent e) {
     }
-
+    
     @Override
     public void mouseExited(MouseEvent e) {
-
+        
     }
 }

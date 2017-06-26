@@ -7,10 +7,6 @@ package trabalhofinalpoo;
 
 import trabalhofinalpoo.views.*;
 
-/**
- *
- * @author khazyer
- */
 public class TrabalhofinalPOO {
 
     public TrabalhofinalPOO() {
