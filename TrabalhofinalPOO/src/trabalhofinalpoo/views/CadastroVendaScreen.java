@@ -37,12 +37,13 @@ public class CadastroVendaScreen {
         pCad.setLayout(new GridBagLayout());
 
         labelCadVenda = new JLabel("Cadastro de Venda");
-        labelCadVenda.setHorizontalTextPosition(SwingConstants.CENTER);
+        labelCadVenda.setHorizontalAlignment(JLabel.CENTER);
         lNomeComprador = new JLabel("Nome Comprador:");
         lValorVenda = new JLabel("Valor da Venda");
         lCorretor = new JLabel("Corretor:");
         lImovel = new JLabel("Imovel");
-        labelMensagem = new JLabel("mensagem");
+        labelMensagem = new JLabel();
+        labelMensagem.setHorizontalAlignment(JLabel.CENTER);
 
         textNomeComprador = new JTextField();
         textValorVenda = new JTextField();
@@ -61,7 +62,8 @@ public class CadastroVendaScreen {
 
         c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções
-        //c.insets = new Insets(10, 10, 10, 10);
+        c.insets = new Insets(10, 10, 10, 10);
+        c.ipadx = 150;
 
         c.gridx = 0;
         c.gridy = 0;
@@ -99,12 +101,12 @@ public class CadastroVendaScreen {
         c.gridy = 10;
         pCad.add(limpar, c);
         c.gridx = 0;
-        pCad.add(cadastrar);
+        pCad.add(cadastrar, c);
 
         c.gridx = 0;
         c.gridy++;
         c.gridwidth = 2;
-        pCad.add(labelMensagem);
+        pCad.add(labelMensagem, c);
         pCadVenda.add(pCad, BorderLayout.PAGE_START);
     }
 
