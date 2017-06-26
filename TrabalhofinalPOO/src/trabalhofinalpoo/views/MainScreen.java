@@ -82,7 +82,6 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener 
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-        
     }
     
     public void cadImovel() {
