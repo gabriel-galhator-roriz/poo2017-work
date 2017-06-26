@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,8 +34,8 @@ public class CadastroCorretorScreen {
     public static final String JCOMBOX_CATEGORIES = "Categorias";
 
     JPanel cPa, pCadCorretor, pComissionadoOpt, pContratadoOpt, pCardOpt;
-    JLabel cNum, cNome, categoria;
-    JTextField tNum, tNome;
+    JLabel cNum, cNome, categoria, labelContratado, labelComissionado;
+    JTextField tNum, tNome, textContratado, textComissionado;
     String[] categories = {CONTRATADO, COMISSIONADO};
     JComboBox JComboBoxCategories = new JComboBox(categories);
     JButton bCad, bLimpa;
@@ -153,16 +154,20 @@ public class CadastroCorretorScreen {
 
     public void confContratadoOpt() {
         pContratadoOpt = new JPanel();
-        JLabel l = new JLabel(CONTRATADO);
-        pContratadoOpt.add(l);
-
+        labelContratado = new JLabel("Salário Fixo");
+        textContratado = new JTextField();
+        pContratadoOpt.setLayout(new GridLayout(1, 2, 10, 10));
+        pContratadoOpt.add(labelContratado);
+        pContratadoOpt.add(textContratado);
     }
 
     public void confComissionadoOpt() {
         pComissionadoOpt = new JPanel();
-        JLabel l = new JLabel(COMISSIONADO);
-        pComissionadoOpt.add(l);
-
+        labelComissionado = new JLabel("% Comissão");
+        textComissionado = new JTextField();
+        pComissionadoOpt.setLayout(new GridLayout(1, 2, 10, 10));
+        pComissionadoOpt.add(labelComissionado);
+        pComissionadoOpt.add(textComissionado);
     }
 
     public void showContratadoOptions() {
