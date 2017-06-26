@@ -34,6 +34,7 @@ public class CadastroImovelScreen{
 
     public CadastroImovelScreen() {
         controller = new CadastroImovelController(this);
+        instanceView();
     }
     
     
