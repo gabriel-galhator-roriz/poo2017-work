@@ -197,13 +197,13 @@ public class CadastroCorretorScreen {
     }
     
     public void showMessage(String message, boolean isError){
-        labelMensagem.setText(message);
-        
         if(isError){
             labelMensagem.setForeground(Color.RED);
         } else {
+            clearFields();
             labelMensagem.setForeground(Color.GREEN);
         }
+        labelMensagem.setText(message);
     }
 
     public void clearFields() {
