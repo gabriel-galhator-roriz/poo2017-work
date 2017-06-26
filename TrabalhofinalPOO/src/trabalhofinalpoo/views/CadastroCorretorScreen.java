@@ -80,7 +80,7 @@ public class CadastroCorretorScreen {
         c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções
         c.insets = new Insets(10, 10, 10, 10);
 
-        categoria = new JLabel("categoria");
+        categoria = new JLabel("Categoria");
         cNum = new JLabel("Número CRECI");
         cPa.add(cNum, c);
 
