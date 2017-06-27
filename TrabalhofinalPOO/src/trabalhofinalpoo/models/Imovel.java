@@ -34,8 +34,20 @@ public class Imovel {
    Date dataDeCadastro;
    
    boolean disponibilidade;
+   
+   public Imovel(){
+       
+   }
 
-    public int getCodigo() {
+    public Imovel(int codigo, int tipo, String descricao, float preço, boolean disponibilidade) {
+        this.codigo = codigo;
+        this.tipo = tipo;
+        this.descricao = descricao;
+        this.preço = preço;
+        this.disponibilidade = disponibilidade;
+    }
+
+    public int getCodigo(){
         return codigo;
     }
 
@@ -89,5 +101,9 @@ public class Imovel {
 
     public void setDisponibilidade(boolean disponibilidade) {
         this.disponibilidade = disponibilidade;
+    }
+    
+    public String toString(){
+        return getDescricao();
     }
 }

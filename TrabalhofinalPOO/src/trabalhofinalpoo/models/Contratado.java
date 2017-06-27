@@ -16,6 +16,12 @@ public class Contratado extends Corretor{
     float salarioFixo;
     
     Date dataDeAdmissao;
+    
+    public Contratado(int numeroCRECI, String nome, float salarioFixo){
+        setNumeroCRECI(numeroCRECI);
+        setNome(nome);
+        setSalarioFixo(salarioFixo);
+    }
 
     public float getSalarioFixo() {
         return salarioFixo;

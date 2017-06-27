@@ -13,6 +13,13 @@ public class Comissionado extends Corretor{
     
     float porcentagemComssiondada;
 
+    
+    public Comissionado(int numeroCRECI, String nome, float porcentagemComssiondada){
+        setNumeroCRECI(numeroCRECI);
+        setNome(nome);
+        setPorcentagemComssiondada(porcentagemComssiondada);
+    }
+    
     public float getPorcentagemComssiondada() {
         return porcentagemComssiondada;
     }

@@ -6,14 +6,26 @@
 package trabalhofinalpoo.views;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.*;
 import trabalhofinalpoo.controllers.CadastroVendaController;
+import trabalhofinalpoo.models.Comissionado;
+import trabalhofinalpoo.models.Contratado;
+import trabalhofinalpoo.models.Corretor;
+import trabalhofinalpoo.models.Imovel;
 
 /**
  *
  * @author khazyer
  */
 public class CadastroVendaScreen {
+    
+    public static final String BUTTON_SAVE = "Salvar";
+    public static final String BUTTON_CLEAR = "Limpar";
+    
+    private ArrayList<Imovel> listImoveis = new ArrayList<Imovel>();
+    private ArrayList<Corretor> listCorretores = new ArrayList<Corretor>();
 
     JPanel pCadVenda, pCad;
     JLabel labelCadVenda, lNomeComprador, lValorVenda, lCorretor, lImovel, labelMensagem;
@@ -26,11 +38,11 @@ public class CadastroVendaScreen {
 
     public CadastroVendaScreen() {
         controller = new CadastroVendaController(this);
-        this.confPanel();
-
+        createTemporaryImoveisECorretores();
+        instanceView();
     }
 
-    public void confPanel() {
+    public void instanceView() {
         pCadVenda = new JPanel();
         pCadVenda.setLayout(new BorderLayout());
         pCad = new JPanel();
@@ -48,16 +60,16 @@ public class CadastroVendaScreen {
         textNomeComprador = new JTextField();
         textValorVenda = new JTextField();
 
-        String[] cat1 = {"joão", "Maria", "José"};
-        boxCorretor = new JComboBox(cat1);
+        String[] cat1 = {"--", "joão", "Maria", "José"};
+        boxCorretor = new JComboBox(listCorretores.toArray());
         boxCorretor.addActionListener(controller);
-        String[] cat2 = {"AP 125", "Casa Branca", "Kitnet 106"};
-        boxImovel = new JComboBox(cat2);
+        String[] cat2 = {"--", "AP 125", "Casa Branca", "Kitnet 106"};
+        boxImovel = new JComboBox(listImoveis.toArray());
         boxImovel.addActionListener(controller);
 
-        limpar = new JButton("Limpar");
+        limpar = new JButton(BUTTON_CLEAR);
         limpar.addActionListener(controller);
-        cadastrar = new JButton("Cadastrar");
+        cadastrar = new JButton(BUTTON_SAVE);
         cadastrar.addActionListener(controller);
 
         c = new GridBagConstraints();
@@ -97,10 +109,10 @@ public class CadastroVendaScreen {
         c.gridx = 1;
         pCad.add(boxCorretor, c);
 
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 10;
         pCad.add(limpar, c);
-        c.gridx = 0;
+        c.gridx = 1;
         pCad.add(cadastrar, c);
 
         c.gridx = 0;
@@ -109,9 +121,77 @@ public class CadastroVendaScreen {
         pCad.add(labelMensagem, c);
         pCadVenda.add(pCad, BorderLayout.PAGE_START);
     }
-
+    
+    public String getNomeComprador(){
+        return textNomeComprador.getText();
+    }
+    
+    public String getValorDaVenda(){
+        return textValorVenda.getText();
+    }
+    
+    public Imovel getImovel(){
+        if(boxImovel.getSelectedItem().toString().equals("--")){
+            return null;
+        } else {
+            for(Imovel i : listImoveis){
+                if(i.getDescricao().equals(boxImovel.getSelectedItem().toString())){
+                    return i;
+                }
+            }
+        }
+        return null;
+    }
+    
+    public Corretor getCorretor(){
+        if(boxCorretor.getSelectedItem().toString().equals("--")){
+            return null;
+            
+        } else {
+            for(Corretor c : listCorretores){
+                if(c.getNome().equals(boxCorretor.getSelectedItem().toString())){
+                    return c;
+                }
+            }
+        }
+        
+        return null;
+    }
+    
     public JPanel getPanel() {
         return pCadVenda;
     }
-
+    
+    public void clearFields() {
+        labelMensagem.setText("");
+        textNomeComprador.setText("");
+        textValorVenda.setText("");
+        boxImovel.setSelectedItem("--");
+        boxCorretor.setSelectedItem("--");
+    }
+    
+    public void showMessage(String message, boolean isError){
+        if(isError){
+            labelMensagem.setForeground(Color.RED);
+        } else {
+            clearFields();
+            labelMensagem.setForeground(Color.GREEN);
+        }
+        labelMensagem.setText(message);
+    }
+    
+    public void createTemporaryImoveisECorretores(){
+        listImoveis.add(new Imovel(0, Imovel.TYPE_COMMERCIAL_ROOM, "--", 140000f, true));
+        listImoveis.add(new Imovel(1, Imovel.TYPE_COMMERCIAL_ROOM, "Sala comercial bilionária", 140000f, true));
+        listImoveis.add(new Imovel(2, Imovel.TYPE_APT, "Apartamento", 140000f, true));
+        listImoveis.add(new Imovel(3, Imovel.TYPE_LOT, "Lote caro", 140000f, true));
+        listImoveis.add(new Imovel(4, Imovel.TYPE_SITIAR, "Sítio do Picapau Amarelo", 140000f, true));
+        listImoveis.add(new Imovel(5, Imovel.TYPE_RANCH_MANSION, "Mansão foda", 140000f, true));
+        
+        listCorretores.add(new Comissionado(152, "--", 2.3f));
+        listCorretores.add(new Comissionado(152, "Gabriel Roriz", 2.3f));
+        listCorretores.add(new Comissionado(153, "Luan Santana", 1f));
+        listCorretores.add(new Contratado(154, "Douglas da Silva", 1f));
+        listCorretores.add(new Contratado(155, "Corretor Ninja", 1f));
+    }
 }

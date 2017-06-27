@@ -42,7 +42,11 @@ public abstract class Corretor implements recebeSalario{
 
     public void setListaDeVendas(ArrayList<Venda> listaDeVendas) {
         this.listaDeVendas = listaDeVendas;
-    }  
+    }
+    
+    public String toString(){
+        return getNome();
+    }
 }
 
 interface recebeSalario{
