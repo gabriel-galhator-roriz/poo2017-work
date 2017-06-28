@@ -13,11 +13,11 @@ import javax.swing.JPanel;
  *
  * @author khazyer
  */
-public class RelatorioFaturaScreen implements ActionListener, FechamentoTelas {
+public class RelatorioCorretores implements ActionListener, FechamentoTelas {
 
     JPanel pFaturaPorCorretor;
 
-    public RelatorioFaturaScreen() {
+    public RelatorioCorretores() {
         pFaturaPorCorretor = new JPanel();
     }
 

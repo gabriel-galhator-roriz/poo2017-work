@@ -25,7 +25,7 @@ public class RelatoriosScreen implements ActionListener, FechamentoTelas {
 
     //tela de relatorio
     JTabbedPane abas;
-    JPanel pRelatorios, pFaturaTotal, pLucro, pImoveisVendidos, pImoveisEncalhados, pFaturaPorCorretor, pPagamentoPorCorretor, pCorretorDoMes;
+    JPanel pRelatorios, pFinanceiro, pLucro, pImoveisVendidos, pImoveisEncalhados, pCorretores, pPagamentoPorCorretor, pCorretorDoMes;
 
     public RelatoriosScreen() {
         //pega dados sobre o tamanho da tela
@@ -33,21 +33,15 @@ public class RelatoriosScreen implements ActionListener, FechamentoTelas {
         dimensao = tk.getScreenSize();
         //configura abas relatorios
         abas = new JTabbedPane();
-        this.faturaTotal();
-        this.lucro();
+        this.financeiro();
         this.imoveisVendidos();
         this.imoveisEncalhados();
-        this.faturaPorCorretor();
-        this.pagamentoPorCorretor();
-        this.corretorDoMes();
+        this.corretores();
         pRelatorios = new JPanel();
-        abas.add("Fatura Total", pFaturaTotal);
-        abas.add("Lucro", pLucro);
+        abas.add("Finaceiro", pFinanceiro);
         abas.add("Imóveis Vendidos", pImoveisVendidos);
         abas.add("Imóveis Encalhados", pImoveisEncalhados);
-        abas.add("Faturamento por Corretor", pFaturaPorCorretor);
-        abas.add("Pagamento por Corretor", pPagamentoPorCorretor);
-        abas.add("Corretor do Mês", pCorretorDoMes);
+        abas.add("Corretores", pCorretores);
         pRelatorios.add(abas);
     }
 
@@ -55,20 +49,14 @@ public class RelatoriosScreen implements ActionListener, FechamentoTelas {
         return pRelatorios;
     }
 
-    public void faturaTotal() {
-        RelatorioFaturaTotalScreen faturaTotalPanel = new RelatorioFaturaTotalScreen();
-        pFaturaTotal = faturaTotalPanel.getpFaturaTotal();
-        pFaturaTotal.setPreferredSize(dimensao);
-    }
-
-    public void lucro() {
-        RelatorioLucroScreen lucroPanel = new RelatorioLucroScreen();
-        pLucro = lucroPanel.getpLucro();
-        pLucro.setPreferredSize(dimensao);
+    public void financeiro() {
+        RelatorioFinanceiro financeiro = new RelatorioFinanceiro();
+        pFinanceiro = financeiro.getpFaturaTotal();
+        pFinanceiro.setPreferredSize(dimensao);
     }
 
     public void imoveisVendidos() {
-        RelatorioImoveisVendidosScreen imoveisVendidosPanel = new RelatorioImoveisVendidosScreen();
+        RelatorioImoveisVendidos imoveisVendidosPanel = new RelatorioImoveisVendidos();
         pImoveisVendidos = imoveisVendidosPanel.getpImoveisVendidos();
         pImoveisVendidos.setPreferredSize(dimensao);
     }
@@ -79,22 +67,10 @@ public class RelatoriosScreen implements ActionListener, FechamentoTelas {
         pImoveisEncalhados.setPreferredSize(dimensao);
     }
 
-    public void faturaPorCorretor() {
-        RelatorioFaturaScreen faturaPanel = new RelatorioFaturaScreen();
-        pFaturaPorCorretor = faturaPanel.getpFaturaPorCorretor();
-        pFaturaPorCorretor.setPreferredSize(dimensao);
-    }
-
-    public void pagamentoPorCorretor() {
-        RelatorioPagamento pagamentoCorretorPanel = new RelatorioPagamento();
-        pPagamentoPorCorretor = pagamentoCorretorPanel.getpFaturaPorCorretor();
-        pPagamentoPorCorretor.setPreferredSize(dimensao);
-    }
-
-    public void corretorDoMes() {
-        RelatorioCorretorDoMes corretorDoMesPanel = new RelatorioCorretorDoMes();
-        pCorretorDoMes = corretorDoMesPanel.getpCorretorDoMes();
-        pCorretorDoMes.setPreferredSize(dimensao);
+    public void corretores() {
+        RelatorioCorretores corretores = new RelatorioCorretores();
+        pCorretores = corretores.getpFaturaPorCorretor();
+        pCorretores.setPreferredSize(dimensao);
     }
 
     @Override
