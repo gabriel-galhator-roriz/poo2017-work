@@ -211,6 +211,6 @@ public class CadastroCorretorScreen implements FechamentoTelas {
 
     @Override
     public void abrirTela() {
-        //
+        clearFields();
     }
 }

@@ -191,7 +191,7 @@ public class CadastroImovelScreen implements FechamentoTelas {
         return tPreco.getText();
     }
     
-    public Object getDescricao() {
+    public String getDescricao() {
         return textArea.getText();
     }
     
@@ -207,6 +207,6 @@ public class CadastroImovelScreen implements FechamentoTelas {
 
     @Override
     public void abrirTela() {
-        //
+        clearFields();
     }
 }

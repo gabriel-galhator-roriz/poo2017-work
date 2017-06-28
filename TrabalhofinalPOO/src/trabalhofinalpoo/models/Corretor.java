@@ -46,7 +46,7 @@ public abstract class Corretor implements recebeSalario, Serializable{
     }
     
     public String toString(){
-        return getNome();
+        return String.valueOf(getNumeroCRECI());
     }
 }
 

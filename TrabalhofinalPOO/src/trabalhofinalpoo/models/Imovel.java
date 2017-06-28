@@ -5,13 +5,14 @@
  */
 package trabalhofinalpoo.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author gabrielroriz
  */
 
-public class Imovel {
+public class Imovel implements Serializable{
    
    public static final int TYPE_NULL = 0; //CASA
    public static final int TYPE_HOME = 1; //CASA
@@ -32,7 +33,7 @@ public class Imovel {
    public static final String TYPE_FARM_STRING = "Fazenda";
    
    
-   int codigo;
+   Long codigo;
    
    int tipo;
    
@@ -50,7 +51,7 @@ public class Imovel {
        
    }
 
-    public Imovel(int codigo, int tipo, String descricao, float preço, boolean disponibilidade) {
+    public Imovel(Long codigo, int tipo, String descricao, float preço, boolean disponibilidade) {
         this.codigo = codigo;
         this.tipo = tipo;
         this.descricao = descricao;
@@ -58,11 +59,11 @@ public class Imovel {
         this.disponibilidade = disponibilidade;
     }
 
-    public int getCodigo(){
+    public Long getCodigo(){
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -188,6 +189,6 @@ public class Imovel {
    
     
     public String toString(){
-        return getDescricao();
+        return String.valueOf(getCodigo());
     }
 }

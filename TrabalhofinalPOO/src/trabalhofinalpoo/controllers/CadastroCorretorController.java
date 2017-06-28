@@ -120,7 +120,6 @@ public class CadastroCorretorController implements ActionListener, Serializable{
     
     public boolean validateSalarioFixo(){
         
-        
         if(!view.getSalarioFixo().equals("")){
             try {
                 System.out.println(view.getSalarioFixo());

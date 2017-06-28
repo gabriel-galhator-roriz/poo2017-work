@@ -303,17 +303,17 @@ public class ConsultaImoveisScreen implements FechamentoTelas {
     }
     
     public void createTemporaryImoveis(){
-            listImoveis.add(new Imovel(0, Imovel.TYPE_NULL, "--", 14000f, true));
-            listImoveis.add(new Imovel(1, Imovel.TYPE_COMMERCIAL_ROOM, "Sala comercial bilionária", 140000f, true));
-            listImoveis.add(new Imovel(2, Imovel.TYPE_LOT, "LOTE", 345000f, true));
-            listImoveis.add(new Imovel(4, Imovel.TYPE_APT, "APT", 15f, true));
-            listImoveis.add(new Imovel(5, Imovel.TYPE_APT, "Mansão foda", 9f, true));
+            listImoveis.add(new Imovel(0l, Imovel.TYPE_NULL, "--", 14000f, true));
+            listImoveis.add(new Imovel(1l, Imovel.TYPE_COMMERCIAL_ROOM, "Sala comercial bilionária", 140000f, true));
+            listImoveis.add(new Imovel(2l, Imovel.TYPE_LOT, "LOTE", 345000f, true));
+            listImoveis.add(new Imovel(4l, Imovel.TYPE_APT, "APT", 15f, true));
+            listImoveis.add(new Imovel(5l, Imovel.TYPE_APT, "Mansão foda", 9f, true));
     }
     
     public void showImovel(int index) {
         if(pEdit.isVisible() && index != -1){
             Imovel imovel = showedImoveis.get(index);
-            textCod.setText(Integer.toString(imovel.getCodigo()));
+            textCod.setText(Long.toString(imovel.getCodigo()));
             textPreco.setText(Float.toString(imovel.getPreço()));
             textArea2.setText(imovel.getDescricao());
             comboBoxTipoEditModel.removeAllElements();
@@ -385,6 +385,6 @@ public class ConsultaImoveisScreen implements FechamentoTelas {
 
     @Override
     public void abrirTela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
