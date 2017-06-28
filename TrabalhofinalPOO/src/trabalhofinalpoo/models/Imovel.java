@@ -12,7 +12,8 @@ import java.util.Date;
  */
 
 public class Imovel {
-    
+   
+   public static final int TYPE_NULL = 0; //CASA
    public static final int TYPE_HOME = 1; //CASA
    public static final int TYPE_APT = 2; //APARTAMENTO
    public static final int TYPE_COMMERCIAL_ROOM = 3; //SALA COMERCIAL
@@ -21,6 +22,7 @@ public class Imovel {
    public static final int TYPE_SITIAR = 6; //SÍTIO
    public static final int TYPE_FARM = 7; //FAZENDA
    
+   public static final String TYPE_NULL_STRING = "--";
    public static final String TYPE_HOME_STRING = "Casa";
    public static final String TYPE_APT_STRING = "Apartamento";
    public static final String TYPE_COMMERCIAL_ROOM_STRING = "Sala Comercial";
@@ -76,6 +78,11 @@ public class Imovel {
         String returnString = "";
         
         switch(tipo){
+            
+            case TYPE_NULL:
+                returnString = TYPE_NULL_STRING;
+                break;
+                
             case TYPE_HOME: //CASA
                 returnString = TYPE_HOME_STRING;
                 break;

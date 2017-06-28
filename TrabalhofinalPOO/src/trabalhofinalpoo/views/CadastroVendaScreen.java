@@ -121,6 +121,16 @@ public class CadastroVendaScreen implements FechamentoTelas {
         pCad.add(labelMensagem, c);
         pCadVenda.add(pCad, BorderLayout.PAGE_START);
     }
+    
+    public void setImovel(Imovel imovel){
+       
+        for(Imovel iMOVEL : listImoveis){
+            if(iMOVEL.getCodigo() == imovel.getCodigo()){
+                //System.out.println("CAIU AQUI!!");
+                //boxImovel.setSelectedItem(iMOVEL);      
+            }
+        }
+    }
 
     public String getNomeComprador() {
         return textNomeComprador.getText();

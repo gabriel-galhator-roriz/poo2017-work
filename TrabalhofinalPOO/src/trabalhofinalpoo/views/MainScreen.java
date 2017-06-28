@@ -120,7 +120,7 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener,
     }
 
     public void conImoveis() {
-        conImoveisPanel = new ConsultaImoveisScreen();
+        conImoveisPanel = new ConsultaImoveisScreen(this);
         pConImoveis = conImoveisPanel.getpConImoveis();
     }
 
@@ -132,6 +132,14 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener,
     public void relatorios() {
         relatoriosPanel = new RelatoriosScreen();
         pRelatorios = relatoriosPanel.getpRelatorios();
+    }
+    
+    public void callTelaDeVenda(Imovel imovel){
+           this.fecharTela();
+           layout.show(pScreen, "cadVenda");
+           cadVendaPanel.setImovel(imovel);
+           
+           
     }
 
     @Override

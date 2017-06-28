@@ -7,6 +7,7 @@ import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import trabalhofinalpoo.models.Imovel;
@@ -46,6 +47,9 @@ public class ConsultaImoveisController implements ActionListener, ListSelectionL
             if(aux.getText().equals(ConsultaImoveisScreen.BUTTON_RESTAURAR)){
                 buttonRestaurarClicked();
             }
+            if(aux.getText().equals(ConsultaImoveisScreen.BUTTON_REMOVE)){
+                buttonRemoveClicked();
+            }
         }
     }
     
@@ -54,20 +58,40 @@ public class ConsultaImoveisController implements ActionListener, ListSelectionL
         view.showOnlySpecificTipo(item);
     }
     
-    public void comboBoxTipoEditChanged(){
-        view.showMessageConsulta("comboBoxTipoEditChanged", false);
-    }
+    public void comboBoxTipoEditChanged(){ }
     
     public void buttonVenderClicked(){
-        view.showMessageConsulta("venderClicked", false);
+        if(view.getSelectedItemList() >= 0){
+            view.callTelaDeVenda();
+        } else {
+            view.showMessageConsulta("Selecione um imóvel para vendê-lo.", true);
+        }
+        
     }
     
     public void buttonSalvarClicked() {
-        view.showMessageEdit("buttonSalvarClicked", false);
+        if(validateImovelInfo()){
+            view.showMessageEdit("Imóvel editado com sucesso!", false);   
+        }
     }
 
     public void buttonRestaurarClicked() {
         view.showImovel(indexListSelected);
+    }
+    
+    private void buttonRemoveClicked() {
+        if(view.getSelectedItemList() >= 0){
+            
+           int dialogResult = JOptionPane.showConfirmDialog(null, "Você tem certeza que deseja remover o Imóvel?", "Atenção!",  JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                   
+                view.removeSelectedItem();
+                //remover aqui
+                view.showMessageConsulta("Remoção realizada com sucesso!", false);
+            }
+        } else {
+            view.showMessageConsulta("Selecione um imóvel para removê-lo.", true);
+        }
     }
 
     @Override
@@ -77,7 +101,6 @@ public class ConsultaImoveisController implements ActionListener, ListSelectionL
         
         view.changeVisibleEdit(true);
         view.showImovel(indexListSelected);
-        view.showMessageConsulta(Integer.toString(aux.getSelectedIndex()), true);
     } 
     
      public ArrayList<String> getAvailableImovelCategories(ArrayList<Imovel> listImoveis){
@@ -99,4 +122,29 @@ public class ConsultaImoveisController implements ActionListener, ListSelectionL
             
         return categoriesString;
     }
+     
+    public boolean validateImovelInfo(){
+        
+        if(view.getDescription().equals("")){
+            view.showMessageEdit("Digite uma descrição.", true);
+            return false;
+        }
+        
+        //valida campo preço 
+        if(!view.getPreço().equals("")){
+            try {
+                float preço = Float.parseFloat(view.getPreço());
+            } catch (NumberFormatException ex) {    
+                view.showMessageEdit("Digite um preço válido.", true);
+                return false;
+            }
+        } else {
+            view.showMessageEdit("Digite um preço.", true);
+            return false;
+        }
+        
+        
+        return true;
+    }
+        
 }
