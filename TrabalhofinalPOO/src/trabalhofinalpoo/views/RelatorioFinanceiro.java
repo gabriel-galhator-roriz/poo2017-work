@@ -5,6 +5,7 @@
  */
 package trabalhofinalpoo.views;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
@@ -13,16 +14,25 @@ import javax.swing.JPanel;
  *
  * @author khazyer
  */
-public class RelatorioFaturaScreen implements ActionListener, FechamentoTelas {
+public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
 
-    JPanel pFaturaPorCorretor;
+    JPanel pFinanceiro,pConf;
+    GridBagConstraints c;
 
-    public RelatorioFaturaScreen() {
-        pFaturaPorCorretor = new JPanel();
+    public RelatorioFinanceiro() {
+        pFinanceiro = new JPanel();
+        pFinanceiro.setLayout(new BorderLayout());
+        pConf = new JPanel(new GridBagLayout());
+        c.ipadx = 0;
+        c.ipady = 0;
+        c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções
+        c.insets = new Insets(10, 10, 10, 10);
+        
+        
     }
 
-    public JPanel getpFaturaPorCorretor() {
-        return pFaturaPorCorretor;
+    public JPanel getpFaturaTotal() {
+        return pFinanceiro;
     }
 
     @Override
@@ -32,7 +42,7 @@ public class RelatorioFaturaScreen implements ActionListener, FechamentoTelas {
 
     @Override
     public void closeTela() {
-        System.out.println("saiu da tela Relatorio faturas screen");
+        System.out.println("saiu da tela Relatoio financeiro");
     }
 
     @Override

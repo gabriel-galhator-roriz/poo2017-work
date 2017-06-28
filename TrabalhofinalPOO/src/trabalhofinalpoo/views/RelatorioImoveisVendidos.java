@@ -24,30 +24,41 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+import trabalhofinalpoo.controllers.ConsultaImoveisController;
+import trabalhofinalpoo.models.DateLabelFormatter;
+import trabalhofinalpoo.models.Imovel;
+import static trabalhofinalpoo.views.ConsultaImoveisScreen.BUTTON_REMOVE;
+import static trabalhofinalpoo.views.ConsultaImoveisScreen.BUTTON_RESTAURAR;
+import static trabalhofinalpoo.views.ConsultaImoveisScreen.BUTTON_SALVAR;
+import static trabalhofinalpoo.views.ConsultaImoveisScreen.BUTTON_VENDER;
+import static trabalhofinalpoo.views.ConsultaImoveisScreen.COMBOBOX_TIPOS_CONSULTA;
 import static trabalhofinalpoo.views.ConsultaImoveisScreen.COMBOBOX_TIPOS_EDIT;
 
 /**
  *
  * @author khazyer
  */
-public class RelatorioImoveisEncalhadosScreen implements FechamentoTelas {
+public class RelatorioImoveisVendidos implements FechamentoTelas {
 
-    JPanel pImoveisEncalhados, pOrganize, pConsulta, pEdit;
+    JPanel pImoveisVendidos, pOrganize, pConsulta, pEdit;
     JLabel labelConsulta, lLista, labelImovel, labelMensagemConsulta, labelMensagemEdit, lTipo1, lTipo2, lCod, lDesc, lPreco, lDate, lMes, lAno;
     JTextField textCod, textPreco, textData, textMes, textAno;
     JTextArea textArea2;
+    JButton buscar;
     JScrollPane scrollPane1, scrollPane2;
     JComboBox box2;
-    JButton buscar;
     DefaultComboBoxModel comboBoxTipoEditModel, comboBoxTipoConsultaModel;
     JList lista;
     DefaultListModel itensLista;
     GridBagConstraints c;
 
-    public RelatorioImoveisEncalhadosScreen() {
+    public RelatorioImoveisVendidos() {
         //controller = new ConsultaImoveisController(this);
 
-        pImoveisEncalhados = new JPanel(new BorderLayout());
+        pImoveisVendidos = new JPanel(new BorderLayout());
         pOrganize = new JPanel(new GridBagLayout());
         c = new GridBagConstraints();
         instanceConsulta();
@@ -60,7 +71,7 @@ public class RelatorioImoveisEncalhadosScreen implements FechamentoTelas {
         c.gridwidth = 4;
         c.gridx = 0;
         c.gridy = 0;
-        labelConsulta = new JLabel("Imóveis Encalhados");
+        labelConsulta = new JLabel("Imóveis Vendidos");
         labelConsulta.setHorizontalAlignment(JLabel.CENTER);
         pOrganize.add(labelConsulta, c);
 
@@ -97,11 +108,7 @@ public class RelatorioImoveisEncalhadosScreen implements FechamentoTelas {
         c.gridx = 2;
         pOrganize.add(pEdit, c);
 
-        pImoveisEncalhados.add(pOrganize, BorderLayout.PAGE_START);
-    }
-
-    public JPanel getpImoveisEncalhados() {
-        return pImoveisEncalhados;
+        pImoveisVendidos.add(pOrganize, BorderLayout.PAGE_START);
     }
 
     public void instanceConsulta() {
@@ -217,7 +224,7 @@ public class RelatorioImoveisEncalhadosScreen implements FechamentoTelas {
     }
 
     public JPanel getpConImoveis() {
-        return pImoveisEncalhados;
+        return pImoveisVendidos;
     }
 
     public void showMessageConsulta(String message, boolean isError) {
@@ -251,8 +258,7 @@ public class RelatorioImoveisEncalhadosScreen implements FechamentoTelas {
 
     }
 
-    @Override
-    public void abrirTela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    JPanel getpImoveisVendidos() {
+        return pImoveisVendidos;
     }
 }
