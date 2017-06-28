@@ -52,7 +52,6 @@ public class ConsultaImoveisScreen implements FechamentoTelas {
     JDatePanelImpl datePanel;
     JDatePickerImpl datePicker;
 
-
     private ConsultaImoveisController controller;
     private ArrayList<Imovel> listImoveis = new ArrayList<Imovel>();
     private ArrayList<Imovel> showedImoveis = new ArrayList<Imovel>();
@@ -304,10 +303,10 @@ public class ConsultaImoveisScreen implements FechamentoTelas {
     
     public void createTemporaryImoveis(){
             listImoveis.add(new Imovel(0l, Imovel.TYPE_NULL, "--", 14000f, true));
-            listImoveis.add(new Imovel(1l, Imovel.TYPE_COMMERCIAL_ROOM, "Sala comercial bilionária", 140000f, true));
-            listImoveis.add(new Imovel(2l, Imovel.TYPE_LOT, "LOTE", 345000f, true));
-            listImoveis.add(new Imovel(4l, Imovel.TYPE_APT, "APT", 15f, true));
-            listImoveis.add(new Imovel(5l, Imovel.TYPE_APT, "Mansão foda", 9f, true));
+            listImoveis.add(new Imovel(1l, Imovel.TYPE_COMMERCIAL_ROOM, "Sala comercial Av. Paulista", 140000f, true));
+            listImoveis.add(new Imovel(2l, Imovel.TYPE_LOT, "Lote 40m", 345000f, true));
+            listImoveis.add(new Imovel(4l, Imovel.TYPE_APT, "Apartamento Atmosfera", 15f, true));
+            listImoveis.add(new Imovel(5l, Imovel.TYPE_APT, "Mansão Terraço", 9f, true));
     }
     
     public void showImovel(int index) {
