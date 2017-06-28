@@ -136,7 +136,7 @@ public class LoginScreen extends JFrame implements ActionListener, Serializable,
     public void carregaMain() {
         if (verifyUserAcc(campoNome.getText(), campoSenha.getText())) {
             this.setVisible(false);
-            main = new MainScreen();
+            main = new MainScreen(campoNome.getText());
         } else {
             JOptionPane.showMessageDialog(null, "Usuário ou senha inválido");
         }

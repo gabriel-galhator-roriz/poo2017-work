@@ -19,12 +19,13 @@ import trabalhofinalpoo.models.Imovel;
 public class MainScreen extends JFrame implements ActionListener, MouseListener, FechamentoTelas {
 
     //componentes tela principal
-    JPanel mainP, pScreen, pCadImovel, pCadCorretor, pCadVenda, pConImoveis, pPagamentos, pRelatorios;
+    JPanel mainP, pScreen, pCadImovel, pCadCorretor, pCadVenda, pConImoveis, pPagamentos, pRelatorios, pHome;
     JMenuBar menuBar;
-    JMenu cadastra, consultar, pagamentos, relatorios;
+    JMenu home, cadastra, consultar, pagamentos, relatorios;
     JMenuItem cadImovel, cadCorretor, cadVenda, conImoveis;
     CardLayout layout;
     //clases das views
+    HomeScreen homePanel;
     CadastroImovelScreen cadImovelPanel;
     CadastroCorretorScreen cadCorretorPanel;
     CadastroVendaScreen cadVendaPanel;
@@ -32,11 +33,11 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener,
     PagamentosScreen pagamentosPanel;
     RelatoriosScreen relatoriosPanel;
 
-    public MainScreen() {
-        mainScreen();
+    public MainScreen(String user) {
+        mainScreen(user);
     }
 
-    public void mainScreen() {
+    public void mainScreen(String user) {
         layout = new CardLayout();
         pScreen = new JPanel();
         pScreen.setLayout(layout);
@@ -44,6 +45,9 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener,
         mainP.setLayout(new BorderLayout());
         menuBar = new JMenuBar();
         this.setJMenuBar(menuBar);
+        home = new JMenu("Home", true);
+        home.addMouseListener(this);
+        menuBar.add(home);
         cadastra = new JMenu("Cadastrar", true);
         menuBar.add(cadastra);
         cadImovel = new JMenuItem("Imóvel");
@@ -68,19 +72,21 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener,
         menuBar.add(relatorios);
         mainP.add(menuBar, BorderLayout.PAGE_START);
         //configura card layout
+        this.home(user);
         this.cadCorretor();
         this.cadImovel();
         this.cadVenda();
         this.conImoveis();
         this.pagamentos();
         this.relatorios();
-        pScreen.add(pCadImovel, "cadImovel");//index = 0
-        pScreen.add(pCadCorretor, "cadCorretor");//index = 1
-        pScreen.add(pCadVenda, "cadVenda");//index = 2
-        pScreen.add(pConImoveis, "conImoveis");//index = 3
-        pScreen.add(pPagamentos, "pagamentos");//index = 4
-        pScreen.add(pRelatorios, "relatorios");//index = 5
-        mainP.add(pScreen, BorderLayout.CENTER);//index = 6
+        pScreen.add(pHome, "home");//index = 0
+        pScreen.add(pCadImovel, "cadImovel");//index = 1
+        pScreen.add(pCadCorretor, "cadCorretor");//index = 2
+        pScreen.add(pCadVenda, "cadVenda");//index = 3
+        pScreen.add(pConImoveis, "conImoveis");//index = 4
+        pScreen.add(pPagamentos, "pagamentos");//index = 5
+        pScreen.add(pRelatorios, "relatorios");//index = 6
+        mainP.add(pScreen, BorderLayout.CENTER);//index = 7
 
         //configuraJFrame
         this.setMinimumSize(new Dimension(800, 600));
@@ -89,6 +95,11 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener,
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+    }
+
+    public void home(String user) {
+        homePanel = new HomeScreen(user);
+        pHome = homePanel.getHome();
     }
 
     public void cadImovel() {
@@ -168,6 +179,10 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener,
     public void mousePressed(MouseEvent e) {
         JMenu aux = (JMenu) e.getSource();
         switch (aux.getText()) {
+            case "Home":
+                this.fecharTela();
+                layout.show(pScreen, "home");
+                break;
             case "Pagamentos":
                 this.fecharTela();
                 layout.show(pScreen, "pagamentos");
@@ -208,22 +223,27 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener,
         }
         switch (indice) {
             case 0:
-                cadImovelPanel.closeTela();
+                homePanel.closeTela();
                 break;
             case 1:
-                cadCorretorPanel.closeTela();
+                cadImovelPanel.closeTela();
                 break;
             case 2:
-                cadVendaPanel.closeTela();
+                cadCorretorPanel.closeTela();
                 break;
             case 3:
-                conImoveisPanel.closeTela();
+                cadVendaPanel.closeTela();
                 break;
             case 4:
-                pagamentosPanel.closeTela();
+                conImoveisPanel.closeTela();
                 break;
             case 5:
+                pagamentosPanel.closeTela();
+                break;
+            case 6:
                 relatoriosPanel.closeTela();
+                break;
+            default:
                 break;
         }
     }
