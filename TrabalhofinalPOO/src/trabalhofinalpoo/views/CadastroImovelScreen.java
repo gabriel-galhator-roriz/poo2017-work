@@ -46,7 +46,6 @@ public class CadastroImovelScreen {
     }
 
     public void instanceView() {
-
         pCadImovel = new JPanel();
         pCadImovel.setLayout(new BorderLayout());
         //Painel do Cadastro de Imovel        
