@@ -15,9 +15,8 @@ import javax.swing.JPanel;
  *
  * @author khazyer
  */
-public class RelatorioCorretorDoMes implements ActionListener {
+public class RelatorioCorretorDoMes implements ActionListener, FechamentoTelas {
 
-    
     JPanel pCorretorDoMes;
 
     public RelatorioCorretorDoMes() {
@@ -31,6 +30,11 @@ public class RelatorioCorretorDoMes implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    @Override
+    public void closeTela() {
+        System.out.println("saiu da tela Relatorio corretor do mes");
     }
 
 }

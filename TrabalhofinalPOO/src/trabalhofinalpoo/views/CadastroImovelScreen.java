@@ -23,12 +23,12 @@ import trabalhofinalpoo.models.DateLabelFormatter;
  *
  * @author khazyer
  */
-public class CadastroImovelScreen {
-
+public class CadastroImovelScreen implements FechamentoTelas {
+    
     public static String BUTTON_CLEAR = "Limpar";
     
     public static final String BUTTON_SAVE = "Salvar";
-
+    
     JPanel pCadImovel, imov;
     JLabel labelImovel, local, iCod, iTipo, iDesc, iPreco, iDate, labelMensagem;
     JTextField tCod, tPreco, tDia, tMes, tAno;
@@ -36,15 +36,19 @@ public class CadastroImovelScreen {
     JComboBox iJB;
     JTextArea textArea;
     JScrollPane scrollPane;
+    UtilDateModel model;
+    Properties p;
+    JDatePanelImpl datePanel;
+    JDatePickerImpl datePicker;
     String str[] = {"--", "Apartamento", "Sala Comercial", "Lote", "Chácara", "Sítio", "Fazenda"};
-
+    
     CadastroImovelController controller;
-
+    
     public CadastroImovelScreen() {
         controller = new CadastroImovelController(this);
         instanceView();
     }
-
+    
     public void instanceView() {
         pCadImovel = new JPanel();
         pCadImovel.setLayout(new BorderLayout());
@@ -56,14 +60,14 @@ public class CadastroImovelScreen {
         i.fill = GridBagConstraints.BOTH;
         i.insets = new Insets(10, 10, 10, 10);
         i.ipadx = 150;
-
+        
         i.gridx = 0;
         i.gridy = 0;
         i.gridwidth = 4;
         labelImovel = new JLabel("Cadastro de Imóvel");
         labelImovel.setHorizontalAlignment(JLabel.CENTER);
         imov.add(labelImovel, i);
-
+        
         i.gridx = 0;
         i.gridy++;
         i.gridwidth = 2;
@@ -74,7 +78,7 @@ public class CadastroImovelScreen {
         i.gridx = 2;
         i.ipadx = 150;
         imov.add(iTipo, i);
-
+        
         tCod = new JTextField(20);
         i.gridx = 0;
         i.gridy++;
@@ -84,7 +88,7 @@ public class CadastroImovelScreen {
         i.gridx = 2;
         i.ipadx = 150;
         imov.add(iJB, i);
-
+        
         iDesc = new JLabel("Descrição:");
         i.gridx = 0;
         i.gridy++;
@@ -100,7 +104,7 @@ public class CadastroImovelScreen {
         i.ipady = 50;
         imov.add(scrollPane, i);
         i.ipady = 0;
-
+        
         iPreco = new JLabel("Preço:");
         i.gridx = 0;
         i.gridy++;
@@ -112,25 +116,25 @@ public class CadastroImovelScreen {
         i.gridwidth = 3;
         i.ipadx = 150;
         imov.add(tPreco, i);
-
+        
         iDate = new JLabel("Data:");
         i.gridx = 0;
         i.gridy++;
         i.gridwidth = 1;
         i.ipadx = 100;
         imov.add(iDate, i);
-        UtilDateModel model = new UtilDateModel();
-        Properties p = new Properties();
+        model = new UtilDateModel();
+        p = new Properties();
         p.put("text.today", "Today");
         p.put("text.month", "Month");
         p.put("text.year", "Year");
-        JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+        datePanel = new JDatePanelImpl(model, p);
+        datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
         i.gridx = 1;
         i.gridwidth = 3;
         i.ipadx = 150;
         imov.add(datePicker, i);
-
+        
         limpar = new JButton(BUTTON_CLEAR);
         limpar.addActionListener(controller);
         i.gridx = 0;
@@ -143,7 +147,7 @@ public class CadastroImovelScreen {
         i.gridx = 2;
         i.ipadx = 150;
         imov.add(b1, i);
-
+        
         labelMensagem = new JLabel();
         labelMensagem.setHorizontalAlignment(JLabel.CENTER);
         i.gridy = +15;
@@ -151,7 +155,7 @@ public class CadastroImovelScreen {
         i.gridwidth = 4;
         imov.add(labelMensagem, i);
     }
-
+    
     public JPanel getPanel() {
         return pCadImovel;
     }
@@ -173,25 +177,31 @@ public class CadastroImovelScreen {
         }
         labelMensagem.setText(message);
     }
-
+    
     public String getTipo() {
-          if(iJB.getSelectedItem().toString().equals("--")){
+        if (iJB.getSelectedItem().toString().equals("--")) {
             return null;
             
         } else {
             return iJB.getSelectedItem().toString();
         }
     }
-
+    
     public String getPreço() {
         return tPreco.getText();
     }
-
+    
     public Object getDescricao() {
         return textArea.getText();
     }
-
+    
     public String getCodigo() {
         return tCod.getText();
+    }
+    
+    @Override
+    public void closeTela() {
+        datePicker.setVisible(false);
+        System.out.println("saiu da tela cadastro imovel screen");
     }
 }
