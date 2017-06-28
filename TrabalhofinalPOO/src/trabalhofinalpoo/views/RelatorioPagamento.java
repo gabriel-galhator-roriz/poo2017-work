@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  *
  * @author khazyer
  */
-public class RelatorioPagamento implements ActionListener {
+public class RelatorioPagamento implements ActionListener, FechamentoTelas {
 
     JPanel pFaturaPorCorretor;
 
@@ -28,6 +28,11 @@ public class RelatorioPagamento implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    @Override
+    public void closeTela() {
+        System.out.println("saiu da tela Relatorio pagamentos");
     }
 
 }

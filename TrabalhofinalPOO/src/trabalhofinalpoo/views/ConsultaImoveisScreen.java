@@ -18,8 +18,8 @@ import trabalhofinalpoo.models.DateLabelFormatter;
  *
  * @author khazyer
  */
-public class ConsultaImoveisScreen {
-
+public class ConsultaImoveisScreen implements FechamentoTelas {
+    
     JPanel pConImoveis, pOrganize, pConsulta, pEdit;
     JLabel labelConsulta, lLista, labelImovel, labelMensagem1, labelMensagem2, lTipo1, lTipo2, lCod, lDesc, lPreco, lDate;
     JTextField textCod, textPreco;
@@ -30,61 +30,61 @@ public class ConsultaImoveisScreen {
     JList lista;
     DefaultListModel itensLista;
     GridBagConstraints c;
-
+    
     UtilDateModel model;
     JDatePanelImpl datePanel;
     JDatePickerImpl datePicker;
-
+    
     String str[] = {"Apartamento", "Sala Comercial", "Lote", "Chácara", "Sítio", "Fazenda"};
-
+    
     public ConsultaImoveisScreen() {
         pConImoveis = new JPanel(new BorderLayout());
         pOrganize = new JPanel(new GridBagLayout());
         c = new GridBagConstraints();
         this.instanceConsulta();
         this.instanceEdit();
-
+        
         c.ipadx = 0;
         c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções
         c.insets = new Insets(10, 10, 10, 10);
-
+        
         c.gridwidth = 2;
         c.gridx = 0;
         c.gridy = 0;
         labelConsulta = new JLabel("Consulta Imóveis");
         labelConsulta.setHorizontalAlignment(JLabel.CENTER);
         pOrganize.add(labelConsulta, c);
-
+        
         c.gridx = 0;
         c.gridy++;
         c.gridwidth = 1;
         pOrganize.add(pConsulta, c);
         c.gridx = 1;
         pOrganize.add(pEdit, c);
-
+        
         pConImoveis.add(pOrganize, BorderLayout.PAGE_START);
     }
-
+    
     public void instanceConsulta() {
         pConsulta = new JPanel(new GridBagLayout());
         c.ipadx = 150;
         c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções
         c.insets = new Insets(10, 10, 10, 10);
-
+        
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 2;
         lTipo1 = new JLabel("Tipo:");
         pConsulta.add(lTipo1, c);
-
+        
         c.gridy++;
         box1 = new JComboBox(str);
         pConsulta.add(box1, c);
-
+        
         c.gridy++;
         lLista = new JLabel("Lista Imóveis:");
         pConsulta.add(lLista, c);
-
+        
         c.gridy++;
         c.ipady = 100;
         itensLista = new DefaultListModel();
@@ -105,20 +105,20 @@ public class ConsultaImoveisScreen {
         lista.setBorder(BorderFactory.createEtchedBorder());
         scrollPane1 = new JScrollPane(lista, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         pConsulta.add(scrollPane1, c);
-
+        
         c.gridy++;
         c.ipady = 0;
         bVenda = new JButton("Vender");
         pConsulta.add(bVenda, c);
-
+        
         c.gridy++;
         c.ipady = 10;
         labelMensagem1 = new JLabel("mensagem");
         labelMensagem1.setHorizontalAlignment(JLabel.CENTER);
         pConsulta.add(labelMensagem1, c);
-
+        
     }
-
+    
     public void instanceEdit() {
         pEdit = new JPanel(new GridBagLayout());
         c.ipadx = 100;
@@ -131,14 +131,14 @@ public class ConsultaImoveisScreen {
         i.fill = GridBagConstraints.BOTH;
         i.insets = new Insets(10, 10, 10, 10);
         i.ipadx = 150;
-
+        
         i.gridx = 0;
         i.gridy = 0;
         i.gridwidth = 4;
         labelImovel = new JLabel("Editar Imóvel");
         labelImovel.setHorizontalAlignment(JLabel.CENTER);
         pEdit.add(labelImovel, i);
-
+        
         i.gridx = 0;
         i.gridy++;
         i.gridwidth = 2;
@@ -149,7 +149,7 @@ public class ConsultaImoveisScreen {
         i.gridx = 2;
         i.ipadx = 150;
         pEdit.add(lTipo2, i);
-
+        
         textCod = new JTextField(20);
         i.gridx = 0;
         i.gridy++;
@@ -159,7 +159,7 @@ public class ConsultaImoveisScreen {
         i.gridx = 2;
         i.ipadx = 150;
         pEdit.add(box2, i);
-
+        
         lDesc = new JLabel("Descrição:");
         i.gridx = 0;
         i.gridy++;
@@ -175,7 +175,7 @@ public class ConsultaImoveisScreen {
         i.ipady = 50;
         pEdit.add(scrollPane2, i);
         i.ipady = 0;
-
+        
         lPreco = new JLabel("Preço:");
         i.gridx = 0;
         i.gridy++;
@@ -187,7 +187,7 @@ public class ConsultaImoveisScreen {
         i.gridwidth = 3;
         i.ipadx = 150;
         pEdit.add(textPreco, i);
-
+        
         lDate = new JLabel("Data:");
         i.gridx = 0;
         i.gridy++;
@@ -205,7 +205,7 @@ public class ConsultaImoveisScreen {
         i.gridwidth = 3;
         i.ipadx = 150;
         pEdit.add(datePicker, i);
-
+        
         bReset = new JButton("Restaurar");
         i.gridx = 0;
         i.gridy++;
@@ -216,7 +216,7 @@ public class ConsultaImoveisScreen {
         i.gridx = 2;
         i.ipadx = 150;
         pEdit.add(bSalvar, i);
-
+        
         labelMensagem2 = new JLabel("mensagem");
         labelMensagem2.setHorizontalAlignment(JLabel.CENTER);
         i.gridy = +15;
@@ -224,9 +224,15 @@ public class ConsultaImoveisScreen {
         i.gridwidth = 4;
         pEdit.add(labelMensagem2, i);
     }
-
+    
     public JPanel getpConImoveis() {
         return pConImoveis;
     }
-
+    
+    @Override
+    public void closeTela() {
+        datePicker.setVisible(false);
+        System.out.println("saiu da tela consulta imoveis screen");
+    }
+    
 }

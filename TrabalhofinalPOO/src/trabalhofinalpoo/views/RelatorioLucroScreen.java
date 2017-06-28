@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  *
  * @author khazyer
  */
-public class RelatorioLucroScreen implements ActionListener {
+public class RelatorioLucroScreen implements ActionListener, FechamentoTelas {
 
     JPanel pLucro;
 
@@ -28,6 +28,11 @@ public class RelatorioLucroScreen implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    @Override
+    public void closeTela() {
+        System.out.println("saiu da tela Relatorio lucro screen");
     }
 
 }
