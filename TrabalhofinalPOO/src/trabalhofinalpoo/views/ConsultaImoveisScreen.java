@@ -382,4 +382,9 @@ public class ConsultaImoveisScreen implements FechamentoTelas {
     public void callTelaDeVenda(){
         main.callTelaDeVenda(showedImoveis.get(getSelectedItemList()));
     }
+
+    @Override
+    public void abrirTela() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

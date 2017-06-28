@@ -4,14 +4,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import trabalhofinalpoo.dados.Dados;
+import trabalhofinalpoo.models.Corretor;
 import trabalhofinalpoo.views.CadastroVendaScreen;
 
 public class CadastroVendaController implements ActionListener{
     
     CadastroVendaScreen view;
+    
+    Dados dados;
         
     public CadastroVendaController(CadastroVendaScreen mView) {
         view = mView;
+        dados = Dados.getInstance();
     }
 
     @Override
@@ -88,4 +93,10 @@ public class CadastroVendaController implements ActionListener{
         
         return true;
     }
+
+    public void loadDados() {
+        dados.update();
+        view.updateCorretorComboBox(dados.corretores);
+    }
+   
 }

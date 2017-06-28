@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.*;
 import trabalhofinalpoo.controllers.CadastroVendaController;
+import trabalhofinalpoo.dados.Dados;
 import trabalhofinalpoo.models.Comissionado;
 import trabalhofinalpoo.models.Contratado;
 import trabalhofinalpoo.models.Corretor;
@@ -25,6 +26,7 @@ public class CadastroVendaScreen implements FechamentoTelas {
     public static final String BUTTON_CLEAR = "Limpar";
 
     private ArrayList<Imovel> listImoveis = new ArrayList<Imovel>();
+    
     private ArrayList<Corretor> listCorretores = new ArrayList<Corretor>();
 
     JPanel pCadVenda, pCad;
@@ -179,6 +181,11 @@ public class CadastroVendaScreen implements FechamentoTelas {
         boxImovel.setSelectedItem("--");
         boxCorretor.setSelectedItem("--");
     }
+    
+    public void updateCorretorComboBox(ArrayList<Corretor> corretores){
+        DefaultComboBoxModel model = new DefaultComboBoxModel( corretores.toArray() );
+        boxCorretor.setModel(model);
+    }
 
     public void showMessage(String message, boolean isError) {
         if (isError) {
@@ -209,4 +216,9 @@ public class CadastroVendaScreen implements FechamentoTelas {
     public void closeTela() {
         System.out.println("saiu da tela cadastro vendas screen");
     }
+
+    @Override
+    public void abrirTela() {
+        controller.loadDados();
+    }    
 }

@@ -35,4 +35,9 @@ public class RelatorioImoveisEncalhadosScreen implements ActionListener, Fechame
         System.out.println("saiu da tela relatoio imoveis encalhados");
     }
 
+    @Override
+    public void abrirTela() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

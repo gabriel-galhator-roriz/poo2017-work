@@ -204,4 +204,9 @@ public class CadastroImovelScreen implements FechamentoTelas {
         datePicker.setVisible(false);
         System.out.println("saiu da tela cadastro imovel screen");
     }
+
+    @Override
+    public void abrirTela() {
+        //
+    }
 }

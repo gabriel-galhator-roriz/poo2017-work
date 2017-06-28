@@ -35,4 +35,9 @@ public class RelatorioLucroScreen implements ActionListener, FechamentoTelas {
         System.out.println("saiu da tela Relatorio lucro screen");
     }
 
+    @Override
+    public void abrirTela() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

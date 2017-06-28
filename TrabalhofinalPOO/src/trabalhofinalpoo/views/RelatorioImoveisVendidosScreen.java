@@ -35,4 +35,9 @@ public class RelatorioImoveisVendidosScreen implements ActionListener, Fechament
         System.out.println("saiu da tela Relatorio imoveis vendidos screen");
     }
 
+    @Override
+    public void abrirTela() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

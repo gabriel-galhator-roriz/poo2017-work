@@ -5,6 +5,7 @@
  */
 package trabalhofinalpoo.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import java.util.Date;  
@@ -12,7 +13,7 @@ import java.util.Date;
 /**
  * @author gabrielroriz
  */
-public abstract class Corretor implements recebeSalario{
+public abstract class Corretor implements recebeSalario, Serializable{
     
     int numeroCRECI;
     

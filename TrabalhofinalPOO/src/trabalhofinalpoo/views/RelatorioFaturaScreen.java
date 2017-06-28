@@ -35,4 +35,9 @@ public class RelatorioFaturaScreen implements ActionListener, FechamentoTelas {
         System.out.println("saiu da tela Relatorio faturas screen");
     }
 
+    @Override
+    public void abrirTela() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

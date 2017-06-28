@@ -146,4 +146,9 @@ public class PagamentosScreen implements FechamentoTelas {
         System.out.println("saiu da tela pagamentosScreen");
     }
 
+    @Override
+    public void abrirTela() {
+        //
+    }
+
 }

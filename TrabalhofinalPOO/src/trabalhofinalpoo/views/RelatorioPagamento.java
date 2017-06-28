@@ -35,4 +35,9 @@ public class RelatorioPagamento implements ActionListener, FechamentoTelas {
         System.out.println("saiu da tela Relatorio pagamentos");
     }
 
+    @Override
+    public void abrirTela() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
