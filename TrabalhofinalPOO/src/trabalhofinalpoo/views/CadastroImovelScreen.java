@@ -20,6 +20,10 @@ import trabalhofinalpoo.controllers.CadastroImovelController;
  */
 public class CadastroImovelScreen {
 
+    public static String BUTTON_CLEAR = "Limpar";
+    
+    public static final String BUTTON_SAVE = "Salvar";
+
     JPanel pCadImovel, imov;
     JLabel labelImovel, local, iCod, iTipo, iDesc, iPreco, iDate, labelMensagem;
     JTextField tCod, tPreco, tDia, tMes, tAno;
@@ -27,7 +31,7 @@ public class CadastroImovelScreen {
     JComboBox iJB;
     JTextArea textArea;
     JScrollPane scrollPane;
-    String str[] = {"Apartamento", "Sala Comercial", "Lote", "Chácara", "Sítio", "Fazenda"};
+    String str[] = {"--", "Apartamento", "Sala Comercial", "Lote", "Chácara", "Sítio", "Fazenda"};
 
     CadastroImovelController controller;
 
@@ -118,18 +122,20 @@ public class CadastroImovelScreen {
         i.ipadx = 150;
         imov.add(dateTextField, i);
 
-        limpar = new JButton("Limpar");
+        limpar = new JButton(BUTTON_CLEAR);
+        limpar.addActionListener(controller);
         i.gridx = 0;
         i.gridy++;
         i.gridwidth = 2;
         i.ipadx = 100;
         imov.add(limpar, i);
-        b1 = new JButton("Cadastrar");
+        b1 = new JButton(BUTTON_SAVE);
+        b1.addActionListener(controller);
         i.gridx = 2;
         i.ipadx = 150;
         imov.add(b1, i);
 
-        labelMensagem = new JLabel("mensagem");
+        labelMensagem = new JLabel();
         labelMensagem.setHorizontalAlignment(JLabel.CENTER);
         i.gridy = +15;
         i.gridx = 0;
@@ -139,5 +145,44 @@ public class CadastroImovelScreen {
 
     public JPanel getPanel() {
         return pCadImovel;
+    }
+    
+    public void clearFields() {
+        labelMensagem.setText("");
+        tCod.setText("");
+        tPreco.setText("");
+        textArea.setText("");
+        iJB.setSelectedItem("--");
+    }
+    
+    public void showMessage(String message, boolean isError) {
+        if (isError) {
+            labelMensagem.setForeground(Color.RED);
+        } else {
+            clearFields();
+            labelMensagem.setForeground(Color.GREEN);
+        }
+        labelMensagem.setText(message);
+    }
+
+    public String getTipo() {
+          if(iJB.getSelectedItem().toString().equals("--")){
+            return null;
+            
+        } else {
+            return iJB.getSelectedItem().toString();
+        }
+    }
+
+    public String getPreço() {
+        return tPreco.getText();
+    }
+
+    public Object getDescricao() {
+        return textArea.getText();
+    }
+
+    public String getCodigo() {
+        return tCod.getText();
     }
 }
