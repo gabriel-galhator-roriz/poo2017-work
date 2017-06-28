@@ -6,27 +6,42 @@
 package trabalhofinalpoo.views;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 import javax.swing.*;
 import javax.swing.JPanel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import trabalhofinalpoo.controllers.ConsultaImoveisController;
+import trabalhofinalpoo.models.Comissionado;
+import trabalhofinalpoo.models.Contratado;
 import trabalhofinalpoo.models.DateLabelFormatter;
+import trabalhofinalpoo.models.Imovel;
 
 /**
  *
  * @author khazyer
  */
 public class ConsultaImoveisScreen {
+    
+    public static final String COMBOBOX_TIPOS_CONSULTA = "Combo Box Tipos Consulta";
+    public static final String COMBOBOX_TIPOS_EDIT = "Combo Box Tipos Edit";
+    
+    public static final String BUTTON_VENDER = "Vender";
+    public static final String BUTTON_SALVAR = "Salvar";
+    public static final String BUTTON_RESTAURAR = "Restarurar";
+    public static final String BUTTON_REMOVE = "Remover";
 
     JPanel pConImoveis, pOrganize, pConsulta, pEdit;
-    JLabel labelConsulta, lLista, labelImovel, labelMensagem1, labelMensagem2, lTipo1, lTipo2, lCod, lDesc, lPreco, lDate;
+    JLabel labelConsulta, lLista, labelImovel, labelMensagemConsulta, labelMensagemEdit, lTipo1, lTipo2, lCod, lDesc, lPreco, lDate;
     JTextField textCod, textPreco;
     JTextArea textArea2;
     JScrollPane scrollPane1, scrollPane2;
-    JButton bReset, bSalvar, bVenda;
-    JComboBox box1, box2;
+    JButton bReset, bSalvar, bVenda, buttonRemove;
+    JComboBox boxTiposConsulta, box2;
+    DefaultComboBoxModel comboBoxTipoEditModel;
     JList lista;
     DefaultListModel itensLista;
     GridBagConstraints c;
@@ -35,14 +50,19 @@ public class ConsultaImoveisScreen {
     JDatePanelImpl datePanel;
     JDatePickerImpl datePicker;
 
-    String str[] = {"Apartamento", "Sala Comercial", "Lote", "Chácara", "Sítio", "Fazenda"};
-
+    private ConsultaImoveisController controller;
+    private ArrayList<Imovel> listImoveis = new ArrayList<Imovel>();
+    private ArrayList<Imovel> showedImoveis = new ArrayList<Imovel>();
+    
     public ConsultaImoveisScreen() {
+        createTemporaryImoveis();
+        controller = new ConsultaImoveisController(this);
+        
         pConImoveis = new JPanel(new BorderLayout());
         pOrganize = new JPanel(new GridBagLayout());
         c = new GridBagConstraints();
-        this.instanceConsulta();
-        this.instanceEdit();
+        instanceConsulta();
+        instanceEdit();
 
         c.ipadx = 0;
         c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções
@@ -78,8 +98,10 @@ public class ConsultaImoveisScreen {
         pConsulta.add(lTipo1, c);
 
         c.gridy++;
-        box1 = new JComboBox(str);
-        pConsulta.add(box1, c);
+        boxTiposConsulta = new JComboBox(controller.getAvailableImovelCategories(listImoveis).toArray());
+        boxTiposConsulta.setName(COMBOBOX_TIPOS_CONSULTA);
+        boxTiposConsulta.addActionListener(controller);
+        pConsulta.add(boxTiposConsulta, c);
 
         c.gridy++;
         lLista = new JLabel("Lista Imóveis:");
@@ -87,40 +109,40 @@ public class ConsultaImoveisScreen {
 
         c.gridy++;
         c.ipady = 100;
-        itensLista = new DefaultListModel();
-        itensLista.addElement("imóvel 1");
-        itensLista.addElement("imóvel 2");
-        itensLista.addElement("imóvel 3");
-        itensLista.addElement("imóvel 4");
-        itensLista.addElement("imóvel 5");
-        itensLista.addElement("imóvel 6");
-        itensLista.addElement("imóvel 7");
-        itensLista.addElement("imóvel 8");
-        itensLista.addElement("imóvel 9");
-        itensLista.addElement("imóvel 10");
-        itensLista.addElement("imóvel 11");
-        itensLista.addElement("imóvel 12");
-        lista = new JList(itensLista);
-        //lista.addListSelectionListener(controller);
+        lista = new JList(showedImoveis.toArray());
+        showOnlySpecificTipo(boxTiposConsulta.getSelectedItem().toString());
+        lista.addListSelectionListener(controller);
         lista.setBorder(BorderFactory.createEtchedBorder());
         scrollPane1 = new JScrollPane(lista, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         pConsulta.add(scrollPane1, c);
 
         c.gridy++;
         c.ipady = 0;
-        bVenda = new JButton("Vender");
+        c.gridx = 0;
+        c.gridwidth = 1;
+        buttonRemove = new JButton(BUTTON_REMOVE);
+        pConsulta.add(buttonRemove, c);
+        
+        c.gridx = 1;
+        bVenda = new JButton(BUTTON_VENDER);
+        bVenda.addActionListener(controller);
         pConsulta.add(bVenda, c);
+        
 
         c.gridy++;
+        c.gridwidth = 2;
+        c.gridx=0;
         c.ipady = 10;
-        labelMensagem1 = new JLabel("mensagem");
-        labelMensagem1.setHorizontalAlignment(JLabel.CENTER);
-        pConsulta.add(labelMensagem1, c);
+        labelMensagemConsulta = new JLabel("mensagem");
+        labelMensagemConsulta.setHorizontalAlignment(JLabel.CENTER);
+        pConsulta.add(labelMensagemConsulta, c);
 
     }
 
     public void instanceEdit() {
         pEdit = new JPanel(new GridBagLayout());
+        changeVisibleEdit(false);
+        
         c.ipadx = 100;
         c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções
         c.insets = new Insets(10, 10, 10, 10);
@@ -151,11 +173,15 @@ public class ConsultaImoveisScreen {
         pEdit.add(lTipo2, i);
 
         textCod = new JTextField(20);
+        textCod.setEnabled(false);
         i.gridx = 0;
         i.gridy++;
         i.ipadx = 100;
         pEdit.add(textCod, i);
-        box2 = new JComboBox(str);
+        comboBoxTipoEditModel = new DefaultComboBoxModel();
+        box2 = new JComboBox(comboBoxTipoEditModel);
+        box2.setName(COMBOBOX_TIPOS_EDIT);
+        box2.setEnabled(false);
         i.gridx = 2;
         i.ipadx = 150;
         pEdit.add(box2, i);
@@ -206,27 +232,98 @@ public class ConsultaImoveisScreen {
         i.ipadx = 150;
         pEdit.add(datePicker, i);
 
-        bReset = new JButton("Restaurar");
+        bReset = new JButton(BUTTON_RESTAURAR);
+        bReset.addActionListener(controller);
         i.gridx = 0;
         i.gridy++;
         i.gridwidth = 2;
         i.ipadx = 100;
         pEdit.add(bReset, i);
-        bSalvar = new JButton("Salvar");
+        bSalvar = new JButton(BUTTON_SALVAR);
+        bSalvar.addActionListener(controller);
         i.gridx = 2;
         i.ipadx = 150;
         pEdit.add(bSalvar, i);
 
-        labelMensagem2 = new JLabel("mensagem");
-        labelMensagem2.setHorizontalAlignment(JLabel.CENTER);
+        labelMensagemEdit = new JLabel("mensagem");
+        labelMensagemEdit.setHorizontalAlignment(JLabel.CENTER);
         i.gridy = +15;
         i.gridx = 0;
         i.gridwidth = 4;
-        pEdit.add(labelMensagem2, i);
+        pEdit.add(labelMensagemEdit, i);
     }
 
     public JPanel getpConImoveis() {
         return pConImoveis;
     }
 
+    public void showMessageConsulta(String message, boolean isError) {
+        if (isError) {
+            labelMensagemConsulta.setForeground(Color.RED);
+        } else {
+            labelMensagemConsulta.setForeground(Color.GREEN);
+        }
+        labelMensagemConsulta.setText(message);
+    }
+    
+     public void showMessageEdit(String message, boolean isError) {
+        if (isError) {
+            labelMensagemEdit.setForeground(Color.RED);
+        } else {
+            labelMensagemEdit.setForeground(Color.GREEN);
+        }
+        labelMensagemEdit.setText(message);
+    }
+
+
+    private void clearFields() {
+        ///
+    }
+
+    public void changeVisibleEdit(boolean visible) {
+        pEdit.setVisible(visible);
+    }
+    
+    public void createTemporaryImoveis(){
+            listImoveis.add(new Imovel(0, Imovel.TYPE_COMMERCIAL_ROOM, "--", 14000f, true));
+            listImoveis.add(new Imovel(1, Imovel.TYPE_COMMERCIAL_ROOM, "Sala comercial bilionária", 140000f, true));
+            listImoveis.add(new Imovel(2, Imovel.TYPE_LOT, "LOTE", 345000f, true));
+            listImoveis.add(new Imovel(4, Imovel.TYPE_APT, "APT", 15f, true));
+            listImoveis.add(new Imovel(5, Imovel.TYPE_APT, "Mansão foda", 9f, true));
+    }
+    
+    public void showImovel(int index) {
+        if(pEdit.isVisible() && index != -1){
+            Imovel imovel = showedImoveis.get(index);
+            textCod.setText(Integer.toString(imovel.getCodigo()));
+            textPreco.setText(Float.toString(imovel.getPreço()));
+            textArea2.setText(imovel.getDescricao());
+            comboBoxTipoEditModel.removeAllElements();
+            comboBoxTipoEditModel.addElement(imovel.getTipoString());
+        }
+    }
+
+    public void showOnlySpecificTipo(String item) {
+        
+        ArrayList<Imovel> imoveisFiltered = new ArrayList<Imovel>();
+        for(Imovel i : listImoveis){
+            Integer tipo = Imovel.getTipoInt(item);
+            if(tipo == i.getTipo()){
+               imoveisFiltered.add(i);
+            }
+        }
+        updateList(imoveisFiltered);
+    }
+    
+    private void updateList(ArrayList<Imovel> array){
+        showedImoveis.clear();
+        showedImoveis = new ArrayList<Imovel>(array);
+        
+        itensLista = new DefaultListModel<String>();
+        for(Imovel imovel : array){
+             itensLista.addElement(imovel.getDescricao());
+        }    
+        lista.setModel(itensLista);
+        
+    }
 }

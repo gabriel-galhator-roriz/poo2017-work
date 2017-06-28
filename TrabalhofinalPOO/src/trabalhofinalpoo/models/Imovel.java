@@ -13,13 +13,22 @@ import java.util.Date;
 
 public class Imovel {
     
-   public static int TYPE_HOME = 1; //CASA
-   public static int TYPE_APT = 2; //APARTAMENTO
-   public static int TYPE_COMMERCIAL_ROOM = 3; //SALA COMERCIAL
-   public static int TYPE_LOT = 4; // LOTE
-   public static int TYPE_RANCH_MANSION = 5; //CHÁCARA
-   public static int TYPE_SITIAR = 6; //SÍTIO
-   public static int TYPE_FARM = 7; //FAZENDA
+   public static final int TYPE_HOME = 1; //CASA
+   public static final int TYPE_APT = 2; //APARTAMENTO
+   public static final int TYPE_COMMERCIAL_ROOM = 3; //SALA COMERCIAL
+   public static final int TYPE_LOT = 4; // LOTE
+   public static final int TYPE_RANCH_MANSION = 5; //CHÁCARA
+   public static final int TYPE_SITIAR = 6; //SÍTIO
+   public static final int TYPE_FARM = 7; //FAZENDA
+   
+   public static final String TYPE_HOME_STRING = "Casa";
+   public static final String TYPE_APT_STRING = "Apartamento";
+   public static final String TYPE_COMMERCIAL_ROOM_STRING = "Sala Comercial";
+   public static final String TYPE_LOT_STRING = "Lote";
+   public static final String TYPE_RANCH_MANSION_STRING = "Chácara";
+   public static final String TYPE_SITIAR_STRING = "Sítio";
+   public static final String TYPE_FARM_STRING = "Fazenda";
+   
    
    int codigo;
    
@@ -57,6 +66,72 @@ public class Imovel {
 
     public int getTipo() {
         return tipo;
+    }
+    
+    public String getTipoString(){
+        return getTipoString(getTipo());
+    }
+       
+    public static String getTipoString(int tipo){
+        String returnString = "";
+        
+        switch(tipo){
+            case TYPE_HOME: //CASA
+                returnString = TYPE_HOME_STRING;
+                break;
+
+            case TYPE_APT: //APT
+                returnString = TYPE_APT_STRING;
+                break;
+
+            case TYPE_COMMERCIAL_ROOM: //SALA COMERCIAL
+                returnString = TYPE_COMMERCIAL_ROOM_STRING;
+                break;
+
+            case TYPE_LOT: // LOTE
+                returnString = TYPE_LOT_STRING;
+                break;
+
+            case TYPE_RANCH_MANSION: //CHÁCARA
+                returnString = TYPE_RANCH_MANSION_STRING;
+                break;
+
+            case Imovel.TYPE_SITIAR: //SÍTIO
+                returnString = TYPE_SITIAR_STRING;
+                break;
+
+            case Imovel.TYPE_FARM: //FAZENDA
+                returnString = TYPE_FARM_STRING;
+                break;
+        }
+        return returnString;
+    }
+    
+    
+    public static Integer getTipoInt(String tipo){
+        if(tipo.equals(TYPE_HOME_STRING)){
+            return TYPE_HOME;
+        }
+        if(tipo.equals(TYPE_APT_STRING)){
+            return TYPE_APT;
+        }
+        if(tipo.equals(TYPE_COMMERCIAL_ROOM_STRING)){
+            return TYPE_COMMERCIAL_ROOM;
+        }
+        if(tipo.equals(TYPE_LOT_STRING)){
+            return TYPE_LOT;
+        }
+        if(tipo.equals(TYPE_RANCH_MANSION_STRING)){
+            return TYPE_RANCH_MANSION;
+        }
+        if(tipo.equals(TYPE_SITIAR_STRING)){
+            return TYPE_SITIAR;
+        }
+        if(tipo.equals(TYPE_FARM_STRING)){
+            return TYPE_FARM;
+        }
+        
+        return 0;
     }
 
     public void setTipo(int tipo) {
@@ -102,6 +177,8 @@ public class Imovel {
     public void setDisponibilidade(boolean disponibilidade) {
         this.disponibilidade = disponibilidade;
     }
+    
+   
     
     public String toString(){
         return getDescricao();
