@@ -11,8 +11,13 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 import javax.swing.*;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 import trabalhofinalpoo.controllers.CadastroImovelController;
+import trabalhofinalpoo.models.DateLabelFormatter;
 
 /**
  *
@@ -111,12 +116,17 @@ public class CadastroImovelScreen {
         i.gridwidth = 1;
         i.ipadx = 100;
         imov.add(iDate, i);
-        DateFormat format = new SimpleDateFormat("dd/MM/yyy");
-        JFormattedTextField dateTextField = new JFormattedTextField(format);
+        UtilDateModel model = new UtilDateModel();
+        Properties p = new Properties();
+        p.put("text.today", "Today");
+        p.put("text.month", "Month");
+        p.put("text.year", "Year");
+        JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
         i.gridx = 1;
         i.gridwidth = 3;
         i.ipadx = 150;
-        imov.add(dateTextField, i);
+        imov.add(datePicker, i);
 
         limpar = new JButton("Limpar");
         i.gridx = 0;
