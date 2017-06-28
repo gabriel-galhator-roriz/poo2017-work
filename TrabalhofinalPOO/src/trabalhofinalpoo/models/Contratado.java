@@ -5,13 +5,14 @@
  */
 package trabalhofinalpoo.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author gabrielroriz
  */
-public class Contratado extends Corretor{
+public class Contratado extends Corretor implements Serializable{
     
     float salarioFixo;
     

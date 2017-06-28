@@ -155,23 +155,27 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener,
                 this.fecharTela();
                 cadImovelPanel.datePicker.setVisible(true);
                 layout.show(pScreen, "cadImovel");
-                System.out.println(aux.getText());
+                cadImovelPanel.abrirTela();
                 break;
 
             case "Corretor":
                 this.fecharTela();
                 layout.show(pScreen, "cadCorretor");
                 System.out.println(aux.getText());
+                cadCorretorPanel.abrirTela();
                 break;
 
             case "Venda":
                 this.fecharTela();
                 layout.show(pScreen, "cadVenda");
+                cadVendaPanel.abrirTela();
                 break;
+                
             case "Imóveis":
                 this.fecharTela();
                 conImoveisPanel.datePicker.setVisible(true);
                 layout.show(pScreen, "conImoveis");
+                conImoveisPanel.abrirTela();
                 break;
             default:
                 break;
@@ -194,10 +198,12 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener,
             case "Pagamentos":
                 this.fecharTela();
                 layout.show(pScreen, "pagamentos");
+                pagamentosPanel.abrirTela();
                 break;
             case "Relatórios":
                 this.fecharTela();
                 layout.show(pScreen, "relatorios");
+                relatoriosPanel.abrirTela();
                 break;
             default:
                 break;
@@ -254,5 +260,10 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener,
             default:
                 break;
         }
+    }
+
+    @Override
+    public void abrirTela() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

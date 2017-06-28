@@ -83,4 +83,9 @@ public class RelatoriosScreen implements ActionListener, FechamentoTelas {
         System.out.println("saiu da tela Relatorios screen");
     }
 
+    @Override
+    public void abrirTela() {
+        //
+    }
+
 }

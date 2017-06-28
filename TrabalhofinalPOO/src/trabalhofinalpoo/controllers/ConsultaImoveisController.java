@@ -10,6 +10,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import trabalhofinalpoo.dados.Dados;
 import trabalhofinalpoo.models.Imovel;
 import trabalhofinalpoo.views.ConsultaImoveisScreen;
 
@@ -19,8 +20,11 @@ public class ConsultaImoveisController implements ActionListener, ListSelectionL
     
     private Integer indexListSelected;
     
+    Dados dados;
+    
     public ConsultaImoveisController(ConsultaImoveisScreen mView){
         view = mView;
+        dados = Dados.getInstance();
     }
 
     @Override

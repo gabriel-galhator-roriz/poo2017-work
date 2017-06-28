@@ -5,14 +5,15 @@
  */
 package trabalhofinalpoo.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gabrielroriz
  */
-public class Comissionado extends Corretor{
+public class Comissionado extends Corretor implements Serializable{
     
     float porcentagemComssiondada;
-
     
     public Comissionado(int numeroCRECI, String nome, float porcentagemComssiondada){
         setNumeroCRECI(numeroCRECI);

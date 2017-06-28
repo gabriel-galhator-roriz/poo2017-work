@@ -5,13 +5,14 @@
  */
 package trabalhofinalpoo.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author gabrielroriz
  */
 
-public class Venda {
+public class Venda implements Serializable{
     
     float valor;
     
@@ -19,7 +20,16 @@ public class Venda {
     
     Date dataDaVenda;
     
-    int numeroCRECIResponsavel; 
+    int numeroCRECIResponsavel;
+    
+    Long codigoImovel;
+    
+    public Venda(float mValor, String mNomeDoComprador, int mNumeroCRECI, Long mCodImovel){
+       valor = mValor;
+       nomeDoComprador = mNomeDoComprador;
+       numeroCRECIResponsavel = mNumeroCRECI;
+       codigoImovel = mCodImovel;
+    }
 
     public float getValor() {
         return valor;
@@ -51,6 +61,14 @@ public class Venda {
 
     public void setNumeroCRECIResponsavel(int numeroCRECIResponsavel) {
         this.numeroCRECIResponsavel = numeroCRECIResponsavel;
+    }
+    
+    public Long getCodigoImovel() {
+        return codigoImovel;
+    }
+
+    public void setCodigoImovel(Long codigoImovel) {
+        this.codigoImovel = codigoImovel;
     }
 }
 

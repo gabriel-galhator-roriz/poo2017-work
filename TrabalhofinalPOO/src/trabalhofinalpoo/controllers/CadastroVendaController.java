@@ -4,14 +4,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import trabalhofinalpoo.dados.Dados;
+import trabalhofinalpoo.models.Corretor;
+import trabalhofinalpoo.models.Venda;
 import trabalhofinalpoo.views.CadastroVendaScreen;
 
 public class CadastroVendaController implements ActionListener{
     
     CadastroVendaScreen view;
+    
+    Dados dados;
         
     public CadastroVendaController(CadastroVendaScreen mView) {
         view = mView;
+        dados = Dados.getInstance();
     }
 
     @Override
@@ -40,7 +46,17 @@ public class CadastroVendaController implements ActionListener{
 
     private void buttonSaveClicked() {
         if(validateGeneralInfo()){
-            view.showMessage("DEU TUDO CERTO!", false);
+            
+            Float valorDaVenda = Float.valueOf(view.getValorDaVenda());
+            Integer numeroCRECI = Integer.valueOf(view.getCorretor());
+            Long codImovel = Long.valueOf(view.getImovel());
+            
+            if(dados.addVenda(new Venda(valorDaVenda, view.getNomeComprador(), numeroCRECI, codImovel))){
+                view.showMessage("Venda adicionada com sucesso.", false);
+            } else {
+                view.showMessage("Erro ao adicionar venda.", false);
+            }
+            
         } 
     }
     
@@ -88,4 +104,17 @@ public class CadastroVendaController implements ActionListener{
         
         return true;
     }
+
+    public void loadDados() {
+        dados.update();
+        view.updateCorretorComboBox(dados.corretores);
+        view.updateImoveisComboBox(dados.imoveis);
+        
+        System.out.println("=================");
+        
+        for(int i = 0; i<dados.imoveis.size(); i++){
+            System.out.println(dados.imoveis.get(i).isDisponibilidade());
+        }
+    }
+   
 }

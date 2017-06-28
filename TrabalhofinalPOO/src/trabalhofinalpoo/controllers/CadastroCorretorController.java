@@ -2,16 +2,26 @@ package trabalhofinalpoo.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import trabalhofinalpoo.dados.Dados;
+import trabalhofinalpoo.models.Comissionado;
+import trabalhofinalpoo.models.Contratado;
+import trabalhofinalpoo.models.Corretor;
 import trabalhofinalpoo.views.CadastroCorretorScreen;
 
-public class CadastroCorretorController implements ActionListener{
+public class CadastroCorretorController implements ActionListener, Serializable{
     
     public CadastroCorretorScreen view;
     
+    Dados dados;
+    
     public CadastroCorretorController(CadastroCorretorScreen mView){
         view = mView;
+        
+        dados = Dados.getInstance();
     }
 
     @Override
@@ -38,22 +48,31 @@ public class CadastroCorretorController implements ActionListener{
         if(!validateGeneralInfo())
             return;
         
-        String nome = view.getNome();
-        String numeroCRECI = view.getNumeroCRECI();
-        
-        
         if(view.getTipo().equals(CadastroCorretorScreen.COMISSIONADO)){
             
-            if(validatePorcentagemComissionada()){
-                //cadastrar corretor comissionado
-                view.showMessage("Corretor comissionado cadastrado com sucesso!", false);
+            if(validatePorcentagemComissionada()){         
+                Integer nCRECI = Integer.valueOf(view.getNumeroCRECI());
+                Float percentage = Float.valueOf(view.getPorcentagemComissionada());
+
+                if(dados.addCorretor(new Comissionado(nCRECI, view.getNome(), percentage))){
+                    view.showMessage("Corretor comissionado cadastrado com sucesso!", false);
+                } else {
+                    view.showMessage("Erro ao cadastrar corretor", true);
+                }
             }
             
         } else if(view.getTipo().equals(CadastroCorretorScreen.CONTRATADO)){
             
             if(validateSalarioFixo()){
-                //cadastrar corretor contratado
-                view.showMessage("Corretor Contratado cadastrado com sucesso!", false);
+                 Integer nCRECI = Integer.valueOf(view.getNumeroCRECI());
+                 
+                 Float salario = Float.valueOf(view.getSalarioFixo());
+                 
+                 if(dados.addCorretor(new Contratado(nCRECI, view.getNome(), salario))){
+                      view.showMessage("Corretor Contratado cadastrado com sucesso!", false);
+                 } else {
+                      view.showMessage("Erro ao cadastrar corretor", true);
+                 }
             }
             
         }
@@ -101,7 +120,6 @@ public class CadastroCorretorController implements ActionListener{
     
     public boolean validateSalarioFixo(){
         
-        
         if(!view.getSalarioFixo().equals("")){
             try {
                 System.out.println(view.getSalarioFixo());
@@ -128,5 +146,9 @@ public class CadastroCorretorController implements ActionListener{
 
     private void buttonClearClicked() {
         view.clearFields();
+    }
+    
+    public void loadDados() {
+        dados.update();
     }
 }

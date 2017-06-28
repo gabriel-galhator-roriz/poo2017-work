@@ -191,7 +191,7 @@ public class CadastroImovelScreen implements FechamentoTelas {
         return tPreco.getText();
     }
     
-    public Object getDescricao() {
+    public String getDescricao() {
         return textArea.getText();
     }
     
@@ -203,5 +203,10 @@ public class CadastroImovelScreen implements FechamentoTelas {
     public void closeTela() {
         datePicker.setVisible(false);
         System.out.println("saiu da tela cadastro imovel screen");
+    }
+
+    @Override
+    public void abrirTela() {
+        clearFields();
     }
 }
