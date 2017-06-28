@@ -5,6 +5,8 @@
  */
 package trabalhofinalpoo.views;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
@@ -13,16 +15,16 @@ import javax.swing.JPanel;
  *
  * @author khazyer
  */
-public class RelatorioCorretores implements ActionListener, FechamentoTelas {
+public class RelatorioCorretorDoMes implements ActionListener, FechamentoTelas {
 
-    JPanel pFaturaPorCorretor;
+    JPanel pCorretorDoMes;
 
-    public RelatorioCorretores() {
-        pFaturaPorCorretor = new JPanel();
+    public RelatorioCorretorDoMes() {
+        pCorretorDoMes = new JPanel();
     }
 
-    public JPanel getpFaturaPorCorretor() {
-        return pFaturaPorCorretor;
+    public JPanel getpCorretorDoMes() {
+        return pCorretorDoMes;
     }
 
     @Override
@@ -32,7 +34,7 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
 
     @Override
     public void closeTela() {
-        System.out.println("saiu da tela Relatorio faturas screen");
+        System.out.println("saiu da tela Relatorio corretor do mes");
     }
 
     @Override

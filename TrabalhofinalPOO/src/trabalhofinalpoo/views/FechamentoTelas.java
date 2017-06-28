@@ -7,11 +7,7 @@ package trabalhofinalpoo.views;
 
 import javax.swing.JPanel;
 
-/**
- *
- * @author khazyer
- */
 public interface FechamentoTelas {
-
     public void closeTela();
+    public void abrirTela();
 }

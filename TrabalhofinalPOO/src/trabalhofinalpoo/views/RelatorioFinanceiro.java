@@ -104,4 +104,9 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
         System.out.println("saiu da tela Relatoio financeiro");
     }
 
+    @Override
+    public void abrirTela() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

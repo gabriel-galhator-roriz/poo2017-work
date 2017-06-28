@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.*;
 import trabalhofinalpoo.controllers.CadastroVendaController;
+import trabalhofinalpoo.dados.Dados;
 import trabalhofinalpoo.models.Comissionado;
 import trabalhofinalpoo.models.Contratado;
 import trabalhofinalpoo.models.Corretor;
@@ -24,9 +25,6 @@ public class CadastroVendaScreen implements FechamentoTelas {
     public static final String BUTTON_SAVE = "Salvar";
     public static final String BUTTON_CLEAR = "Limpar";
 
-    private ArrayList<Imovel> listImoveis = new ArrayList<Imovel>();
-    private ArrayList<Corretor> listCorretores = new ArrayList<Corretor>();
-
     JPanel pCadVenda, pCad;
     JLabel labelCadVenda, lNomeComprador, lValorVenda, lCorretor, lImovel, labelMensagem;
     JTextField textNomeComprador, textValorVenda;
@@ -38,7 +36,6 @@ public class CadastroVendaScreen implements FechamentoTelas {
 
     public CadastroVendaScreen() {
         controller = new CadastroVendaController(this);
-        createTemporaryImoveisECorretores();
         instanceView();
     }
 
@@ -61,10 +58,10 @@ public class CadastroVendaScreen implements FechamentoTelas {
         textValorVenda = new JTextField();
 
         String[] cat1 = {"--", "joão", "Maria", "José"};
-        boxCorretor = new JComboBox(listCorretores.toArray());
+        boxCorretor = new JComboBox();
         boxCorretor.addActionListener(controller);
         String[] cat2 = {"--", "AP 125", "Casa Branca", "Kitnet 106"};
-        boxImovel = new JComboBox(listImoveis.toArray());
+        boxImovel = new JComboBox();
         boxImovel.addActionListener(controller);
 
         limpar = new JButton(BUTTON_CLEAR);
@@ -124,12 +121,14 @@ public class CadastroVendaScreen implements FechamentoTelas {
     
     public void setImovel(Imovel imovel){
        
+        
+        /*
         for(Imovel iMOVEL : listImoveis){
             if(iMOVEL.getCodigo() == imovel.getCodigo()){
                 //System.out.println("CAIU AQUI!!");
                 //boxImovel.setSelectedItem(iMOVEL);      
             }
-        }
+        }*/
     }
 
     public String getNomeComprador() {
@@ -140,32 +139,21 @@ public class CadastroVendaScreen implements FechamentoTelas {
         return textValorVenda.getText();
     }
 
-    public Imovel getImovel() {
+    public String getImovel() {
         if (boxImovel.getSelectedItem().toString().equals("--")) {
             return null;
         } else {
-            for (Imovel i : listImoveis) {
-                if (i.getDescricao().equals(boxImovel.getSelectedItem().toString())) {
-                    return i;
-                }
-            }
+           return boxImovel.getSelectedItem().toString();
         }
-        return null;
+        
     }
 
-    public Corretor getCorretor() {
+    public String getCorretor() {
         if (boxCorretor.getSelectedItem().toString().equals("--")) {
             return null;
-
         } else {
-            for (Corretor c : listCorretores) {
-                if (c.getNome().equals(boxCorretor.getSelectedItem().toString())) {
-                    return c;
-                }
-            }
+            return boxCorretor.getSelectedItem().toString();
         }
-
-        return null;
     }
 
     public JPanel getPanel() {
@@ -179,6 +167,16 @@ public class CadastroVendaScreen implements FechamentoTelas {
         boxImovel.setSelectedItem("--");
         boxCorretor.setSelectedItem("--");
     }
+    
+    public void updateCorretorComboBox(ArrayList<Corretor> corretores){
+        DefaultComboBoxModel model = new DefaultComboBoxModel( corretores.toArray() );
+        boxCorretor.setModel(model);
+    }
+    
+    public void updateImoveisComboBox(ArrayList<Imovel> imoveis) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel( imoveis.toArray() );
+        boxImovel.setModel(model);
+    }
 
     public void showMessage(String message, boolean isError) {
         if (isError) {
@@ -190,23 +188,15 @@ public class CadastroVendaScreen implements FechamentoTelas {
         labelMensagem.setText(message);
     }
 
-    public void createTemporaryImoveisECorretores() {
-        listImoveis.add(new Imovel(0, Imovel.TYPE_COMMERCIAL_ROOM, "--", 140000f, true));
-        listImoveis.add(new Imovel(1, Imovel.TYPE_COMMERCIAL_ROOM, "Sala comercial bilionária", 140000f, true));
-        listImoveis.add(new Imovel(2, Imovel.TYPE_APT, "Apartamento", 140000f, true));
-        listImoveis.add(new Imovel(3, Imovel.TYPE_LOT, "Lote caro", 140000f, true));
-        listImoveis.add(new Imovel(4, Imovel.TYPE_SITIAR, "Sítio do Picapau Amarelo", 140000f, true));
-        listImoveis.add(new Imovel(5, Imovel.TYPE_RANCH_MANSION, "Mansão foda", 140000f, true));
-
-        listCorretores.add(new Comissionado(152, "--", 2.3f));
-        listCorretores.add(new Comissionado(152, "Gabriel Roriz", 2.3f));
-        listCorretores.add(new Comissionado(153, "Luan Santana", 1f));
-        listCorretores.add(new Contratado(154, "Douglas da Silva", 1f));
-        listCorretores.add(new Contratado(155, "Corretor Ninja", 1f));
-    }
-
     @Override
     public void closeTela() {
         System.out.println("saiu da tela cadastro vendas screen");
     }
+
+    @Override
+    public void abrirTela() {
+        clearFields();
+        controller.loadDados();
+    }    
+
 }

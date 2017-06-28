@@ -37,4 +37,9 @@ public class HomeScreen implements FechamentoTelas {
         System.out.println("saindo da home screen");
     }
 
+    @Override
+    public void abrirTela() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

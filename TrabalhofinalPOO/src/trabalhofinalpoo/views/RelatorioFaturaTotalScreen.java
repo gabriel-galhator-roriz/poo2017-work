@@ -13,16 +13,16 @@ import javax.swing.JPanel;
  *
  * @author khazyer
  */
-public class RelatorioCorretores implements ActionListener, FechamentoTelas {
+public class RelatorioFaturaTotalScreen implements ActionListener, FechamentoTelas {
 
-    JPanel pFaturaPorCorretor;
+    JPanel pFaturaTotal;
 
-    public RelatorioCorretores() {
-        pFaturaPorCorretor = new JPanel();
+    public RelatorioFaturaTotalScreen() {
+        pFaturaTotal = new JPanel();
     }
 
-    public JPanel getpFaturaPorCorretor() {
-        return pFaturaPorCorretor;
+    public JPanel getpFaturaTotal() {
+        return pFaturaTotal;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
 
     @Override
     public void closeTela() {
-        System.out.println("saiu da tela Relatorio faturas screen");
+        System.out.println("saiu da tela Relatoio Fatura Total");
     }
 
     @Override

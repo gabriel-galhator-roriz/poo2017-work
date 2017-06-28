@@ -8,15 +8,20 @@ package trabalhofinalpoo.views;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import trabalhofinalpoo.controllers.PagamentosController;
+import trabalhofinalpoo.models.Corretor;
 
 /**
  *
  * @author khazyer
  */
 public class PagamentosScreen implements FechamentoTelas {
+    
+    public static final String BUTTON_CALCULAR = "Calcular";
 
     JPanel pPagamentos, pConf, pCard, pContratado, pComissionado;
     JLabel labelPagamento, lCorretor, lMes, lAno, lVendaRealizadaContratado, lVendaRealizadaComissionado, lValorComissao, lValorComissionado, lSalarioFixo, lTotalRecebido;
@@ -25,8 +30,11 @@ public class PagamentosScreen implements FechamentoTelas {
     JButton calcular;
     CardLayout layout;
     GridBagConstraints c;
+    
+    PagamentosController controller;
 
     public PagamentosScreen() {
+        controller = new PagamentosController(this);
         pPagamentos = new JPanel(new BorderLayout());
         this.instaceConf();
         pPagamentos.add(pConf, BorderLayout.PAGE_START);
@@ -82,6 +90,7 @@ public class PagamentosScreen implements FechamentoTelas {
         c.gridy++;
         c.gridx = 0;
         calcular = new JButton("Calcular");
+        calcular.addActionListener(controller);
         //calcular.addActionListener(controler);
         pConf.add(calcular, c);
 
@@ -102,12 +111,12 @@ public class PagamentosScreen implements FechamentoTelas {
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 0;
-        lVendaRealizadaComissionado = new JLabel("venda realizada comissionado");
+        lVendaRealizadaComissionado = new JLabel("Vendas realizada: 5 vendas");
         lVendaRealizadaComissionado.setHorizontalAlignment(JLabel.CENTER);
         pContratado.add(lVendaRealizadaComissionado, c);
 
         c.gridy++;
-        lValorComissao = new JLabel("Valor Comissão");
+        lValorComissao = new JLabel("Valor Comissão: 3%");
         lValorComissao.setHorizontalAlignment(JLabel.CENTER);
         pContratado.add(lValorComissao);
     }
@@ -117,7 +126,7 @@ public class PagamentosScreen implements FechamentoTelas {
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 0;
-        lVendaRealizadaContratado = new JLabel("venda realizada contratado");
+        lVendaRealizadaContratado = new JLabel("Venda realizada contratado");
         lVendaRealizadaContratado.setHorizontalAlignment(JLabel.CENTER);
         pComissionado.add(lVendaRealizadaContratado, c);
 
@@ -136,6 +145,11 @@ public class PagamentosScreen implements FechamentoTelas {
         lTotalRecebido.setHorizontalAlignment(JLabel.CENTER);
         pComissionado.add(lTotalRecebido, c);
     }
+    
+    public void updateCorretorComboBox(ArrayList<Corretor> corretores){
+        DefaultComboBoxModel model = new DefaultComboBoxModel( corretores.toArray() );
+        boxCorretor.setModel(model);
+    }
 
     public JPanel getpPagamentos() {
         return pPagamentos;
@@ -144,6 +158,11 @@ public class PagamentosScreen implements FechamentoTelas {
     @Override
     public void closeTela() {
         System.out.println("saiu da tela pagamentosScreen");
+    }
+
+    @Override
+    public void abrirTela() {
+        controller.loadDados();
     }
 
 }

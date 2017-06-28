@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import trabalhofinalpoo.controllers.CadastroCorretorController;
+import trabalhofinalpoo.dados.Dados;
 
 /**
  *
@@ -206,5 +207,10 @@ public class CadastroCorretorScreen implements FechamentoTelas {
     @Override
     public void closeTela() {
         System.out.println("saiu da tela cadstro corretor screen");
+    }
+
+    @Override
+    public void abrirTela() {
+        clearFields();
     }
 }

@@ -8,14 +8,19 @@ package trabalhofinalpoo.controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import trabalhofinalpoo.dados.Dados;
+import trabalhofinalpoo.models.Imovel;
 import trabalhofinalpoo.views.CadastroImovelScreen;
 
 public class CadastroImovelController implements ActionListener {
     
     CadastroImovelScreen view;
+    
+    Dados dados;
 
     public CadastroImovelController(CadastroImovelScreen mView) {
         view = mView;
+        dados = Dados.getInstance();
     }
 
     @Override
@@ -37,7 +42,17 @@ public class CadastroImovelController implements ActionListener {
 
     private void buttonSaveClicked() {
         if(validateGeneralInfo()){
-            view.showMessage("Imóvel cadastrado com sucesso!", false);
+            
+            Long codigo = Long.valueOf(view.getCodigo());            
+            Integer tipo = Integer.valueOf(Imovel.getTipoInt(view.getTipo()));
+            String descriçao = view.getDescricao();
+            Float preço = Float.valueOf(view.getPreço().toString());
+            
+            if(dados.addImovel(new Imovel(codigo, tipo, descriçao, preço, true))){
+                view.showMessage("Imóvel cadastrado com sucesso!", false);   
+            } else {
+                view.showMessage("Erro ao cadastrar imóvel", true);
+            }
         }
     }
     
