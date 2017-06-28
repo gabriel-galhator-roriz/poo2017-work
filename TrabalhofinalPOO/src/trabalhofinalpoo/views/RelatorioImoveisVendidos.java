@@ -261,4 +261,9 @@ public class RelatorioImoveisVendidos implements FechamentoTelas {
     JPanel getpImoveisVendidos() {
         return pImoveisVendidos;
     }
+
+    @Override
+    public void abrirTela() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

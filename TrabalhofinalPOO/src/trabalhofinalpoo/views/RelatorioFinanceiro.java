@@ -23,6 +23,7 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
         pFinanceiro = new JPanel();
         pFinanceiro.setLayout(new BorderLayout());
         pConf = new JPanel(new GridBagLayout());
+        c = new GridBagConstraints();
         c.ipadx = 0;
         c.ipady = 0;
         c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções

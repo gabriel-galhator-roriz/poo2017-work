@@ -139,19 +139,28 @@ public class Dados {
         if(corretor instanceof Contratado){
             try{
                 ArrayList<Contratado> contratados = getContratados();
+                 if(contratados == null){
+                    contratados = new ArrayList<Contratado>();
+                }
                 contratados.add((Contratado)corretor);
                 saveContratado(contratados);
             } catch (Exception e){
+                System.out.println(e);
                 return false;
             }
             
             
         } else if (corretor instanceof Comissionado){
             try{
+                
                 ArrayList<Comissionado> comissionados = getComissionados();
+                if(comissionados == null){
+                    comissionados = new ArrayList<Comissionado>();
+                }
                 comissionados.add((Comissionado)corretor);
                 saveComissionados(comissionados);
             } catch (Exception e){
+                System.out.println(e);
                 return false;
             } 
         }
