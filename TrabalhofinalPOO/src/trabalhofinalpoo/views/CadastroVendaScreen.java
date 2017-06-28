@@ -19,11 +19,11 @@ import trabalhofinalpoo.models.Imovel;
  *
  * @author khazyer
  */
-public class CadastroVendaScreen {
-    
+public class CadastroVendaScreen implements FechamentoTelas {
+
     public static final String BUTTON_SAVE = "Salvar";
     public static final String BUTTON_CLEAR = "Limpar";
-    
+
     private ArrayList<Imovel> listImoveis = new ArrayList<Imovel>();
     private ArrayList<Corretor> listCorretores = new ArrayList<Corretor>();
 
@@ -121,47 +121,47 @@ public class CadastroVendaScreen {
         pCad.add(labelMensagem, c);
         pCadVenda.add(pCad, BorderLayout.PAGE_START);
     }
-    
-    public String getNomeComprador(){
+
+    public String getNomeComprador() {
         return textNomeComprador.getText();
     }
-    
-    public String getValorDaVenda(){
+
+    public String getValorDaVenda() {
         return textValorVenda.getText();
     }
-    
-    public Imovel getImovel(){
-        if(boxImovel.getSelectedItem().toString().equals("--")){
+
+    public Imovel getImovel() {
+        if (boxImovel.getSelectedItem().toString().equals("--")) {
             return null;
         } else {
-            for(Imovel i : listImoveis){
-                if(i.getDescricao().equals(boxImovel.getSelectedItem().toString())){
+            for (Imovel i : listImoveis) {
+                if (i.getDescricao().equals(boxImovel.getSelectedItem().toString())) {
                     return i;
                 }
             }
         }
         return null;
     }
-    
-    public Corretor getCorretor(){
-        if(boxCorretor.getSelectedItem().toString().equals("--")){
+
+    public Corretor getCorretor() {
+        if (boxCorretor.getSelectedItem().toString().equals("--")) {
             return null;
-            
+
         } else {
-            for(Corretor c : listCorretores){
-                if(c.getNome().equals(boxCorretor.getSelectedItem().toString())){
+            for (Corretor c : listCorretores) {
+                if (c.getNome().equals(boxCorretor.getSelectedItem().toString())) {
                     return c;
                 }
             }
         }
-        
+
         return null;
     }
-    
+
     public JPanel getPanel() {
         return pCadVenda;
     }
-    
+
     public void clearFields() {
         labelMensagem.setText("");
         textNomeComprador.setText("");
@@ -169,9 +169,9 @@ public class CadastroVendaScreen {
         boxImovel.setSelectedItem("--");
         boxCorretor.setSelectedItem("--");
     }
-    
-    public void showMessage(String message, boolean isError){
-        if(isError){
+
+    public void showMessage(String message, boolean isError) {
+        if (isError) {
             labelMensagem.setForeground(Color.RED);
         } else {
             clearFields();
@@ -179,19 +179,24 @@ public class CadastroVendaScreen {
         }
         labelMensagem.setText(message);
     }
-    
-    public void createTemporaryImoveisECorretores(){
+
+    public void createTemporaryImoveisECorretores() {
         listImoveis.add(new Imovel(0, Imovel.TYPE_COMMERCIAL_ROOM, "--", 140000f, true));
         listImoveis.add(new Imovel(1, Imovel.TYPE_COMMERCIAL_ROOM, "Sala comercial bilionária", 140000f, true));
         listImoveis.add(new Imovel(2, Imovel.TYPE_APT, "Apartamento", 140000f, true));
         listImoveis.add(new Imovel(3, Imovel.TYPE_LOT, "Lote caro", 140000f, true));
         listImoveis.add(new Imovel(4, Imovel.TYPE_SITIAR, "Sítio do Picapau Amarelo", 140000f, true));
         listImoveis.add(new Imovel(5, Imovel.TYPE_RANCH_MANSION, "Mansão foda", 140000f, true));
-        
+
         listCorretores.add(new Comissionado(152, "--", 2.3f));
         listCorretores.add(new Comissionado(152, "Gabriel Roriz", 2.3f));
         listCorretores.add(new Comissionado(153, "Luan Santana", 1f));
         listCorretores.add(new Contratado(154, "Douglas da Silva", 1f));
         listCorretores.add(new Contratado(155, "Corretor Ninja", 1f));
+    }
+
+    @Override
+    public void closeTela() {
+        System.out.println("saiu da tela cadastro vendas screen");
     }
 }

@@ -24,15 +24,17 @@ import trabalhofinalpoo.models.Imovel;
  *
  * @author khazyer
  */
-public class ConsultaImoveisScreen {
-    
-    public static final String COMBOBOX_TIPOS_CONSULTA = "Combo Box Tipos Consulta";
+
+public class ConsultaImoveisScreen implements FechamentoTelas {
+
+ public static final String COMBOBOX_TIPOS_CONSULTA = "Combo Box Tipos Consulta";
     public static final String COMBOBOX_TIPOS_EDIT = "Combo Box Tipos Edit";
     
     public static final String BUTTON_VENDER = "Vender";
     public static final String BUTTON_SALVAR = "Salvar";
     public static final String BUTTON_RESTAURAR = "Restarurar";
     public static final String BUTTON_REMOVE = "Remover";
+    
 
     JPanel pConImoveis, pOrganize, pConsulta, pEdit;
     JLabel labelConsulta, lLista, labelImovel, labelMensagemConsulta, labelMensagemEdit, lTipo1, lTipo2, lCod, lDesc, lPreco, lDate;
@@ -45,14 +47,16 @@ public class ConsultaImoveisScreen {
     JList lista;
     DefaultListModel itensLista;
     GridBagConstraints c;
-
+    
     UtilDateModel model;
     JDatePanelImpl datePanel;
     JDatePickerImpl datePicker;
 
+
     private ConsultaImoveisController controller;
     private ArrayList<Imovel> listImoveis = new ArrayList<Imovel>();
     private ArrayList<Imovel> showedImoveis = new ArrayList<Imovel>();
+
     
     public ConsultaImoveisScreen() {
         createTemporaryImoveis();
@@ -63,40 +67,39 @@ public class ConsultaImoveisScreen {
         c = new GridBagConstraints();
         instanceConsulta();
         instanceEdit();
-
         c.ipadx = 0;
         c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções
         c.insets = new Insets(10, 10, 10, 10);
-
+        
         c.gridwidth = 2;
         c.gridx = 0;
         c.gridy = 0;
         labelConsulta = new JLabel("Consulta Imóveis");
         labelConsulta.setHorizontalAlignment(JLabel.CENTER);
         pOrganize.add(labelConsulta, c);
-
+        
         c.gridx = 0;
         c.gridy++;
         c.gridwidth = 1;
         pOrganize.add(pConsulta, c);
         c.gridx = 1;
         pOrganize.add(pEdit, c);
-
+        
         pConImoveis.add(pOrganize, BorderLayout.PAGE_START);
     }
-
+    
     public void instanceConsulta() {
         pConsulta = new JPanel(new GridBagLayout());
         c.ipadx = 150;
         c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções
         c.insets = new Insets(10, 10, 10, 10);
-
+        
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 2;
         lTipo1 = new JLabel("Tipo:");
         pConsulta.add(lTipo1, c);
-
+        
         c.gridy++;
         boxTiposConsulta = new JComboBox(controller.getAvailableImovelCategories(listImoveis).toArray());
         boxTiposConsulta.setName(COMBOBOX_TIPOS_CONSULTA);
@@ -106,7 +109,7 @@ public class ConsultaImoveisScreen {
         c.gridy++;
         lLista = new JLabel("Lista Imóveis:");
         pConsulta.add(lLista, c);
-
+        
         c.gridy++;
         c.ipady = 100;
         lista = new JList(showedImoveis.toArray());
@@ -115,7 +118,7 @@ public class ConsultaImoveisScreen {
         lista.setBorder(BorderFactory.createEtchedBorder());
         scrollPane1 = new JScrollPane(lista, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         pConsulta.add(scrollPane1, c);
-
+        
         c.gridy++;
         c.ipady = 0;
         c.gridx = 0;
@@ -133,12 +136,12 @@ public class ConsultaImoveisScreen {
         c.gridwidth = 2;
         c.gridx=0;
         c.ipady = 10;
+
         labelMensagemConsulta = new JLabel("mensagem");
         labelMensagemConsulta.setHorizontalAlignment(JLabel.CENTER);
         pConsulta.add(labelMensagemConsulta, c);
-
     }
-
+    
     public void instanceEdit() {
         pEdit = new JPanel(new GridBagLayout());
         changeVisibleEdit(false);
@@ -153,14 +156,14 @@ public class ConsultaImoveisScreen {
         i.fill = GridBagConstraints.BOTH;
         i.insets = new Insets(10, 10, 10, 10);
         i.ipadx = 150;
-
+        
         i.gridx = 0;
         i.gridy = 0;
         i.gridwidth = 4;
         labelImovel = new JLabel("Editar Imóvel");
         labelImovel.setHorizontalAlignment(JLabel.CENTER);
         pEdit.add(labelImovel, i);
-
+        
         i.gridx = 0;
         i.gridy++;
         i.gridwidth = 2;
@@ -171,7 +174,7 @@ public class ConsultaImoveisScreen {
         i.gridx = 2;
         i.ipadx = 150;
         pEdit.add(lTipo2, i);
-
+        
         textCod = new JTextField(20);
         textCod.setEnabled(false);
         i.gridx = 0;
@@ -185,7 +188,7 @@ public class ConsultaImoveisScreen {
         i.gridx = 2;
         i.ipadx = 150;
         pEdit.add(box2, i);
-
+        
         lDesc = new JLabel("Descrição:");
         i.gridx = 0;
         i.gridy++;
@@ -201,7 +204,7 @@ public class ConsultaImoveisScreen {
         i.ipady = 50;
         pEdit.add(scrollPane2, i);
         i.ipady = 0;
-
+        
         lPreco = new JLabel("Preço:");
         i.gridx = 0;
         i.gridy++;
@@ -213,7 +216,7 @@ public class ConsultaImoveisScreen {
         i.gridwidth = 3;
         i.ipadx = 150;
         pEdit.add(textPreco, i);
-
+        
         lDate = new JLabel("Data:");
         i.gridx = 0;
         i.gridy++;
@@ -232,8 +235,10 @@ public class ConsultaImoveisScreen {
         i.ipadx = 150;
         pEdit.add(datePicker, i);
 
+
         bReset = new JButton(BUTTON_RESTAURAR);
         bReset.addActionListener(controller);
+
         i.gridx = 0;
         i.gridy++;
         i.gridwidth = 2;
@@ -247,15 +252,24 @@ public class ConsultaImoveisScreen {
 
         labelMensagemEdit = new JLabel("mensagem");
         labelMensagemEdit.setHorizontalAlignment(JLabel.CENTER);
+
         i.gridy = +15;
         i.gridx = 0;
         i.gridwidth = 4;
         pEdit.add(labelMensagemEdit, i);
     }
-
+    
     public JPanel getpConImoveis() {
         return pConImoveis;
     }
+
+    
+    @Override
+    public void closeTela() {
+        datePicker.setVisible(false);
+        System.out.println("saiu da tela consulta imoveis screen");
+    }
+
 
     public void showMessageConsulta(String message, boolean isError) {
         if (isError) {

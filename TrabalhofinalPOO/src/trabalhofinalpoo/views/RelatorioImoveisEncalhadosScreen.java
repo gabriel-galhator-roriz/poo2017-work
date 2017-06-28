@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  *
  * @author khazyer
  */
-public class RelatorioImoveisEncalhadosScreen implements ActionListener {
+public class RelatorioImoveisEncalhadosScreen implements ActionListener, FechamentoTelas {
 
     JPanel pImoveisEncalhados;
 
@@ -28,6 +28,11 @@ public class RelatorioImoveisEncalhadosScreen implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    @Override
+    public void closeTela() {
+        System.out.println("saiu da tela relatoio imoveis encalhados");
     }
 
 }

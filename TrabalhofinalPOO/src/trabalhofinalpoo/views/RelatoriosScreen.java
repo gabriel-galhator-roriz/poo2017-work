@@ -18,7 +18,7 @@ import javax.swing.JTabbedPane;
  *
  * @author khazyer
  */
-public class RelatoriosScreen implements ActionListener {
+public class RelatoriosScreen implements ActionListener, FechamentoTelas {
 
     Toolkit tk;
     Dimension dimensao;
@@ -100,6 +100,11 @@ public class RelatoriosScreen implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    @Override
+    public void closeTela() {
+        System.out.println("saiu da tela Relatorios screen");
     }
 
 }

@@ -23,7 +23,7 @@ import trabalhofinalpoo.controllers.CadastroCorretorController;
  *
  * @author khazyer
  */
-public class CadastroCorretorScreen {
+public class CadastroCorretorScreen implements FechamentoTelas {
 
     public static final String CONTRATADO = "Contratado";
     public static final String COMISSIONADO = "Comissionado";
@@ -201,5 +201,10 @@ public class CadastroCorretorScreen {
         tNome.setText("");
         txtPorcentagemComissionada.setText("");
         txtSalarioFixo.setText("");
+    }
+
+    @Override
+    public void closeTela() {
+        System.out.println("saiu da tela cadstro corretor screen");
     }
 }

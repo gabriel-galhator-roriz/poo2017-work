@@ -12,7 +12,7 @@ import javax.swing.JPanel;
  *
  * @author khazyer
  */
-public class PagamentosScreen {
+public class PagamentosScreen implements FechamentoTelas {
 
     JPanel pPagamentos;
     JLabel local;
@@ -25,6 +25,11 @@ public class PagamentosScreen {
 
     public JPanel getpPagamentos() {
         return pPagamentos;
+    }
+
+    @Override
+    public void closeTela() {
+        System.out.println("saiu da tela pagamentosScreen");
     }
 
 }
