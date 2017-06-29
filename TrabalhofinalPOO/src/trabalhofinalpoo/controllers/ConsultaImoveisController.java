@@ -18,7 +18,7 @@ public class ConsultaImoveisController implements ActionListener, ListSelectionL
     
     ConsultaImoveisScreen view;
     
-    private Integer indexListSelected;
+    private Imovel itemSelected;
     
     Dados dados;
     
@@ -59,13 +59,13 @@ public class ConsultaImoveisController implements ActionListener, ListSelectionL
     
     
     public void comboBoxTipoConsultaChanged(String item){
-        view.showOnlySpecificTipo(item);
+        view.updateList(getFilteredList(Imovel.getTipoInt(item)));
     }
     
     public void comboBoxTipoEditChanged(){ }
     
     public void buttonVenderClicked(){
-        if(view.getSelectedItemList() >= 0){
+        if(itemSelected != null){
             view.callTelaDeVenda();
         } else {
             view.showMessageConsulta("Selecione um imóvel para vendê-lo.", true);
@@ -75,23 +75,45 @@ public class ConsultaImoveisController implements ActionListener, ListSelectionL
     
     public void buttonSalvarClicked() {
         if(validateImovelInfo()){
-            view.showMessageEdit("Imóvel editado com sucesso!", false);   
+            if(itemSelected != null){
+                itemSelected.setDescricao(view.getDescription());
+                itemSelected.setPreço(Float.valueOf(view.getPreço()));
+                //adicionar DATA
+                
+                if(dados.updateImovel(itemSelected)){
+                    loadDados();
+                    view.showMessageEdit("Imóvel editado com sucesso!", false);
+                } else {
+                    view.showMessageEdit("Erro ao salvar imóvel", true);
+                }
+                
+                
+            } else {
+                //
+            }
         }
     }
 
     public void buttonRestaurarClicked() {
-        view.showImovel(indexListSelected);
+        view.showImovel(itemSelected);
     }
     
     private void buttonRemoveClicked() {
-        if(view.getSelectedItemList() >= 0){
+       if(itemSelected != null){
             
            int dialogResult = JOptionPane.showConfirmDialog(null, "Você tem certeza que deseja remover o Imóvel?", "Atenção!",  JOptionPane.YES_NO_OPTION);
-            if(dialogResult == JOptionPane.YES_OPTION){
-                   
-                view.removeSelectedItem();
-                //remover aqui
-                view.showMessageConsulta("Remoção realizada com sucesso!", false);
+           if(dialogResult == JOptionPane.YES_OPTION){
+                
+               
+                if(dados.removeImovel(itemSelected)){
+                    loadDados();
+                    view.clearFields();
+                    view.showMessageConsulta("Remoção realizada com sucesso!", false);
+                } else {
+                    view.showMessageConsulta("Erro ao remover imóvel.", false);
+                }
+                
+                
             }
         } else {
             view.showMessageConsulta("Selecione um imóvel para removê-lo.", true);
@@ -101,16 +123,18 @@ public class ConsultaImoveisController implements ActionListener, ListSelectionL
     @Override
     public void valueChanged(ListSelectionEvent lse) { 
         JList aux = (JList) lse.getSource();
-        indexListSelected = aux.getSelectedIndex();
         
-        view.changeVisibleEdit(true);
-        view.showImovel(indexListSelected);
+        itemSelected = (Imovel) aux.getSelectedValue();
+        if(itemSelected != null){
+            view.changeVisibleEdit(true);
+            view.showImovel(itemSelected);
+        }   
     } 
     
      public ArrayList<String> getAvailableImovelCategories(ArrayList<Imovel> listImoveis){
         
         ArrayList<Boolean> categories
-                = new ArrayList<Boolean>(Arrays.asList(false, false, false, false, false, false, false, false));
+                = new ArrayList<Boolean>(Arrays.asList(true, false, false, false, false, false, false, false));
         
         for(int i = 0; i < listImoveis.size(); i++){
             categories.set(listImoveis.get(i).getTipo(), true);
@@ -149,6 +173,27 @@ public class ConsultaImoveisController implements ActionListener, ListSelectionL
         
         
         return true;
+    }
+    
+    public ArrayList<Imovel> getFilteredList(Integer type){
+        ArrayList<Imovel> filtered = new ArrayList<Imovel>();
+        for(Imovel imovel : dados.getImoveisDisponiveis()){
+            if(type == Imovel.TYPE_NULL){
+                filtered.add(imovel);
+            } else {
+                if(imovel.getTipo() == type){
+                    filtered.add(imovel);
+                }
+            }
+        }
+        return filtered;
+    }
+
+    public void loadDados() {
+        view.clearFields();
+        dados.update();
+        view.updateTipoComboBoxConsulta(getAvailableImovelCategories(dados.getImoveisDisponiveis()));
+        comboBoxTipoConsultaChanged(view.getTipoSelected());
     }
         
 }

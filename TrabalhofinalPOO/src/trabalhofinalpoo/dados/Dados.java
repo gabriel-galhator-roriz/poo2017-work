@@ -48,6 +48,29 @@ public class Dados {
         }
     }
     
+    
+    public boolean creciDisponivel(Integer numeroCRECI){
+        for(Corretor corretor : corretores){
+            if(corretor.getNumeroCRECI() == numeroCRECI){
+                return false;
+            }
+        }
+        return true;
+    }
+ 
+    
+    public ArrayList<Imovel> getImoveisDisponiveis(){
+        ArrayList<Imovel> imoveisDisponiveis = new ArrayList<Imovel>();
+        
+        for(Imovel imovel: imoveis){
+            if(imovel.isDisponibilidade()){
+                imoveisDisponiveis.add(imovel);
+            }
+        }
+        
+        return imoveisDisponiveis;
+    }
+    
      public boolean saveImoveis() throws Exception {
         try{
             FileOutputStream arquivo = new FileOutputStream("imoveis.txt");
@@ -73,6 +96,43 @@ public class Dados {
             System.out.println(e);
             return false;
         }
+    }
+    
+    public boolean removeImovel(Imovel imovel){
+        try{
+            for(int i = 0; i <imoveis.size(); i++){
+                if(imovel.getCodigo().equals(imoveis.get(i).getCodigo())){
+                    imoveis.remove(i);
+                }
+            }
+            saveImoveis();
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+    
+    public boolean updateImovel(Imovel imovel){
+       try{
+            for(int i = 0; i <imoveis.size(); i++){
+                if(imovel.getCodigo().equals(imoveis.get(i).getCodigo())){
+                    imoveis.set(i, imovel);
+                }
+            }
+            saveImoveis();
+            return true;
+        } catch (Exception e){
+            return false;
+        } 
+    }
+    
+    public boolean codDisponivel(Long cod){
+         for(Imovel imovel : imoveis){
+            if(imovel.getCodigo().equals(cod)){
+                return false;
+            }
+        }
+        return true;
     }
         
     
@@ -238,6 +298,7 @@ public class Dados {
      public void update(){
         updateCorretorList();
         updateImovelList();
+        updateVendasList();
     }
      
     public void updateImovelList(){

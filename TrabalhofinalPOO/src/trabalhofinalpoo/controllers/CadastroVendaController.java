@@ -47,11 +47,13 @@ public class CadastroVendaController implements ActionListener{
     private void buttonSaveClicked() {
         if(validateGeneralInfo()){
             
+            Corretor corretor = view.getCorretor();
             Float valorDaVenda = Float.valueOf(view.getValorDaVenda());
-            Integer numeroCRECI = Integer.valueOf(view.getCorretor());
-            Long codImovel = Long.valueOf(view.getImovel());
+            Integer numeroCRECI = corretor.getNumeroCRECI();
+            Long codImovel = view.getImovel().getCodigo();
             
             if(dados.addVenda(new Venda(valorDaVenda, view.getNomeComprador(), numeroCRECI, codImovel))){
+                loadDados();
                 view.showMessage("Venda adicionada com sucesso.", false);
             } else {
                 view.showMessage("Erro ao adicionar venda.", false);
@@ -107,12 +109,9 @@ public class CadastroVendaController implements ActionListener{
 
     public void loadDados() {
         dados.update();
-        view.updateCorretorComboBox(dados.corretores);
-        view.updateImoveisComboBox(dados.imoveis);
         
-        for(int i = 0; i<dados.imoveis.size(); i++){
-            System.out.println(dados.imoveis.get(i).isDisponibilidade());
-        }
+        view.updateCorretorComboBox(dados.corretores);
+        view.updateImoveisComboBox(dados.getImoveisDisponiveis());
     }
    
 }

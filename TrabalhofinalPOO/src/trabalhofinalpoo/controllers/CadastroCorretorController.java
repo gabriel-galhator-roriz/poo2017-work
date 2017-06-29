@@ -86,8 +86,13 @@ public class CadastroCorretorController implements ActionListener, Serializable{
         
         if(!view.getNumeroCRECI().equals("")){
             if (!view.getNumeroCRECI().matches("[0-9]+")){
-            view.showMessage("O Número CRECI só pode conter números.", true);
-            return false;
+                view.showMessage("O Número CRECI só pode conter números.", true);
+                return false;
+            } else {
+                if(!dados.creciDisponivel(Integer.valueOf(view.getNumeroCRECI()))){
+                    view.showMessage("Esse número CRECI não está disponível.", true);
+                    return false;
+                }
             }
         } else {
             view.showMessage("Digite um número CRECI.", true);

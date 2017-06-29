@@ -137,6 +137,7 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener,
     public void callTelaDeVenda(Imovel imovel){
            this.fecharTela();
            layout.show(pScreen, "cadVenda");
+           cadVendaPanel.abrirTela();
            cadVendaPanel.setImovel(imovel);
            
            

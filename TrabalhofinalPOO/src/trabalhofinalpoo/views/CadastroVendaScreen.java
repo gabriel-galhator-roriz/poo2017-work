@@ -29,6 +29,7 @@ public class CadastroVendaScreen implements FechamentoTelas {
     JLabel labelCadVenda, lNomeComprador, lValorVenda, lCorretor, lImovel, labelMensagem;
     JTextField textNomeComprador, textValorVenda;
     JComboBox boxCorretor, boxImovel;
+    DefaultComboBoxModel modelImovel;
     JButton limpar, cadastrar;
     GridBagConstraints c;
 
@@ -120,15 +121,7 @@ public class CadastroVendaScreen implements FechamentoTelas {
     }
     
     public void setImovel(Imovel imovel){
-       
-        
-        /*
-        for(Imovel iMOVEL : listImoveis){
-            if(iMOVEL.getCodigo() == imovel.getCodigo()){
-                //System.out.println("CAIU AQUI!!");
-                //boxImovel.setSelectedItem(iMOVEL);      
-            }
-        }*/
+       modelImovel.setSelectedItem(imovel);
     }
 
     public String getNomeComprador() {
@@ -139,20 +132,20 @@ public class CadastroVendaScreen implements FechamentoTelas {
         return textValorVenda.getText();
     }
 
-    public String getImovel() {
+    public Imovel getImovel() {
         if (boxImovel.getSelectedItem().toString().equals("--")) {
             return null;
         } else {
-           return boxImovel.getSelectedItem().toString();
+           return (Imovel) boxImovel.getSelectedItem();
         }
         
     }
 
-    public String getCorretor() {
+    public Corretor getCorretor() {
         if (boxCorretor.getSelectedItem().toString().equals("--")) {
             return null;
         } else {
-            return boxCorretor.getSelectedItem().toString();
+            return (Corretor) boxCorretor.getSelectedItem();
         }
     }
 
@@ -174,8 +167,8 @@ public class CadastroVendaScreen implements FechamentoTelas {
     }
     
     public void updateImoveisComboBox(ArrayList<Imovel> imoveis) {
-        DefaultComboBoxModel model = new DefaultComboBoxModel( imoveis.toArray() );
-        boxImovel.setModel(model);
+        modelImovel = new DefaultComboBoxModel( imoveis.toArray() );
+        boxImovel.setModel(modelImovel);
     }
 
     public void showMessage(String message, boolean isError) {

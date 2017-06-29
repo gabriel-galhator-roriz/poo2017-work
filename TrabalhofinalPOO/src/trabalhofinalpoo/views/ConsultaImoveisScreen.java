@@ -42,7 +42,7 @@ public class ConsultaImoveisScreen implements FechamentoTelas {
     JTextArea textArea2;
     JScrollPane scrollPane1, scrollPane2;
     JButton bReset, bSalvar, bVenda, buttonRemove;
-    JComboBox boxTiposConsulta, box2;
+    JComboBox boxTiposConsulta, boxTiposEdit;
     DefaultComboBoxModel comboBoxTipoEditModel, comboBoxTipoConsultaModel;
     JList lista;
     DefaultListModel itensLista;
@@ -53,14 +53,11 @@ public class ConsultaImoveisScreen implements FechamentoTelas {
     JDatePickerImpl datePicker;
 
     private ConsultaImoveisController controller;
-    private ArrayList<Imovel> listImoveis = new ArrayList<Imovel>();
-    private ArrayList<Imovel> showedImoveis = new ArrayList<Imovel>();
 
     MainScreen main;
     
     public ConsultaImoveisScreen(MainScreen mMain) {
         main = mMain;
-        createTemporaryImoveis();
         controller = new ConsultaImoveisController(this);
         
         pConImoveis = new JPanel(new BorderLayout());
@@ -102,8 +99,7 @@ public class ConsultaImoveisScreen implements FechamentoTelas {
         pConsulta.add(lTipo1, c);
         
         c.gridy++;
-        comboBoxTipoConsultaModel = new DefaultComboBoxModel(controller.getAvailableImovelCategories(listImoveis).toArray());
-        boxTiposConsulta = new JComboBox(comboBoxTipoConsultaModel);
+        boxTiposConsulta = new JComboBox();
         boxTiposConsulta.setName(COMBOBOX_TIPOS_CONSULTA);
         boxTiposConsulta.addActionListener(controller);
         pConsulta.add(boxTiposConsulta, c);
@@ -114,8 +110,7 @@ public class ConsultaImoveisScreen implements FechamentoTelas {
         
         c.gridy++;
         c.ipady = 100;
-        lista = new JList(showedImoveis.toArray());
-        showOnlySpecificTipo(boxTiposConsulta.getSelectedItem().toString());
+        lista = new JList();
         lista.addListSelectionListener(controller);
         lista.setBorder(BorderFactory.createEtchedBorder());
         scrollPane1 = new JScrollPane(lista, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -184,13 +179,12 @@ public class ConsultaImoveisScreen implements FechamentoTelas {
         i.gridy++;
         i.ipadx = 100;
         pEdit.add(textCod, i);
-        comboBoxTipoEditModel = new DefaultComboBoxModel();
-        box2 = new JComboBox(comboBoxTipoEditModel);
-        box2.setName(COMBOBOX_TIPOS_EDIT);
-        box2.setEnabled(false);
+        boxTiposEdit = new JComboBox();
+        boxTiposEdit.setName(COMBOBOX_TIPOS_EDIT);
+        boxTiposEdit.setEnabled(false);
         i.gridx = 2;
         i.ipadx = 150;
-        pEdit.add(box2, i);
+        pEdit.add(boxTiposEdit, i);
         
         lDesc = new JLabel("Descrição:");
         i.gridx = 0;
@@ -293,81 +287,51 @@ public class ConsultaImoveisScreen implements FechamentoTelas {
     }
 
 
-    private void clearFields() {
-        ///
+    public void clearFields() {
+        updateTipoComboBoxEdit(new ArrayList<String>());
+         textCod.setText("");
+         textPreco.setText("");
+         textArea2.setText("");   
     }
 
     public void changeVisibleEdit(boolean visible) {
         pEdit.setVisible(visible);
     }
     
-    public void createTemporaryImoveis(){
-            listImoveis.add(new Imovel(0l, Imovel.TYPE_NULL, "--", 14000f, true));
-            listImoveis.add(new Imovel(1l, Imovel.TYPE_COMMERCIAL_ROOM, "Sala comercial Av. Paulista", 140000f, true));
-            listImoveis.add(new Imovel(2l, Imovel.TYPE_LOT, "Lote 40m", 345000f, true));
-            listImoveis.add(new Imovel(4l, Imovel.TYPE_APT, "Apartamento Atmosfera", 15f, true));
-            listImoveis.add(new Imovel(5l, Imovel.TYPE_APT, "Mansão Terraço", 9f, true));
-    }
-    
-    public void showImovel(int index) {
-        if(pEdit.isVisible() && index != -1){
-            Imovel imovel = showedImoveis.get(index);
+    public void showImovel(Imovel imovel) {
+        if(pEdit.isVisible() && imovel != null){
             textCod.setText(Long.toString(imovel.getCodigo()));
             textPreco.setText(Float.toString(imovel.getPreço()));
-            textArea2.setText(imovel.getDescricao());
-            comboBoxTipoEditModel.removeAllElements();
-            comboBoxTipoEditModel.addElement(imovel.getTipoString());
+            textArea2.setText(imovel.getDescricao());   
+            updateTipoComboBoxEdit(new ArrayList<String>(Arrays.asList(Imovel.getTipoString(imovel.getTipo()))));
         }
     }
     
-    public int getSelectedItemList(){
-        return lista.getSelectedIndex();
-    }
-
-    public void showOnlySpecificTipo(String item) {
-        
-        ArrayList<Imovel> imoveisFiltered = new ArrayList<Imovel>();
-        for(Imovel i : listImoveis){
-            Integer tipo = Imovel.getTipoInt(item);
-            if(tipo == i.getTipo()){
-               imoveisFiltered.add(i);
-            }
-        }
-        updateList(imoveisFiltered);
+    public Imovel getImovelSelected(){
+        return (Imovel) lista.getSelectedValue();
     }
     
-    private void updateList(ArrayList<Imovel> array){
-        showedImoveis.clear();
-        showedImoveis = new ArrayList<Imovel>(array);
-        
-        itensLista = new DefaultListModel<String>();
-        for(Imovel imovel : array){
-             if(imovel.getCodigo() != Imovel.TYPE_NULL){
-                itensLista.addElement(imovel.getDescricao());
-             }
-        }    
-        lista.setModel(itensLista);
-        
+    public String getTipoSelected(){
+        return (String) boxTiposConsulta.getSelectedItem();
     }
-
-    public void removeSelectedItem() {
-        int item = getSelectedItemList();        
-        Imovel removeImovel = showedImoveis.get(item);
-        
-        for(Imovel imovel : listImoveis){
-            if(imovel.getCodigo() == removeImovel.getCodigo()){
-                listImoveis.remove(imovel);
-                
-                String comboBoxSelected = boxTiposConsulta.getSelectedItem().toString();
-                
-                comboBoxTipoConsultaModel = new DefaultComboBoxModel(controller.getAvailableImovelCategories(listImoveis).toArray());
-                boxTiposConsulta.setModel(comboBoxTipoConsultaModel);
-                boxTiposConsulta.setSelectedItem(comboBoxSelected);
-                showOnlySpecificTipo(comboBoxSelected);
-                clearFields();
-                return;
-            }
+    
+    public void updateTipoComboBoxConsulta(ArrayList<String> tipos){
+        DefaultComboBoxModel model = new DefaultComboBoxModel( tipos.toArray() );
+        boxTiposConsulta.setModel(model);
+    }
+    
+    public void updateTipoComboBoxEdit(ArrayList<String> tipos){
+        DefaultComboBoxModel model = new DefaultComboBoxModel( tipos.toArray() );
+        boxTiposEdit.setModel(model);
+    }
+     
+    public void updateList(ArrayList<Imovel> novaLista){
+        DefaultListModel modeloLista = new DefaultListModel<Imovel>();
+        for(Imovel imovel : novaLista){
+            modeloLista.addElement(imovel); 
         }
+                
+        lista.setModel(modeloLista);
     }
     
     public String getDescription(){
@@ -379,11 +343,11 @@ public class ConsultaImoveisScreen implements FechamentoTelas {
     }
     
     public void callTelaDeVenda(){
-        main.callTelaDeVenda(showedImoveis.get(getSelectedItemList()));
+        main.callTelaDeVenda(getImovelSelected());
     }
 
     @Override
     public void abrirTela() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        controller.loadDados();
     }
 }

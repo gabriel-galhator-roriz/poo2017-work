@@ -186,9 +186,7 @@ public class Imovel implements Serializable{
         this.disponibilidade = disponibilidade;
     }
     
-   
-    
     public String toString(){
-        return String.valueOf(getCodigo());
+        return String.valueOf(getCodigo()) + " - " + getDescricao();
     }
 }

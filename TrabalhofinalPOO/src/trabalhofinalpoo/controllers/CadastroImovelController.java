@@ -65,8 +65,14 @@ public class CadastroImovelController implements ActionListener {
          //valida código
         if(!view.getCodigo().equals("")){
             if (!view.getCodigo().matches("[0-9]+")){
-            view.showMessage("O código só pode conter números.", true);
-            return false;
+                view.showMessage("O código só pode conter números.", true);
+                return false;
+            } else{
+                if(!dados.codDisponivel(Long.valueOf(view.getCodigo()))){
+                    view.showMessage("Esse código já está em uso, utilize outro.", true);
+                    return false;
+                }
+                
             }
         } else {
             view.showMessage("Digite um código.", true);
