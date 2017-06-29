@@ -254,7 +254,6 @@ public class ConsultaImoveisScreen implements FechamentoTelas {
     
     @Override
     public void closeTela() {
-        datePicker.setVisible(false);
         System.out.println("saiu da tela consulta imoveis screen");
     }
     

@@ -8,8 +8,12 @@ package trabalhofinalpoo.views;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 import trabalhofinalpoo.controllers.RelatorioCorretoresController;
+import trabalhofinalpoo.models.Corretor;
+import trabalhofinalpoo.models.Imovel;
+import trabalhofinalpoo.models.Venda;
 
 /**
  *
@@ -74,7 +78,7 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
         c.gridx = 0;
         c.gridy++;
         c.gridwidth = 4;
-        mensagem = new JLabel("mensagem");
+        mensagem = new JLabel();
         mensagem.setHorizontalAlignment(JLabel.CENTER);
         pConf.add(mensagem, c);
 
@@ -170,6 +174,24 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
 
     public JPanel getpFaturaPorCorretor() {
         return pCorretores;
+    }
+    
+     public void updateCorretorList(ArrayList<Corretor> novaLista) {
+        DefaultListModel modeloLista = new DefaultListModel<Corretor>();
+        for (Corretor corretor : novaLista) {   
+            modeloLista.addElement(corretor);
+        }
+        
+        listCorretor.setModel(modeloLista);
+    }
+     
+     public void updateVendasList(ArrayList<Venda> novaLista) {
+        DefaultListModel modeloLista = new DefaultListModel<Venda>();
+        for (Venda venda : novaLista) {
+            modeloLista.addElement(venda);
+        }
+        
+        listVendas.setModel(modeloLista);
     }
     
     public void showMessage(String message, boolean isError) {

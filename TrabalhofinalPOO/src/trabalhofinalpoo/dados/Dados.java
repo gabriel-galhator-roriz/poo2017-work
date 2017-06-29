@@ -198,6 +198,43 @@ public class Dados {
             return false;
         }
     }
+    
+    public ArrayList<Venda> getVendasInInterval(Data data){
+        ArrayList<Venda> vendasInInterval = new ArrayList<Venda>();
+        
+
+        System.out.println("DATA DA BUSCA: " + data);
+        for(Venda venda : vendas){
+            
+            Data dataDaVenda = venda.getDataDaVenda();
+            System.out.println("DATA DA VENDA: " + dataDaVenda);
+   
+            if(data.getAno().equals(dataDaVenda.getAno())
+                    && data.getMes().equals(dataDaVenda.getMes())){
+                System.out.println("CAIU AQUI!!");
+                vendasInInterval.add(venda);
+            } 
+        }
+        
+        return vendasInInterval;
+    }
+    
+    public ArrayList<Corretor> getCorretorInInterval(Data data){
+        ArrayList<Corretor> corretorDoIntervalo = new ArrayList<Corretor>();
+        ArrayList<Venda> vendasInInterval = getVendasInInterval(data);
+        
+        
+        for(Corretor c : corretores){
+            for(Venda v : vendasInInterval){
+                System.out.println(v.getDataDaVenda());
+                if(v.getNumeroCRECIResponsavel() == c.getNumeroCRECI()){
+                    corretorDoIntervalo.add(c);
+                    break;
+                }
+            }
+        }        
+        return corretorDoIntervalo;
+    }
 
     public boolean addCorretor(Corretor corretor) {
 

@@ -44,7 +44,8 @@ public class RelatorioCorretoresController implements ActionListener {
 
     private void buttonBuscarClicked() {
          if(validateData()){
-             view.showMessage("Busca realizada!", false);
+             dados.update();
+             view.updateCorretorList(dados.getCorretorInInterval(new Data(0, Integer.valueOf(view.getMes()), Integer.valueOf(view.getAno()))));
          }
     }
     
@@ -78,8 +79,6 @@ public class RelatorioCorretoresController implements ActionListener {
                 Data actualDate = Data.getData(new Date());
                 Integer actualAno = actualDate.getAno();
                 
-                System.out.println(actualAno);
-                System.out.println(ano);
                 if(ano <= 0 || ano > actualAno){
                     view.showMessage("Digite um ano maior que sero e que represente o presente/passado.", true);
                     return false;
