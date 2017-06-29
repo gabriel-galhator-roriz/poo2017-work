@@ -46,6 +46,8 @@ public class RelatorioImoveisEncalhadosScreen implements FechamentoTelas {
     GridBagConstraints c;
 
     RelatorioImoveisEncalhadosController controller;
+    
+    public static final String BUTTON_BUSCAR = "Buscar";
 
     public RelatorioImoveisEncalhadosScreen() {
         controller = new RelatorioImoveisEncalhadosController(this);
@@ -89,8 +91,8 @@ public class RelatorioImoveisEncalhadosScreen implements FechamentoTelas {
         c.gridwidth = 4;
         c.gridy++;
         c.gridx = 0;
-        buscar = new JButton("Buscar");
-        //calcular.addActionListener(controler);
+        buscar = new JButton(BUTTON_BUSCAR);
+        buscar.addActionListener(controller);
         pOrganize.add(buscar, c);
 
         c.gridx = 0;
@@ -266,4 +268,22 @@ public class RelatorioImoveisEncalhadosScreen implements FechamentoTelas {
     public void abrirTela() {
         controller.loadDados();
     }
+    
+    public String getAno(){
+        return textAno.getText();
+    }
+    
+    public String getMes(){
+        return textMes.getText();
+    }
+    
+    public void showMessage(String message, boolean isError) {
+        if (isError) {
+            mensagem.setForeground(Color.RED);
+        } else {
+            mensagem.setForeground(Color.GREEN);
+        }
+        mensagem.setText(message);
+    }
+
 }

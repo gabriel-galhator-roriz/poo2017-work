@@ -93,7 +93,7 @@ public class CadastroCorretorController implements ActionListener, Serializable{
                     view.showMessage("Esse número CRECI não está disponível.", true);
                     return false;
                 }
-            }
+            }        
         } else {
             view.showMessage("Digite um número CRECI.", true);
             return false;

@@ -114,10 +114,6 @@ public class CadastroVendaController implements ActionListener{
         dados.update();
         view.updateCorretorComboBox(dados.corretores);
         view.updateImoveisComboBox(dados.getImoveisDisponiveis());
-        
-        for(Imovel imovel : dados.getImoveisDisponiveis()){
-            System.out.println(imovel.getDataDeCadastro());
-        }
     }
    
 }

@@ -16,6 +16,7 @@ import trabalhofinalpoo.controllers.RelatorioFinanceiroController;
  * @author khazyer
  */
 public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
+    
 
     JPanel pFinanceiro, pConf;
     JLabel lFinanceiro, lFaturamento, lLucro, lMes, lAno, mensagem;
@@ -121,5 +122,23 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
     public void abrirTela() {
         controller.loadDados();
     }
+    
+    public String getAno(){
+        return textAno.getText();
+    }
+    
+    public String getMes(){
+        return textMes.getText();
+    }
+    
+    public void showMessage(String message, boolean isError) {
+        if (isError) {
+            mensagem.setForeground(Color.RED);
+        } else {
+            mensagem.setForeground(Color.GREEN);
+        }
+        mensagem.setText(message);
+    }
+
 
 }

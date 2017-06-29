@@ -43,6 +43,8 @@ import static trabalhofinalpoo.views.ConsultaImoveisScreen.COMBOBOX_TIPOS_EDIT;
  * @author khazyer
  */
 public class RelatorioImoveisVendidos implements FechamentoTelas {
+    
+    public static final String BUTTON_BUSCAR = "Buscar";
 
     JPanel pImoveisVendidos, pOrganize, pConsulta, pEdit;
     JLabel labelConsulta, lLista, labelImovel, labelMensagemConsulta, labelMensagemEdit, lTipo1, lTipo2, lCod, lDesc, lPreco, lDate, lMes, lAno,mensagem;
@@ -100,8 +102,8 @@ public class RelatorioImoveisVendidos implements FechamentoTelas {
         c.gridwidth = 4;
         c.gridy++;
         c.gridx = 0;
-        buscar = new JButton("Buscar");
-        //calcular.addActionListener(controler);
+        buscar = new JButton(BUTTON_BUSCAR);
+        buscar.addActionListener(controller);
         pOrganize.add(buscar, c);
 
         c.gridx = 0;
@@ -277,4 +279,22 @@ public class RelatorioImoveisVendidos implements FechamentoTelas {
     public void abrirTela() {
         controller.loadDados();
     }
+    
+    public String getAno(){
+        return textAno.getText();
+    }
+    
+    public String getMes(){
+        return textMes.getText();
+    }
+    
+    public void showMessage(String message, boolean isError) {
+        if (isError) {
+            mensagem.setForeground(Color.RED);
+        } else {
+            mensagem.setForeground(Color.GREEN);
+        }
+        mensagem.setText(message);
+    }
+
 }

@@ -17,6 +17,8 @@ import trabalhofinalpoo.controllers.RelatorioCorretoresController;
  */
 public class RelatorioCorretores implements ActionListener, FechamentoTelas {
 
+    public static final String BUTTON_BUSCAR = "Buscar";
+        
     JPanel pCorretores, pConf;
     JLabel lCorretores, lFaturamento, lValorPago, lNomeCorretorDoMes, lCorretorDoMes, lNomeFuncionário, mensagem, lMes, lAno, lVendas;
     JTextField textValorPago, textFaturamento, textCDMValorPago, textCDMFAturamento, textAno, textMes;
@@ -64,8 +66,8 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
         c.gridwidth = 4;
         c.gridy++;
         c.gridx = 0;
-        buscar = new JButton("Buscar");
-        //calcular.addActionListener(controler);
+        buscar = new JButton(BUTTON_BUSCAR);
+        buscar.addActionListener(controller);
         pConf.add(buscar, c);
 
         c.gridy++;
@@ -168,6 +170,15 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
     public JPanel getpFaturaPorCorretor() {
         return pCorretores;
     }
+    
+    public void showMessage(String message, boolean isError) {
+        if (isError) {
+            mensagem.setForeground(Color.RED);
+        } else {
+            mensagem.setForeground(Color.GREEN);
+        }
+        mensagem.setText(message);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -181,6 +192,14 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
     @Override
     public void abrirTela() {
         controller.loadDados();
+    }
+    
+    public String getAno(){
+        return textAno.getText();
+    }
+    
+    public String getMes(){
+        return textMes.getText();
     }
 
 }
