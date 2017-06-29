@@ -71,6 +71,14 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
         //calcular.addActionListener(controler);
         pConf.add(buscar, c);
 
+        c.gridx = 0;
+        c.gridy += 15;
+        c.ipady = 15;
+        c.gridwidth = 4;
+        mensagem = new JLabel("mensagem");
+        mensagem.setHorizontalAlignment(JLabel.CENTER);
+        pConf.add(mensagem, c);
+
         c.gridy++;
         c.gridx = 0;
         c.gridwidth = 2;
@@ -92,16 +100,7 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
         textLucro.setEnabled(false);
         pConf.add(textLucro, c);
 
-        c.gridx = 0;
-        c.gridy += 15;
-        c.ipady = 15;
-        c.gridwidth = 4;
-        mensagem = new JLabel("mensagem");
-        mensagem.setHorizontalAlignment(JLabel.CENTER);
-        pConf.add(mensagem, c);
-        
         pFinanceiro.add(pConf, BorderLayout.PAGE_START);
-        
 
     }
 

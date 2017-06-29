@@ -70,6 +70,14 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
         buscar.addActionListener(controller);
         pConf.add(buscar, c);
 
+        c.ipady = 15;
+        c.gridx = 0;
+        c.gridy++;
+        c.gridwidth = 4;
+        mensagem = new JLabel("mensagem");
+        mensagem.setHorizontalAlignment(JLabel.CENTER);
+        pConf.add(mensagem, c);
+
         c.gridy++;
         c.gridwidth = 2;
         c.gridheight = 5;
@@ -156,13 +164,6 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
         textCDMValorPago.setEnabled(false);
         pConf.add(textCDMValorPago, c);
 
-        c.ipady = 15;
-        c.gridx = 0;
-        c.gridy++;
-        c.gridwidth = 4;
-        mensagem = new JLabel("mensagem");
-        mensagem.setHorizontalAlignment(JLabel.CENTER);
-        pConf.add(mensagem, c);
         pCorretores.add(pConf, BorderLayout.PAGE_START);
 
     }
