@@ -9,19 +9,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import trabalhofinalpoo.dados.Dados;
 import trabalhofinalpoo.dados.Data;
+import trabalhofinalpoo.models.Corretor;
+import trabalhofinalpoo.models.Imovel;
 import trabalhofinalpoo.views.RelatorioCorretores;
 
 /**
  *
  * @author gabrielroriz
  */
-public class RelatorioCorretoresController implements ActionListener {
+public class RelatorioCorretoresController implements ActionListener, ListSelectionListener{
     
     RelatorioCorretores view;
     
     Dados dados;
+    
+    Corretor corretorSelected;
+    
+    Data dataSelected;
     
     public RelatorioCorretoresController(RelatorioCorretores mView){
         view = mView;
@@ -45,7 +54,15 @@ public class RelatorioCorretoresController implements ActionListener {
     private void buttonBuscarClicked() {
          if(validateData()){
              dados.update();
-             view.updateCorretorList(dados.getCorretorInInterval(new Data(0, Integer.valueOf(view.getMes()), Integer.valueOf(view.getAno()))));
+             
+             dataSelected = new Data(0, Integer.valueOf(view.getMes()), Integer.valueOf(view.getAno()));
+             view.updateCorretorList(dados.getCorretorInInterval(dataSelected));
+             
+             Corretor doMes = dados.getCorretorDoMes(dataSelected);
+             view.setFaturamentoTotalCDM(dados.getFaturamentoTotalCorretor(doMes, dataSelected));
+             view.setValorPagoCDM(dados.getValorPagoCorretor(dataSelected, doMes));
+             view.setNomeCMD(doMes.getNome());
+             
          }
     }
     
@@ -90,5 +107,17 @@ public class RelatorioCorretoresController implements ActionListener {
         }
         
         return true;
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent lse) {
+         JList aux = (JList) lse.getSource();
+        
+        corretorSelected = (Corretor) aux.getSelectedValue();
+        if(corretorSelected != null){
+            view.updateVendasList(dados.getVendasFromSpecificCorretorInInterval(corretorSelected, dataSelected));
+            view.setFaturamentoTotalCorretor(dados.getFaturamentoTotalCorretor(corretorSelected, dataSelected));
+            view.setValorPagoCorretor(dados.getValorPagoCorretor(dataSelected, corretorSelected));
+        }
     }
 }

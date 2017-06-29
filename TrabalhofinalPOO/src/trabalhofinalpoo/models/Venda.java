@@ -72,5 +72,11 @@ public class Venda implements Serializable{
     public void setCodigoImovel(Long codigoImovel) {
         this.codigoImovel = codigoImovel;
     }
+    
+    public String toString(){
+        return getDataDaVenda()
+                +" - " + getNomeDoComprador()
+                + " - R$" + getValor();
+    }
 }
 

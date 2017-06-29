@@ -34,8 +34,8 @@ public class RelatorioFinanceiroController implements ActionListener {
         if (e.getSource() instanceof JButton) {
             JButton aux = (JButton) e.getSource();
             if (aux.getText().equals(RelatorioFinanceiro.BUTTON_BUSCAR)) {
-                view.setTextFaturamento(dados.getFaturamentoTotal().toString());
-                System.out.println(dados.getFaturamentoTotal().toString());
+                //view.setTextFaturamento(dados.getFaturamentoTotal().toString());
+                //System.out.println(dados.getFaturamentoTotal().toString());
             }
         }
     }

@@ -34,38 +34,42 @@ public class Dados {
         return mInstance;
     }
 
-    public Float getFaturamentoTotalCorretor(ArrayList<Venda> vendas, Corretor corretor) {
+    public Float getFaturamentoTotalCorretor(Corretor corretor, Data data) {
+        ArrayList<Venda> vendasDoCorretorNoMes = getVendasFromSpecificCorretorInInterval(corretor, data);
+
         Float valor = new Float(0);
-        for (Venda v : vendas) {
+        for (Venda v : vendasDoCorretorNoMes) {
             if (v.getNumeroCRECIResponsavel() == corretor.getNumeroCRECI()) {
-                valor += v.getValor() * (float) 0.5;
+                valor += v.getValor() * 0.5f;
             }
         }
-        return valor - this.getValorPagoCorretor(vendas, corretor);
+        return valor - this.getValorPagoCorretor(data, corretor);
     }
 
-    public Corretor getCorretorDoMes(ArrayList<Venda> vendas, ArrayList<Corretor> corretores) {
+    public Corretor getCorretorDoMes(Data data) {
         Corretor corretor = null;
         Float valor = new Float(0);
-        for (Corretor c : corretores) {
-            if (valor < this.getValorPagoCorretor(vendas, c)) {
+        for (Corretor c : getCorretorInInterval(data)) {
+            if (valor < this.getValorPagoCorretor(data, c)) {
                 corretor = c;
-                valor = this.getValorPagoCorretor(vendas, c);
+                valor = this.getValorPagoCorretor(data, c);
             }
         }
         return corretor;
     }
 
-    public Float getValorPagoCorretor(ArrayList<Venda> vendas, Corretor corretor) {
+    public Float getValorPagoCorretor(Data data, Corretor corretor) {
+        
+        ArrayList<Venda> vendasDoCorretorNoIntervalo = getVendasFromSpecificCorretorInInterval(corretor, data);
+        
         Float valor = new Float(0);
-        for (Venda v : vendas) {
-            if (v.getNumeroCRECIResponsavel() == corretor.getNumeroCRECI()) {
-                if (corretor instanceof Comissionado) {
-                    valor += v.getValor() * ((Comissionado) corretor).getPorcentagemComssiondada();
-                } else {
-                    valor += v.getValor() * (float) 0.1;
-                }
+        for (Venda v : vendasDoCorretorNoIntervalo) {
+            if (corretor instanceof Comissionado) {
+                valor += v.getValor() * (((Comissionado) corretor).getPorcentagemComssiondada()/100);
+            } else {
+                valor += v.getValor() * (float) 0.01;
             }
+
         }
         return valor;
     }
@@ -85,8 +89,11 @@ public class Dados {
         }
     }
 
-    public Double getFaturamentoTotal() {
+    public Double getFaturamentoInInterval(Data data) {
+
         Double faturamento = new Double("0");
+        ArrayList<Venda> vendasEmUmIntervalo = getVendasInInterval(data);
+
         for (Venda p : vendas) {
             faturamento += p.getValor() * 0.5;
         }
@@ -234,41 +241,36 @@ public class Dados {
             return false;
         }
     }
-    
-    public ArrayList<Venda> getVendasInInterval(Data data){
-        ArrayList<Venda> vendasInInterval = new ArrayList<Venda>();
-        
 
-        System.out.println("DATA DA BUSCA: " + data);
-        for(Venda venda : vendas){
-            
+    public ArrayList<Venda> getVendasInInterval(Data data) {
+        ArrayList<Venda> vendasInInterval = new ArrayList<Venda>();
+
+        for (Venda venda : vendas) {
+
             Data dataDaVenda = venda.getDataDaVenda();
-            System.out.println("DATA DA VENDA: " + dataDaVenda);
-   
-            if(data.getAno().equals(dataDaVenda.getAno())
-                    && data.getMes().equals(dataDaVenda.getMes())){
-                System.out.println("CAIU AQUI!!");
+
+            if (data.getAno().equals(dataDaVenda.getAno())
+                    && data.getMes().equals(dataDaVenda.getMes())) {
                 vendasInInterval.add(venda);
-            } 
+            }
         }
-        
+
         return vendasInInterval;
     }
-    
-    public ArrayList<Corretor> getCorretorInInterval(Data data){
+
+    public ArrayList<Corretor> getCorretorInInterval(Data data) {
         ArrayList<Corretor> corretorDoIntervalo = new ArrayList<Corretor>();
         ArrayList<Venda> vendasInInterval = getVendasInInterval(data);
-        
-        
-        for(Corretor c : corretores){
-            for(Venda v : vendasInInterval){
+
+        for (Corretor c : corretores) {
+            for (Venda v : vendasInInterval) {
                 System.out.println(v.getDataDaVenda());
-                if(v.getNumeroCRECIResponsavel() == c.getNumeroCRECI()){
+                if (v.getNumeroCRECIResponsavel() == c.getNumeroCRECI()) {
                     corretorDoIntervalo.add(c);
                     break;
                 }
             }
-        }        
+        }
         return corretorDoIntervalo;
     }
 
@@ -375,6 +377,18 @@ public class Dados {
     public ArrayList<Venda> getVendasFromSpecificCorretor(Corretor corretor) {
         ArrayList<Venda> vendasDoCorretor = new ArrayList<Venda>();
         for (Venda venda : vendas) {
+            if (venda.getNumeroCRECIResponsavel() == corretor.getNumeroCRECI()) {
+                vendasDoCorretor.add(venda);
+            }
+        }
+
+        return vendasDoCorretor;
+    }
+
+    public ArrayList<Venda> getVendasFromSpecificCorretorInInterval(Corretor corretor, Data data) {
+        ArrayList<Venda> vendasDoCorretor = new ArrayList<Venda>();
+        ArrayList<Venda> vendasDoIntervalo = getVendasInInterval(data);
+        for (Venda venda : vendasDoIntervalo) {
             if (venda.getNumeroCRECIResponsavel() == corretor.getNumeroCRECI()) {
                 vendasDoCorretor.add(venda);
             }

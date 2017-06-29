@@ -87,6 +87,7 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
         c.gridheight = 5;
         c.ipadx = 0;
         listCorretor = new JList();
+        listCorretor.addListSelectionListener(controller);
         scrollCorretor = new JScrollPane(listCorretor, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         pConf.add(scrollCorretor, c);
 
@@ -174,6 +175,25 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
 
     public JPanel getpFaturaPorCorretor() {
         return pCorretores;
+    }
+    
+    public void setFaturamentoTotalCorretor(Float faturamento){
+        textFaturamento.setText(String.valueOf(faturamento)); 
+    }
+    
+    public void setValorPagoCorretor(Float valorPago){
+        textValorPago.setText(String.valueOf(valorPago));
+    }
+    
+    public void setFaturamentoTotalCDM(Float faturamento){
+        textCDMFAturamento.setText(String.valueOf(faturamento)); 
+    }
+    
+    public void setValorPagoCDM(Float valorPago){
+        textCDMValorPago.setText(String.valueOf(valorPago));
+    }
+    public void setNomeCMD(String nome){
+        lNomeCorretorDoMes.setText(nome);
     }
     
      public void updateCorretorList(ArrayList<Corretor> novaLista) {
