@@ -196,7 +196,7 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
         lNomeCorretorDoMes.setText(nome);
     }
     
-     public void updateCorretorList(ArrayList<Corretor> novaLista) {
+    public void updateCorretorList(ArrayList<Corretor> novaLista) {
         DefaultListModel modeloLista = new DefaultListModel<Corretor>();
         for (Corretor corretor : novaLista) {   
             modeloLista.addElement(corretor);

@@ -104,12 +104,12 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
         pFinanceiro.add(pConf, BorderLayout.PAGE_START);
     }
 
-    public void setTextFaturamento(String textFaturamento) {
-        this.textFaturamento.setText(textFaturamento);
+    public void setTextFaturamento(Double textFaturamento) {
+        this.textFaturamento.setText(String.valueOf(textFaturamento));
     }
 
-    public void setTextLucro(JTextField textLucro) {
-        this.textLucro = textLucro;
+    public void setTextLucro(Double textLucro) {
+        this.textLucro.setText(String.valueOf(textLucro));
     }
 
     public JPanel getpFaturaTotal() {

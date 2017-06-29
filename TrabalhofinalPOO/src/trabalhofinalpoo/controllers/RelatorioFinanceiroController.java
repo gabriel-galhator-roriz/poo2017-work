@@ -34,8 +34,7 @@ public class RelatorioFinanceiroController implements ActionListener {
         if (e.getSource() instanceof JButton) {
             JButton aux = (JButton) e.getSource();
             if (aux.getText().equals(RelatorioFinanceiro.BUTTON_BUSCAR)) {
-                //view.setTextFaturamento(dados.getFaturamentoTotal().toString());
-                //System.out.println(dados.getFaturamentoTotal().toString());
+                buttonBuscarClicked();
             }
         }
     }
@@ -44,7 +43,12 @@ public class RelatorioFinanceiroController implements ActionListener {
     
     private void buttonBuscarClicked() {
          if(validateData()){
+             dados.update();
+             
+             Data dataSelected = new Data(0, Integer.valueOf(view.getMes()), Integer.valueOf(view.getAno()));
              view.showMessage("Busca realizada!", false);
+             view.setTextFaturamento(dados.getFaturamentoInInterval(dataSelected));
+             view.setTextLucro(dados.getLucroInInterval(dataSelected));
          }
     }
     

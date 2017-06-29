@@ -12,6 +12,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -29,6 +31,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 import trabalhofinalpoo.controllers.ConsultaImoveisController;
 import trabalhofinalpoo.controllers.RelatorioImoveisVendidosController;
+import trabalhofinalpoo.models.Corretor;
 import trabalhofinalpoo.models.DateLabelFormatter;
 import trabalhofinalpoo.models.Imovel;
 import static trabalhofinalpoo.views.ConsultaImoveisScreen.BUTTON_REMOVE;
@@ -137,9 +140,7 @@ public class RelatorioImoveisVendidos implements FechamentoTelas {
         c.gridy++;
         c.ipady = 100;
         lista = new JList();
-        //lista = new JList(showedImoveis.toArray());
-        //showOnlySpecificTipo(boxTiposConsulta.getSelectedItem().toString());
-        //lista.addListSelectionListener(controller);
+        lista.addListSelectionListener(controller);
         lista.setBorder(BorderFactory.createEtchedBorder());
         scrollPane1 = new JScrollPane(lista, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         pConsulta.add(scrollPane1, c);
@@ -274,6 +275,15 @@ public class RelatorioImoveisVendidos implements FechamentoTelas {
     JPanel getpImoveisVendidos() {
         return pImoveisVendidos;
     }
+    
+    public void updateCorretorList(ArrayList<Imovel> novaLista) {
+        DefaultListModel modeloLista = new DefaultListModel<Imovel>();
+        for (Imovel imovel : novaLista) {   
+            modeloLista.addElement(imovel);
+        }
+        
+        lista.setModel(modeloLista);
+    }
 
     @Override
     public void abrirTela() {
@@ -295,6 +305,21 @@ public class RelatorioImoveisVendidos implements FechamentoTelas {
             mensagem.setForeground(Color.GREEN);
         }
         mensagem.setText(message);
+    }
+    
+    
+    public void showImovel(Imovel imovel) {
+        if (pEdit.isVisible() && imovel != null) {
+            textCod.setText(Long.toString(imovel.getCodigo()));
+            textPreco.setText(Float.toString(imovel.getPreço()));
+            textArea2.setText(imovel.getDescricao());
+            textData.setText(imovel.getDataDeCadastro().toString());
+            updateTipoComboBoxEdit(new ArrayList<String>(Arrays.asList(Imovel.getTipoString(imovel.getTipo()))));
+        }
+    }
+    public void updateTipoComboBoxEdit(ArrayList<String> tipos) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel(tipos.toArray());
+        box2.setModel(model);
     }
 
 }

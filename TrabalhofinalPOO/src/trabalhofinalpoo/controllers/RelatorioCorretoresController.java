@@ -111,7 +111,7 @@ public class RelatorioCorretoresController implements ActionListener, ListSelect
 
     @Override
     public void valueChanged(ListSelectionEvent lse) {
-         JList aux = (JList) lse.getSource();
+        JList aux = (JList) lse.getSource();
         
         corretorSelected = (Corretor) aux.getSelectedValue();
         if(corretorSelected != null){

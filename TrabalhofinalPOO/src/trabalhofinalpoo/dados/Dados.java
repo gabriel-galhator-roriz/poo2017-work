@@ -36,6 +36,8 @@ public class Dados {
 
     public Float getFaturamentoTotalCorretor(Corretor corretor, Data data) {
         ArrayList<Venda> vendasDoCorretorNoMes = getVendasFromSpecificCorretorInInterval(corretor, data);
+        
+        
 
         Float valor = new Float(0);
         for (Venda v : vendasDoCorretorNoMes) {
@@ -88,6 +90,19 @@ public class Dados {
             return null;
         }
     }
+    
+    
+    public Double getLucroInInterval(Data data){
+        ArrayList<Corretor> corretorList = getCorretorInInterval(data);
+        
+        Float valorPagoAosCorretores = new Float(0);
+        
+        for(Corretor c : corretorList){
+            valorPagoAosCorretores += getFaturamentoTotalCorretor(c, data);
+        }
+        
+        return getFaturamentoInInterval(data) - valorPagoAosCorretores;
+    }
 
     public Double getFaturamentoInInterval(Data data) {
 
@@ -119,6 +134,35 @@ public class Dados {
         }
 
         return imoveisDisponiveis;
+    }
+    
+    public ArrayList<Imovel> getImoveisVendidosInInterval(Data data){
+        ArrayList<Imovel> imoveisVendidos = new ArrayList<Imovel>();
+        
+        ArrayList<Venda> vendasDoIntervalo = getVendasInInterval(data);
+        
+        for(Venda venda : vendasDoIntervalo){
+            imoveisVendidos.add(getImovelByCod(venda.getCodigoImovel()));
+        }
+        return imoveisVendidos;
+    }
+    
+    public ArrayList<Imovel> getImoveisEncalhados(){
+        ArrayList<Imovel> imoveisDisponiveis = getImoveisDisponiveis();
+        
+        
+        
+        return null;
+    }
+    
+    public Imovel getImovelByCod(Long cod){
+        
+        for(Imovel i : imoveis){
+            if(i.getCodigo().equals(cod)){
+                return i;
+            }
+        }
+        return null;
     }
 
     public boolean saveImoveis() throws Exception {

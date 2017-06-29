@@ -78,5 +78,4 @@ public class Data implements Serializable{
        Integer ano = Integer.valueOf(year);
        return new Data(dia, mes, ano);
     }
-    
 }

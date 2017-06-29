@@ -9,8 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import trabalhofinalpoo.dados.Dados;
 import trabalhofinalpoo.dados.Data;
+import trabalhofinalpoo.models.Imovel;
 import trabalhofinalpoo.views.RelatorioCorretores;
 import trabalhofinalpoo.views.RelatorioImoveisVendidos;
 
@@ -18,11 +22,12 @@ import trabalhofinalpoo.views.RelatorioImoveisVendidos;
  *
  * @author gabrielroriz
  */
-public class RelatorioImoveisVendidosController implements ActionListener{
+public class RelatorioImoveisVendidosController implements ActionListener, ListSelectionListener{
     
     RelatorioImoveisVendidos view;
     
     Dados dados;
+    private Data dataSelected;
     
     public RelatorioImoveisVendidosController(RelatorioImoveisVendidos mView){
         view = mView;
@@ -45,7 +50,10 @@ public class RelatorioImoveisVendidosController implements ActionListener{
     
     private void buttonBuscarClicked() {
          if(validateData()){
-             view.showMessage("Busca realizada!", false);
+             dados.update();
+             
+             dataSelected = new Data(0, Integer.valueOf(view.getMes()), Integer.valueOf(view.getAno()));
+             view.updateCorretorList(dados.getImoveisVendidosInInterval(dataSelected));
          }
     }
     
@@ -92,5 +100,15 @@ public class RelatorioImoveisVendidosController implements ActionListener{
         }
         
         return true;
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent lse) {
+         JList aux = (JList) lse.getSource();
+        
+        Imovel imovelSelected = (Imovel) aux.getSelectedValue();
+        if(imovelSelected != null){
+            view.showImovel(imovelSelected);
+        }
     }
 }
