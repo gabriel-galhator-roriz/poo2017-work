@@ -299,7 +299,19 @@ public class Dados {
         }
     }
 
-    public void update() {
+     
+     public ArrayList<Venda> getVendasFromSpecificCorretor(Corretor corretor){
+         ArrayList<Venda> vendasDoCorretor = new ArrayList<Venda>();
+         for(Venda venda : vendas){
+             if(venda.getNumeroCRECIResponsavel() == corretor.getNumeroCRECI()){
+                 vendasDoCorretor.add(venda);
+             }
+         }
+         
+         return vendasDoCorretor;
+     }
+     
+     public void update(){
         updateCorretorList();
         updateImovelList();
         updateVendasList();
