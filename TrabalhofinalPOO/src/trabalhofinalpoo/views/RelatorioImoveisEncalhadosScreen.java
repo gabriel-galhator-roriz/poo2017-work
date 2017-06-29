@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import trabalhofinalpoo.controllers.RelatorioImoveisEncalhadosController;
 import static trabalhofinalpoo.views.ConsultaImoveisScreen.COMBOBOX_TIPOS_EDIT;
 
 /**
@@ -43,9 +44,11 @@ public class RelatorioImoveisEncalhadosScreen implements FechamentoTelas {
     JList lista;
     DefaultListModel itensLista;
     GridBagConstraints c;
+    
+    RelatorioImoveisEncalhadosController controller;
 
     public RelatorioImoveisEncalhadosScreen() {
-        //controller = new ConsultaImoveisController(this);
+        controller = new RelatorioImoveisEncalhadosController(this);
 
         pImoveisEncalhados = new JPanel(new BorderLayout());
         pOrganize = new JPanel(new GridBagLayout());
@@ -253,6 +256,6 @@ public class RelatorioImoveisEncalhadosScreen implements FechamentoTelas {
 
     @Override
     public void abrirTela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        controller.loadDados();
     }
 }

@@ -28,6 +28,7 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 import trabalhofinalpoo.controllers.ConsultaImoveisController;
+import trabalhofinalpoo.controllers.RelatorioImoveisVendidosController;
 import trabalhofinalpoo.models.DateLabelFormatter;
 import trabalhofinalpoo.models.Imovel;
 import static trabalhofinalpoo.views.ConsultaImoveisScreen.BUTTON_REMOVE;
@@ -54,9 +55,11 @@ public class RelatorioImoveisVendidos implements FechamentoTelas {
     JList lista;
     DefaultListModel itensLista;
     GridBagConstraints c;
+    
+    RelatorioImoveisVendidosController controller;
 
     public RelatorioImoveisVendidos() {
-        //controller = new ConsultaImoveisController(this);
+        controller = new RelatorioImoveisVendidosController(this);
 
         pImoveisVendidos = new JPanel(new BorderLayout());
         pOrganize = new JPanel(new GridBagLayout());
@@ -264,6 +267,6 @@ public class RelatorioImoveisVendidos implements FechamentoTelas {
 
     @Override
     public void abrirTela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        controller.loadDados();
     }
 }

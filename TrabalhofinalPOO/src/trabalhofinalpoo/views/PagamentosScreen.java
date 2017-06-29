@@ -22,6 +22,9 @@ import trabalhofinalpoo.models.Corretor;
 public class PagamentosScreen implements FechamentoTelas {
     
     public static final String BUTTON_CALCULAR = "Calcular";
+    
+    public static final String CONTRATADO = "Contratado";
+    public static final String COMISSIONADO = "Comissionado";
 
     JPanel pPagamentos, pConf, pCard, pContratado, pComissionado;
     JLabel labelPagamento, lCorretor, lMes, lAno, lVendaRealizadaContratado, lVendaRealizadaComissionado, lValorComissao, lValorComissionado, lSalarioFixo, lTotalRecebido;
@@ -96,14 +99,18 @@ public class PagamentosScreen implements FechamentoTelas {
 
         this.instanceComissionado();
         this.instanceContratado();
-        pCard.add(pContratado, "contratado");
-        pCard.add(pComissionado, "comissionado");
+        
+        pCard.add(pContratado, COMISSIONADO);
+        pCard.add(pComissionado, CONTRATADO);
 
         c.gridy = 5;
         c.gridx = 0;
         c.gridwidth = 4;
         pConf.add(pCard, c);
-
+    }
+    
+    public Corretor getCorretorSelected(){
+        return (Corretor) boxCorretor.getSelectedItem();
     }
 
     public void instanceContratado() {
@@ -163,6 +170,14 @@ public class PagamentosScreen implements FechamentoTelas {
     @Override
     public void abrirTela() {
         controller.loadDados();
+    }
+
+    public void showComissionadoPanel() {
+        layout.show(pCard, COMISSIONADO);
+    }
+
+    public void showContratadoPanel() {
+       layout.show(pCard, CONTRATADO);
     }
 
 }

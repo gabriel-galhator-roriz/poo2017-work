@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import trabalhofinalpoo.controllers.RelatorioCorretoresController;
 
 /**
  *
@@ -23,8 +24,11 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
     JButton buscar;
     JScrollPane scroll;
     GridBagConstraints c;
+    
+    RelatorioCorretoresController controller;
 
     public RelatorioCorretores() {
+        controller = new RelatorioCorretoresController(this);
         pCorretores = new JPanel(new BorderLayout());
         pConf = new JPanel(new GridBagLayout());
         c = new GridBagConstraints();
@@ -159,12 +163,11 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
 
     @Override
     public void closeTela() {
-        System.out.println("saiu da tela Relatorio faturas screen");
     }
 
     @Override
     public void abrirTela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        controller.loadDados();
     }
 
 }

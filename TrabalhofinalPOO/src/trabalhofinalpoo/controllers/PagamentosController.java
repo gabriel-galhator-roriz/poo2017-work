@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import trabalhofinalpoo.dados.Dados;
+import trabalhofinalpoo.models.Comissionado;
+import trabalhofinalpoo.models.Contratado;
+import trabalhofinalpoo.models.Corretor;
 import trabalhofinalpoo.views.PagamentosScreen;
 
 public class PagamentosController implements ActionListener{
@@ -33,6 +36,13 @@ public class PagamentosController implements ActionListener{
     }
 
     private void buttonCalcularClicked() {
-        System.out.println("Button Clicked!!");
+        Corretor corretor = view.getCorretorSelected();
+        if(corretor != null){
+            if(corretor instanceof Comissionado){
+                view.showComissionadoPanel();
+            } else if (corretor instanceof Contratado){
+                view.showContratadoPanel();
+            }
+        }
     }
 }

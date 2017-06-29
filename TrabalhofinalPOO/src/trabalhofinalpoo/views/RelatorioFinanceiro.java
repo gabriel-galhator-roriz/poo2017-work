@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import trabalhofinalpoo.controllers.RelatorioFinanceiroController;
 
 /**
  *
@@ -21,8 +22,12 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
     JTextField textFaturamento, textLucro, textMes, textAno;
     JButton buscar;
     GridBagConstraints c;
+    
+    RelatorioFinanceiroController controller;
 
     public RelatorioFinanceiro() {
+        controller = new RelatorioFinanceiroController(this);
+        
         pFinanceiro = new JPanel();
         pFinanceiro.setLayout(new BorderLayout());
         pConf = new JPanel(new GridBagLayout());
@@ -101,12 +106,11 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
 
     @Override
     public void closeTela() {
-        System.out.println("saiu da tela Relatoio financeiro");
     }
 
     @Override
     public void abrirTela() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        controller.loadDados();
     }
 
 }
