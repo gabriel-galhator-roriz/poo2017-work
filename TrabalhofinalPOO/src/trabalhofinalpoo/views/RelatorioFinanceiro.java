@@ -22,6 +22,7 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
     JTextField textFaturamento, textLucro, textMes, textAno;
     JButton buscar;
     GridBagConstraints c;
+    public static final String BUTTON_BUSCAR = "Buscar";
 
     RelatorioFinanceiroController controller;
 
@@ -66,8 +67,8 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
         c.gridwidth = 4;
         c.gridy++;
         c.gridx = 0;
-        buscar = new JButton("Buscar");
-        //calcular.addActionListener(controler);
+        buscar = new JButton(BUTTON_BUSCAR);
+        buscar.addActionListener(controller);
         pConf.add(buscar, c);
 
         c.gridx = 0;
@@ -100,7 +101,14 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
         pConf.add(textLucro, c);
 
         pFinanceiro.add(pConf, BorderLayout.PAGE_START);
+    }
 
+    public void setTextFaturamento(String textFaturamento) {
+        this.textFaturamento.setText(textFaturamento);
+    }
+
+    public void setTextLucro(JTextField textLucro) {
+        this.textLucro = textLucro;
     }
 
     public JPanel getpFaturaTotal() {
