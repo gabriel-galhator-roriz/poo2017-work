@@ -101,7 +101,7 @@ public class RelatorioImoveisEncalhadosScreen implements FechamentoTelas {
         pOrganize.add(pEdit, c);
 
         c.gridx = 0;
-        c.gridy += 15;
+        c.gridy += 15; 
         c.ipady = 15;
         c.gridwidth = 4;
         mensagem = new JLabel("mensagem");

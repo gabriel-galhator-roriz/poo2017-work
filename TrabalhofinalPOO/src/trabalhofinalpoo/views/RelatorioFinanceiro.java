@@ -83,7 +83,7 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
 
         c.gridy++;
         c.gridx = 0;
-        lLucro = new JLabel("Lucro Imobiliária");
+        lLucro = new JLabel("Lucro Imobiliária:");
         pConf.add(lLucro, c);
 
         c.gridx = 2;
