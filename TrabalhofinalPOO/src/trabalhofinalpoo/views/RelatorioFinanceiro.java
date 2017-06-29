@@ -18,16 +18,16 @@ import trabalhofinalpoo.controllers.RelatorioFinanceiroController;
 public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
 
     JPanel pFinanceiro, pConf;
-    JLabel lFinanceiro, lFaturamento, lLucro, lMes, lAno;
+    JLabel lFinanceiro, lFaturamento, lLucro, lMes, lAno, mensagem;
     JTextField textFaturamento, textLucro, textMes, textAno;
     JButton buscar;
     GridBagConstraints c;
-    
+
     RelatorioFinanceiroController controller;
 
     public RelatorioFinanceiro() {
         controller = new RelatorioFinanceiroController(this);
-        
+
         pFinanceiro = new JPanel();
         pFinanceiro.setLayout(new BorderLayout());
         pConf = new JPanel(new GridBagLayout());
@@ -83,7 +83,7 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
 
         c.gridy++;
         c.gridx = 0;
-        lLucro = new JLabel("Lucro Imobiliária");
+        lLucro = new JLabel("Lucro Imobiliária:");
         pConf.add(lLucro, c);
 
         c.gridx = 2;
@@ -91,7 +91,16 @@ public class RelatorioFinanceiro implements ActionListener, FechamentoTelas {
         textLucro.setEnabled(false);
         pConf.add(textLucro, c);
 
+        c.gridx = 0;
+        c.gridy += 15;
+        c.ipady = 15;
+        c.gridwidth = 4;
+        mensagem = new JLabel("mensagem");
+        mensagem.setHorizontalAlignment(JLabel.CENTER);
+        pConf.add(mensagem, c);
+        
         pFinanceiro.add(pConf, BorderLayout.PAGE_START);
+        
 
     }
 

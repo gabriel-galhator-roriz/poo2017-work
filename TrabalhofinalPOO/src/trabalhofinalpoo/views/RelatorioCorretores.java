@@ -18,13 +18,13 @@ import trabalhofinalpoo.controllers.RelatorioCorretoresController;
 public class RelatorioCorretores implements ActionListener, FechamentoTelas {
 
     JPanel pCorretores, pConf;
-    JLabel lCorretores, lFaturamento, lValorPago, lNomeCorretorDoMes, lCorretorDoMes, lNomeFuncionário, mensagem, lMes, lAno;
+    JLabel lCorretores, lFaturamento, lValorPago, lNomeCorretorDoMes, lCorretorDoMes, lNomeFuncionário, mensagem, lMes, lAno, lVendas;
     JTextField textValorPago, textFaturamento, textCDMValorPago, textCDMFAturamento, textAno, textMes;
-    JList listCorretor;
+    JList listCorretor, listVendas;
     JButton buscar;
-    JScrollPane scroll;
+    JScrollPane scrollCorretor, scrollVendas;
     GridBagConstraints c;
-    
+
     RelatorioCorretoresController controller;
 
     public RelatorioCorretores() {
@@ -70,11 +70,11 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
 
         c.gridy++;
         c.gridwidth = 2;
-        c.gridheight = 2;
+        c.gridheight = 5;
         c.ipadx = 0;
         listCorretor = new JList();
-        scroll = new JScrollPane(listCorretor, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        pConf.add(scroll, c);
+        scrollCorretor = new JScrollPane(listCorretor, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        pConf.add(scrollCorretor, c);
 
         c.ipady = 0;
         c.gridx = 2;
@@ -99,6 +99,19 @@ public class RelatorioCorretores implements ActionListener, FechamentoTelas {
         textValorPago = new JTextField();
         textValorPago.setEditable(false);
         pConf.add(textValorPago, c);
+
+        c.gridx = 2;
+        c.gridy++;
+        c.gridwidth = 2;
+        lVendas = new JLabel("Vendas:");
+        pConf.add(lVendas, c);
+
+        c.gridy++;
+        c.gridwidth = 1;
+        c.gridwidth = 2;
+        listVendas = new JList();
+        scrollVendas = new JScrollPane(listVendas, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        pConf.add(scrollVendas, c);
 
         c.gridwidth = 4;
         c.gridx = 0;
