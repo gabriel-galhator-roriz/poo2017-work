@@ -5,9 +5,10 @@
  */
 package trabalhofinalpoo.views;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  *
@@ -15,14 +16,140 @@ import javax.swing.JPanel;
  */
 public class RelatorioCorretores implements ActionListener, FechamentoTelas {
 
-    JPanel pFaturaPorCorretor;
+    JPanel pCorretores, pConf;
+    JLabel lCorretores, lFaturamento, lValorPago, lNomeCorretorDoMes, lCorretorDoMes, lNomeFuncionário, mensagem, lMes, lAno;
+    JTextField textValorPago, textFaturamento, textCDMValorPago, textCDMFAturamento, textAno, textMes;
+    JList listCorretor;
+    JButton buscar;
+    JScrollPane scroll;
+    GridBagConstraints c;
 
     public RelatorioCorretores() {
-        pFaturaPorCorretor = new JPanel();
+        pCorretores = new JPanel(new BorderLayout());
+        pConf = new JPanel(new GridBagLayout());
+        c = new GridBagConstraints();
+        c.ipadx = 0;
+        c.ipady = 0;
+        c.fill = GridBagConstraints.BOTH; // Preencher nas duas direções
+        c.insets = new Insets(10, 10, 10, 10);
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 4;
+        lCorretores = new JLabel("Relatório Corretores");
+        lCorretores.setHorizontalAlignment(JLabel.CENTER);
+        pConf.add(lCorretores, c);
+
+        c.gridwidth = 1;
+        c.gridy++;
+        c.gridx = 0;
+        lMes = new JLabel("Mes:");
+        pConf.add(lMes, c);
+        c.gridx = 1;
+        textMes = new JTextField();
+        pConf.add(textMes, c);
+
+        c.gridx = 2;
+        c.gridwidth = 1;
+        lAno = new JLabel("Ano:");
+        pConf.add(lAno, c);
+        c.gridx = 3;
+        textAno = new JTextField();
+        pConf.add(textAno, c);
+
+        c.gridwidth = 4;
+        c.gridy++;
+        c.gridx = 0;
+        buscar = new JButton("Buscar");
+        //calcular.addActionListener(controler);
+        pConf.add(buscar, c);
+
+        c.gridy++;
+        c.gridwidth = 2;
+        c.gridheight = 2;
+        c.ipadx = 0;
+        listCorretor = new JList();
+        scroll = new JScrollPane(listCorretor, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        pConf.add(scroll, c);
+
+        c.ipady = 0;
+        c.gridx = 2;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        lFaturamento = new JLabel("Faturamento Total:");
+        pConf.add(lFaturamento, c);
+        c.gridx = 3;
+        c.ipadx = 100;
+        textFaturamento = new JTextField();
+        textFaturamento.setEnabled(false);
+        pConf.add(textFaturamento, c);
+
+        c.ipadx = 0;
+        c.gridy++;
+        c.gridx = 2;
+        lValorPago = new JLabel("Valor Pago:");
+        pConf.add(lValorPago, c);
+        c.gridx = 3;
+        c.ipady = 0;
+        c.ipadx = 100;
+        textValorPago = new JTextField();
+        textValorPago.setEditable(false);
+        pConf.add(textValorPago, c);
+
+        c.gridwidth = 4;
+        c.gridx = 0;
+        c.gridy += 30;
+        lCorretorDoMes = new JLabel("Corretor do Mês");
+        lCorretorDoMes.setHorizontalAlignment(JLabel.CENTER);
+        pConf.add(lCorretorDoMes, c);
+
+        c.gridy++;
+        lNomeCorretorDoMes = new JLabel("Laércio Baldochi");
+        lNomeCorretorDoMes.setHorizontalAlignment(JLabel.CENTER);
+        lNomeCorretorDoMes.setFont(new Font("Dialog", Font.PLAIN, 14));
+        pConf.add(lNomeCorretorDoMes, c);
+
+        c.ipady = 0;
+        c.gridx = 0;
+        c.gridy++;
+        c.gridwidth = 2;
+        c.gridheight = 1;
+        lFaturamento = new JLabel("Faturamento Total:");
+        lFaturamento.setHorizontalAlignment(JLabel.RIGHT);
+        pConf.add(lFaturamento, c);
+        c.gridx = 2;
+        c.ipadx = 100;
+        textCDMFAturamento = new JTextField();
+        textCDMFAturamento.setHorizontalAlignment(JTextField.LEFT);
+        textCDMFAturamento.setEnabled(false);
+        pConf.add(textCDMFAturamento, c);
+
+        c.ipadx = 0;
+        c.gridy++;
+        c.gridx = 0;
+        lValorPago = new JLabel("Valor Pago:");
+        lValorPago.setHorizontalAlignment(JLabel.RIGHT);
+        pConf.add(lValorPago, c);
+        c.gridx = 2;
+        c.ipadx = 100;
+        textCDMValorPago = new JTextField();
+        textCDMValorPago.setHorizontalAlignment(JTextField.LEFT);
+        textCDMValorPago.setEnabled(false);
+        pConf.add(textCDMValorPago, c);
+
+        c.ipady = 15;
+        c.gridx = 0;
+        c.gridy++;
+        c.gridwidth = 4;
+        mensagem = new JLabel("mensagem");
+        mensagem.setHorizontalAlignment(JLabel.CENTER);
+        pConf.add(mensagem, c);
+        pCorretores.add(pConf, BorderLayout.PAGE_START);
+
     }
 
     public JPanel getpFaturaPorCorretor() {
-        return pFaturaPorCorretor;
+        return pCorretores;
     }
 
     @Override

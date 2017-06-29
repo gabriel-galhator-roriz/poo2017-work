@@ -39,9 +39,10 @@ public class RelatoriosScreen implements ActionListener, FechamentoTelas {
         this.corretores();
         pRelatorios = new JPanel();
         abas.add("Finaceiro", pFinanceiro);
+        abas.add("Corretores", pCorretores);
         abas.add("Imóveis Vendidos", pImoveisVendidos);
         abas.add("Imóveis Encalhados", pImoveisEncalhados);
-        abas.add("Corretores", pCorretores);
+
         pRelatorios.add(abas);
     }
 
