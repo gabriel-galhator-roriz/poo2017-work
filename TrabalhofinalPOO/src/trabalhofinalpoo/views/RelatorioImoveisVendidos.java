@@ -45,7 +45,7 @@ import static trabalhofinalpoo.views.ConsultaImoveisScreen.COMBOBOX_TIPOS_EDIT;
 public class RelatorioImoveisVendidos implements FechamentoTelas {
 
     JPanel pImoveisVendidos, pOrganize, pConsulta, pEdit;
-    JLabel labelConsulta, lLista, labelImovel, labelMensagemConsulta, labelMensagemEdit, lTipo1, lTipo2, lCod, lDesc, lPreco, lDate, lMes, lAno;
+    JLabel labelConsulta, lLista, labelImovel, labelMensagemConsulta, labelMensagemEdit, lTipo1, lTipo2, lCod, lDesc, lPreco, lDate, lMes, lAno,mensagem;
     JTextField textCod, textPreco, textData, textMes, textAno;
     JTextArea textArea2;
     JButton buscar;
@@ -110,6 +110,14 @@ public class RelatorioImoveisVendidos implements FechamentoTelas {
         pOrganize.add(pConsulta, c);
         c.gridx = 2;
         pOrganize.add(pEdit, c);
+        
+        c.gridx = 0;
+        c.gridy += 15;
+        c.ipady = 15;
+        c.gridwidth = 4;
+        mensagem = new JLabel("mensagem");
+        mensagem.setHorizontalAlignment(JLabel.CENTER);
+        pOrganize.add(mensagem, c);
 
         pImoveisVendidos.add(pOrganize, BorderLayout.PAGE_START);
     }
