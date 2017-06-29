@@ -174,7 +174,7 @@ public class MainScreen extends JFrame implements ActionListener, MouseListener,
                 
             case "Imóveis":
                 this.fecharTela();
-                conImoveisPanel.datePicker.setVisible(true);
+                //conImoveisPanel.datePicker.setVisible(true);
                 layout.show(pScreen, "conImoveis");
                 conImoveisPanel.abrirTela();
                 break;
