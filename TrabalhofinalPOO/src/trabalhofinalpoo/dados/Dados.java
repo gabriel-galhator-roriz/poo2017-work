@@ -34,6 +34,42 @@ public class Dados {
         return mInstance;
     }
 
+    public Float getFaturamentoTotalCorretor(ArrayList<Venda> vendas, Corretor corretor) {
+        Float valor = new Float(0);
+        for (Venda v : vendas) {
+            if (v.getNumeroCRECIResponsavel() == corretor.getNumeroCRECI()) {
+                valor += v.getValor() * (float) 0.5;
+            }
+        }
+        return valor - this.getValorPagoCorretor(vendas, corretor);
+    }
+
+    public Corretor getCorretorDoMes(ArrayList<Venda> vendas, ArrayList<Corretor> corretores) {
+        Corretor corretor = null;
+        Float valor = new Float(0);
+        for (Corretor c : corretores) {
+            if (valor < this.getValorPagoCorretor(vendas, c)) {
+                corretor = c;
+                valor = this.getValorPagoCorretor(vendas, c);
+            }
+        }
+        return corretor;
+    }
+
+    public Float getValorPagoCorretor(ArrayList<Venda> vendas, Corretor corretor) {
+        Float valor = new Float(0);
+        for (Venda v : vendas) {
+            if (v.getNumeroCRECIResponsavel() == corretor.getNumeroCRECI()) {
+                if (corretor instanceof Comissionado) {
+                    valor += v.getValor() * ((Comissionado) corretor).getPorcentagemComssiondada();
+                } else {
+                    valor += v.getValor() * (float) 0.1;
+                }
+            }
+        }
+        return valor;
+    }
+
     public ArrayList<Imovel> getImoveis() throws Exception {
         ArrayList<Imovel> imovel;
 
@@ -299,19 +335,18 @@ public class Dados {
         }
     }
 
-     
-     public ArrayList<Venda> getVendasFromSpecificCorretor(Corretor corretor){
-         ArrayList<Venda> vendasDoCorretor = new ArrayList<Venda>();
-         for(Venda venda : vendas){
-             if(venda.getNumeroCRECIResponsavel() == corretor.getNumeroCRECI()){
-                 vendasDoCorretor.add(venda);
-             }
-         }
-         
-         return vendasDoCorretor;
-     }
-     
-     public void update(){
+    public ArrayList<Venda> getVendasFromSpecificCorretor(Corretor corretor) {
+        ArrayList<Venda> vendasDoCorretor = new ArrayList<Venda>();
+        for (Venda venda : vendas) {
+            if (venda.getNumeroCRECIResponsavel() == corretor.getNumeroCRECI()) {
+                vendasDoCorretor.add(venda);
+            }
+        }
+
+        return vendasDoCorretor;
+    }
+
+    public void update() {
         updateCorretorList();
         updateImovelList();
         updateVendasList();
