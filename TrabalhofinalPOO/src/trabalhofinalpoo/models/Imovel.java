@@ -7,6 +7,7 @@ package trabalhofinalpoo.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import trabalhofinalpoo.dados.Data;
 
 /**
  * @author gabrielroriz
@@ -43,7 +44,7 @@ public class Imovel implements Serializable{
    
    float preço;
    
-   Date dataDeCadastro;
+   Data dataDeCadastro;
    
    boolean disponibilidade;
    
@@ -51,12 +52,13 @@ public class Imovel implements Serializable{
        
    }
 
-    public Imovel(Long codigo, int tipo, String descricao, float preço, boolean disponibilidade) {
+    public Imovel(Long codigo, int tipo, String descricao, float preço, boolean disponibilidade, Data data) {
         this.codigo = codigo;
         this.tipo = tipo;
         this.descricao = descricao;
         this.preço = preço;
         this.disponibilidade = disponibilidade;
+        this.dataDeCadastro = data;
     }
 
     public Long getCodigo(){
@@ -170,11 +172,11 @@ public class Imovel implements Serializable{
         this.preço = preço;
     }
 
-    public Date getDataDeCadastro() {
+    public Data getDataDeCadastro() {
         return dataDeCadastro;
     }
 
-    public void setDataDeCadastro(Date dataDeCadastro) {
+    public void setDataDeCadastro(Data dataDeCadastro) {
         this.dataDeCadastro = dataDeCadastro;
     }
 

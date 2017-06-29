@@ -48,7 +48,7 @@ public class CadastroImovelController implements ActionListener {
             String descriçao = view.getDescricao();
             Float preço = Float.valueOf(view.getPreço().toString());
             
-            if(dados.addImovel(new Imovel(codigo, tipo, descriçao, preço, true))){
+            if(dados.addImovel(new Imovel(codigo, tipo, descriçao, preço, true, view.getDate()))){
                 view.showMessage("Imóvel cadastrado com sucesso!", false);   
             } else {
                 view.showMessage("Erro ao cadastrar imóvel", true);
@@ -88,6 +88,11 @@ public class CadastroImovelController implements ActionListener {
         //valida descricao
         if(view.getDescricao().equals("")){
             view.showMessage("Digite uma descrição.", true);
+            return false;
+        }
+        
+        if(view.getDate() == null){
+            view.showMessage("Selecione uma data", true);
             return false;
         }
          

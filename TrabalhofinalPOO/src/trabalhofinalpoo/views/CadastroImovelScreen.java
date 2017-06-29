@@ -17,6 +17,7 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 import trabalhofinalpoo.controllers.CadastroImovelController;
+import trabalhofinalpoo.dados.Data;
 import trabalhofinalpoo.models.DateLabelFormatter;
 
 /**
@@ -123,6 +124,7 @@ public class CadastroImovelScreen implements FechamentoTelas {
         i.gridwidth = 1;
         i.ipadx = 100;
         imov.add(iDate, i);
+        
         model = new UtilDateModel();
         p = new Properties();
         p.put("text.today", "Today");
@@ -130,6 +132,7 @@ public class CadastroImovelScreen implements FechamentoTelas {
         p.put("text.year", "Year");
         datePanel = new JDatePanelImpl(model, p);
         datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+        
         i.gridx = 1;
         i.gridwidth = 3;
         i.ipadx = 150;
@@ -176,6 +179,11 @@ public class CadastroImovelScreen implements FechamentoTelas {
             labelMensagem.setForeground(Color.GREEN);
         }
         labelMensagem.setText(message);
+    }
+    
+    public Data getDate(){
+       Date selectedDate = (Date) datePicker.getModel().getValue();       
+       return Data.getData(selectedDate);
     }
     
     public String getTipo() {

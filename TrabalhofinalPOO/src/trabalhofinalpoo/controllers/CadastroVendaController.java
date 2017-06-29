@@ -2,10 +2,13 @@ package trabalhofinalpoo.controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import trabalhofinalpoo.dados.Dados;
+import trabalhofinalpoo.dados.Data;
 import trabalhofinalpoo.models.Corretor;
+import trabalhofinalpoo.models.Imovel;
 import trabalhofinalpoo.models.Venda;
 import trabalhofinalpoo.views.CadastroVendaScreen;
 
@@ -52,7 +55,7 @@ public class CadastroVendaController implements ActionListener{
             Integer numeroCRECI = corretor.getNumeroCRECI();
             Long codImovel = view.getImovel().getCodigo();
             
-            if(dados.addVenda(new Venda(valorDaVenda, view.getNomeComprador(), numeroCRECI, codImovel))){
+            if(dados.addVenda(new Venda(valorDaVenda, view.getNomeComprador(), numeroCRECI, codImovel, Data.getData(new Date())))){
                 loadDados();
                 view.showMessage("Venda adicionada com sucesso.", false);
             } else {
@@ -109,9 +112,12 @@ public class CadastroVendaController implements ActionListener{
 
     public void loadDados() {
         dados.update();
-        
         view.updateCorretorComboBox(dados.corretores);
         view.updateImoveisComboBox(dados.getImoveisDisponiveis());
+        
+        for(Imovel imovel : dados.getImoveisDisponiveis()){
+            System.out.println(imovel.getDataDeCadastro());
+        }
     }
    
 }

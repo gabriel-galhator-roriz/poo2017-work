@@ -7,6 +7,7 @@ package trabalhofinalpoo.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import trabalhofinalpoo.dados.Data;
 
 /**
  * @author gabrielroriz
@@ -18,17 +19,18 @@ public class Venda implements Serializable{
     
     String nomeDoComprador;
     
-    Date dataDaVenda;
+    Data dataDaVenda;
     
     int numeroCRECIResponsavel;
     
     Long codigoImovel;
     
-    public Venda(float mValor, String mNomeDoComprador, int mNumeroCRECI, Long mCodImovel){
+    public Venda(float mValor, String mNomeDoComprador, int mNumeroCRECI, Long mCodImovel, Data data){
        valor = mValor;
        nomeDoComprador = mNomeDoComprador;
        numeroCRECIResponsavel = mNumeroCRECI;
        codigoImovel = mCodImovel;
+       dataDaVenda =  data;
     }
 
     public float getValor() {
@@ -47,11 +49,11 @@ public class Venda implements Serializable{
         this.nomeDoComprador = nomeDoComprador;
     }
 
-    public Date getDataDaVenda() {
+    public Data getDataDaVenda() {
         return dataDaVenda;
     }
 
-    public void setDataDaVenda(Date dataDaVenda) {
+    public void setDataDaVenda(Data dataDaVenda) {
         this.dataDaVenda = dataDaVenda;
     }
     
